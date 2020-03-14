@@ -13,6 +13,6 @@ spring:
       minimum-idle: 2
       pool-name: HikariDataSourcePool
     password: hrm
-    url: jdbc:mysql://36.155.103.65:3306/hrm?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://182.92.71.212:3306/hrm?useUnicode=true&characterEncoding=UTF-8
     username: hrm
 debug: false
