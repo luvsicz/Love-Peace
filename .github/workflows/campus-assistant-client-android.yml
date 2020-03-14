@@ -1,0 +1,23 @@
+name: Android APP CI
+
+on:
+  push:
+    paths:
+      - 'CampusAssistant/CampusAssistantClient/**'
+      - '.github/workflows/campus-assistant-client-android.yml'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Make gradlew executable
+        run: chmod +x ./CampusAssistant/CampusAssistantClient/gradlew
+      - name: Build with Gradle
+        run: ./CampusAssistant/CampusAssistantClient/gradlew build
