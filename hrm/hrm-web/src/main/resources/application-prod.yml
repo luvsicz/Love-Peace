@@ -1,0 +1,18 @@
+server:
+  forward-headers-strategy: framework
+  port: 80
+spring:
+  datasource:
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      maximum-pool-size: 15
+      minimum-idle: 2
+      pool-name: HikariDataSourcePool
+    password: hrm
+    url: jdbc:mysql://36.155.103.65:3306/hrm?useUnicode=true&characterEncoding=UTF-8
+    username: hrm
+debug: false

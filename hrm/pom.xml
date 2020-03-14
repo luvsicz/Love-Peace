@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>2.2.1.RELEASE</version> <!-- lookup parent from repository -->
+  </parent>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <!--统一版本管理-->
+    <mysql.version>8.0.18</mysql.version>
+    <lombok.version>1.18.10</lombok.version>
+    <swagger.version>2.9.2</swagger.version>
+    <UserAgentUtils.version>1.21</UserAgentUtils.version>
+    <commons-lang3.version>3.9</commons-lang3.version>
+    <mybatis.version>2.1.1</mybatis.version>
+    <jackson.version>2.9.10</jackson.version>
+  </properties>
+
+  <artifactId>hrm</artifactId>
+  <groupId>org.dev</groupId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <!--父模块的子模块-->
+  <modules>
+    <module>hrm-mapper</module>
+    <module>hrm-model</module>
+    <module>hrm-service</module>
+    <module>hrm-web</module>
+    <module>hrm-util</module>
+<!--    <module>hrm-annotation</module>-->
+  </modules>
+
+</project>
