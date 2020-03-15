@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@color/card_background"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/news_pic"
+        android:layout_height="75dp"
+        android:layout_width="75dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@mipmap/base_list_default_icon"/>
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/news_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:ellipsize="end"
+            android:text="农村改革"
+            android:singleLine="true"
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/news_content"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:lines="2"
+            android:ellipsize="end"
+            android:textColor="#A0A0A0"
+            android:textSize="12sp"
+            android:text="2014年1月19日，新华社受权发布《关于全面深化农村改革加快推进农业现代化的若干意见》，全文约10000字，共分8个部分33条，包括：完善国家粮食安全保障体系；强化农业支持保护制度；建立农业可持续发展长效机制；深化农村土地制度改革；构建新型农业经营体系；加快农村金融制度创新；健全城乡发展一体化体制机制；改善乡村治理机制。"/>
+        <TextView
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="150dp"
+            android:id="@+id/pdate"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#A0A0A0"
+            android:text="2016-03-20"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</LinearLayout>

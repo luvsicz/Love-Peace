@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".ui.ViewPicActivity">
+    <!--ImageView与NetworkImageView在使用过程中根据需要，得注释一个-->
+    <ImageView
+        android:id="@+id/big_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone"/>
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/big_networkimg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+    <TextView
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"/>
+</RelativeLayout>
