@@ -5,6 +5,7 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -29,13 +30,16 @@ public class DBConnectionPool {
     Properties properties = new Properties();
     try {
       //获取配置文件的第一种方法
-//            String path = DBConnectionPool.class.getClassLoader()
-//            .getResource("db.properties").getPath();
-//            properties.load(new FileInputStream(new File(path)));
+      String path = DBConnectionPool.class.getClassLoader()
+              .getResource("db.properties").getPath();
+      properties.load(new FileInputStream(new File(path)));
       //获取配置文件的第二种方法
-      FileInputStream fileInputStream = new FileInputStream(
-              "src/db.properties");
-      properties.load(fileInputStream);
+      //读取db.properties
+
+
+//     FileInputStream fileInputStream = new FileInputStream(
+//              "src/db.properties");
+//      properties.load(fileInputStream);
       dataSource = DruidDataSourceFactory.createDataSource(properties);
     } catch (Exception e) {
       e.printStackTrace();

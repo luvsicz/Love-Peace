@@ -2,11 +2,8 @@ package tools;
 
 import org.jetbrains.annotations.Nullable;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
@@ -507,8 +504,7 @@ public class DBUtils {
    * @return List<Map < String, Object>>
    * @throws SQLException
    */
-  public static List<Map<String, Object>> query(String tableName,
-                                                boolean distinct,
+  public static List<Map<String, Object>> query(String tableName, boolean distinct,
                                                 String[] columns,
                                                 String selection,
                                                 Object[] selectionArgs,
@@ -747,4 +743,6 @@ public class DBUtils {
   public static String getCurrentTimeMillis() {
     return String.valueOf(System.currentTimeMillis());
   }
+
+
 }
