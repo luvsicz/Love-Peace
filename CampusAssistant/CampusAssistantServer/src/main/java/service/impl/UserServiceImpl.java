@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
         condiMap.put("username", username);
         condiMap.put("password", password);
         List<Map<String, Object>> eList = DBUtils.query("User", condiMap);
-        if (eList.size() > 0) {
+        if (null != eList && eList.size() > 0) {
             return eList.get(0);
         } else {
             return null;

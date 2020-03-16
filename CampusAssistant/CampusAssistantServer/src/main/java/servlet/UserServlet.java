@@ -48,18 +48,23 @@ public class UserServlet extends HttpServlet {
          * 1：登陆失败，用户名或密码错误！
          * 2：登陆失败，用户名不存在！
          * */
-
         System.out.println(username + "-----" + password);
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
         UserService test = new UserServiceImpl();
         User users;
         try {
-            if (null == test.checkNP(username, password)) {
+            users = (User) test.checkNP(username, password);
+            //   System.out.println(users.getUsername()+"password:  "+);
+            if (users == null) {
                 //没找到
-                resultMap.put("login_result", 2);
+                resultMap.put("result_code", 1);
+            } else if (!password.equals(users.getPassword())) {
+                //密码错误
+                resultMap.put("result_code", 1);
+            } else {
+                //找到
+                resultMap.put("result_code", 0);
             }
-            //找到
-            resultMap.put("login_result", 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
