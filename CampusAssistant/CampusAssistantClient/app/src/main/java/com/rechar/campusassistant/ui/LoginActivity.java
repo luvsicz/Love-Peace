@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rechar.campusassistant.MainActivity;
@@ -49,8 +50,8 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
 
     private static String TAG = "LoginActivity";
-    String userName;
-    String passWord;
+    private String userName;
+    private String passWord;
     private EditText etUsername;
     private EditText etPassword;
     private Button btGo;
@@ -62,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     String info = null;
     //返回主线程更新数据
     private Handler logHandler;
-
+    int resultCode = -1;
     public static final int MSG_LOGIN_RESULT = 0;
     private static String ip ="liurechar.utools.club";
     public String serverUrl = "https://"+ip+"/UserServlet";
@@ -70,7 +71,9 @@ public class LoginActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch(msg.what) {
                 case MSG_LOGIN_RESULT:
+                    Log.e(TAG, "handleMessage: 1  "+msg.obj );
                     JSONObject json = (JSONObject) msg.obj;
+                    Log.e(TAG, "handleMessage:2   "+json );
                     handleLoginResult(json);
                     break;
             }
@@ -216,39 +219,44 @@ public class LoginActivity extends AppCompatActivity {
          * 1：登陆失败，用户名或密码错误！
          * 2：登陆失败，用户名不存在！
          * */
-        int resultCode = -1;
-        try {
-            resultCode = json.getInt("result_code");
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        switch(resultCode) {
-            case 0:
-                onLoginSuccess(json);
-                break;
-            case 1:
-                Toast.makeText(this, "用户名或密码错误！", Toast.LENGTH_LONG).show();
-                break;
-            case 2:
-                Toast.makeText(this, "用户名不存在！", Toast.LENGTH_LONG).show();
-                break;
-            case -1:
-            default:
-                Toast.makeText(this, "登陆失败！未知错误！", Toast.LENGTH_LONG).show();
-                break;
-        }
+        Log.e(TAG, "handleLoginResult3:  "+json);
+
+            Log.e(TAG, "handleLoginResult: "+resultCode );
+            resultCode = json.optInt("result_code");
+        Log.e(TAG, "handleLoginResult4: "+resultCode );
+            switch(resultCode) {
+                case 0:
+                    Log.e(TAG, "login succ: " );
+                    onLoginSuccess(json);
+                    break;
+                case 1:
+                    Toast.makeText(this, "用户名或密码错误！", Toast.LENGTH_LONG).show();
+                    break;
+                case 2:
+                    Toast.makeText(this, "用户名不存在！", Toast.LENGTH_LONG).show();
+                    break;
+                case -1:
+                default:
+                    Toast.makeText(this, "登陆失败！未知错误！", Toast.LENGTH_LONG).show();
+                    break;
+            }
+
     }
     private void onLoginSuccess(JSONObject json) {
-        Intent intent = new Intent(this, MainActivity.class);
+        //Intent intent = new Intent(this, MainActivity.class);
         /*try {
             intent.putExtra("username", json.getString("username"));
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }*/
-        startActivity(intent);
-        finish();
+      //  startActivity(intent);
+      //  finish();
+        Log.e(TAG, "onLoginSuccess: "+json);
+        ActivityOptionsCompat oc2 =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
+        Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(i2, oc2.toBundle());
     }
     private void sendMessage(int what, Object obj) {
         Message msg = Message.obtain();
