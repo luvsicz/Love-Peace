@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.dev.hrm.mapper.EmployeeMapper">
   <resultMap id="BaseResultMap" type="org.dev.hrm.model.Employee">
     <!--@mbg.generated-->
     <!--@Table employee-->
-    <id column="id" jdbcType="INTEGER" property="id"/>
-    <result column="name" jdbcType="VARCHAR" property="name"/>
-    <result column="gender" jdbcType="CHAR" property="gender"/>
-    <result column="birthday" jdbcType="DATE" property="birthday"/>
-    <result column="idCard" jdbcType="CHAR" property="idcard"/>
-    <result column="wedlock" jdbcType="OTHER" property="wedlock"/>
-    <result column="nationId" jdbcType="INTEGER" property="nationid"/>
-    <result column="nativePlace" jdbcType="VARCHAR" property="nativeplace"/>
-    <result column="politicId" jdbcType="INTEGER" property="politicid"/>
-    <result column="email" jdbcType="VARCHAR" property="email"/>
-    <result column="phone" jdbcType="VARCHAR" property="phone"/>
-    <result column="address" jdbcType="VARCHAR" property="address"/>
-    <result column="departmentId" jdbcType="INTEGER" property="departmentid"/>
-    <result column="jobLevelId" jdbcType="INTEGER" property="joblevelid"/>
-    <result column="posId" jdbcType="INTEGER" property="posid"/>
-    <result column="engageForm" jdbcType="VARCHAR" property="engageform"/>
-    <result column="tiptopDegree" jdbcType="OTHER" property="tiptopdegree"/>
-    <result column="specialty" jdbcType="VARCHAR" property="specialty"/>
-    <result column="school" jdbcType="VARCHAR" property="school"/>
-    <result column="beginDate" jdbcType="DATE" property="begindate"/>
-    <result column="workState" jdbcType="OTHER" property="workstate"/>
-    <result column="workID" jdbcType="CHAR" property="workid"/>
-    <result column="contractTerm" jdbcType="DOUBLE" property="contractterm"/>
-    <result column="conversionTime" jdbcType="DATE" property="conversiontime"/>
-    <result column="notWorkDate" jdbcType="DATE" property="notworkdate"/>
-    <result column="beginContract" jdbcType="DATE" property="begincontract"/>
-    <result column="endContract" jdbcType="DATE" property="endcontract"/>
-    <result column="workAge" jdbcType="INTEGER" property="workage"/>
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="idCard" jdbcType="CHAR" property="idcard" />
+    <result column="wedlock" jdbcType="OTHER" property="wedlock" />
+    <result column="nationId" jdbcType="INTEGER" property="nationid" />
+    <result column="nativePlace" jdbcType="VARCHAR" property="nativeplace" />
+    <result column="politicId" jdbcType="INTEGER" property="politicid" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="departmentId" jdbcType="INTEGER" property="departmentid" />
+    <result column="jobLevelId" jdbcType="INTEGER" property="joblevelid" />
+    <result column="posId" jdbcType="INTEGER" property="posid" />
+    <result column="engageForm" jdbcType="VARCHAR" property="engageform" />
+    <result column="tiptopDegree" jdbcType="OTHER" property="tiptopdegree" />
+    <result column="specialty" jdbcType="VARCHAR" property="specialty" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="beginDate" jdbcType="DATE" property="begindate" />
+    <result column="workState" jdbcType="OTHER" property="workstate" />
+    <result column="workID" jdbcType="CHAR" property="workid" />
+    <result column="contractTerm" jdbcType="DOUBLE" property="contractterm" />
+    <result column="conversionTime" jdbcType="DATE" property="conversiontime" />
+    <result column="notWorkDate" jdbcType="DATE" property="notworkdate" />
+    <result column="beginContract" jdbcType="DATE" property="begincontract" />
+    <result column="endContract" jdbcType="DATE" property="endcontract" />
+    <result column="workAge" jdbcType="INTEGER" property="workage" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -53,8 +52,7 @@
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="("
-                    separator=",">
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -84,8 +82,7 @@
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="("
-                    separator=",">
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -98,22 +95,21 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, `name`, gender, birthday, idCard, wedlock, nationId, nativePlace, politicId,
-    email, phone, address, departmentId, jobLevelId, posId, engageForm, tiptopDegree,
-    specialty, school, beginDate, workState, workID, contractTerm, conversionTime, notWorkDate,
+    id, `name`, gender, birthday, idCard, wedlock, nationId, nativePlace, politicId, 
+    email, phone, address, departmentId, jobLevelId, posId, engageForm, tiptopDegree, 
+    specialty, school, beginDate, workState, workID, contractTerm, conversionTime, notWorkDate, 
     beginContract, endContract, workAge
   </sql>
-  <select id="selectByExample" parameterType="org.dev.hrm.model.EmployeeExample"
-    resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="org.dev.hrm.model.EmployeeExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List" />
     from employee
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+      <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
@@ -121,8 +117,8 @@
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select
-    <include refid="Base_Column_List"/>
+    select 
+    <include refid="Base_Column_List" />
     from employee
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -135,35 +131,33 @@
     <!--@mbg.generated-->
     delete from employee
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+      <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Employee"
-    useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Employee" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into employee (`name`, gender, birthday,
-    idCard, wedlock, nationId,
-    nativePlace, politicId, email,
-    phone, address, departmentId,
-    jobLevelId, posId, engageForm,
-    tiptopDegree, specialty, school,
-    beginDate, workState, workID,
-    contractTerm, conversionTime, notWorkDate,
-    beginContract, endContract, workAge
-    )
-    values (#{name,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, #{birthday,jdbcType=DATE},
-    #{idcard,jdbcType=CHAR}, #{wedlock,jdbcType=OTHER}, #{nationid,jdbcType=INTEGER},
-    #{nativeplace,jdbcType=VARCHAR}, #{politicid,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR},
-    #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentid,jdbcType=INTEGER},
-    #{joblevelid,jdbcType=INTEGER}, #{posid,jdbcType=INTEGER}, #{engageform,jdbcType=VARCHAR},
-    #{tiptopdegree,jdbcType=OTHER}, #{specialty,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR},
-    #{begindate,jdbcType=DATE}, #{workstate,jdbcType=OTHER}, #{workid,jdbcType=CHAR},
-    #{contractterm,jdbcType=DOUBLE}, #{conversiontime,jdbcType=DATE}, #{notworkdate,jdbcType=DATE},
-    #{begincontract,jdbcType=DATE}, #{endcontract,jdbcType=DATE}, #{workage,jdbcType=INTEGER}
-    )
+    insert into employee (`name`, gender, birthday, 
+      idCard, wedlock, nationId, 
+      nativePlace, politicId, email, 
+      phone, address, departmentId, 
+      jobLevelId, posId, engageForm, 
+      tiptopDegree, specialty, school, 
+      beginDate, workState, workID, 
+      contractTerm, conversionTime, notWorkDate, 
+      beginContract, endContract, workAge
+      )
+    values (#{name,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, 
+      #{idcard,jdbcType=CHAR}, #{wedlock,jdbcType=OTHER}, #{nationid,jdbcType=INTEGER}, 
+      #{nativeplace,jdbcType=VARCHAR}, #{politicid,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentid,jdbcType=INTEGER}, 
+      #{joblevelid,jdbcType=INTEGER}, #{posid,jdbcType=INTEGER}, #{engageform,jdbcType=VARCHAR}, 
+      #{tiptopdegree,jdbcType=OTHER}, #{specialty,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
+      #{begindate,jdbcType=DATE}, #{workstate,jdbcType=OTHER}, #{workid,jdbcType=CHAR}, 
+      #{contractterm,jdbcType=DOUBLE}, #{conversiontime,jdbcType=DATE}, #{notworkdate,jdbcType=DATE}, 
+      #{begincontract,jdbcType=DATE}, #{endcontract,jdbcType=DATE}, #{workage,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id"
-    parameterType="org.dev.hrm.model.Employee" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Employee" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into employee
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -333,12 +327,11 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.dev.hrm.model.EmployeeExample"
-    resultType="java.lang.Long">
+  <select id="countByExample" parameterType="org.dev.hrm.model.EmployeeExample" resultType="java.lang.Long">
     <!--@mbg.generated-->
     select count(*) from employee
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+      <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -431,42 +424,42 @@
       </if>
     </set>
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
+      <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     <!--@mbg.generated-->
     update employee
     set id = #{record.id,jdbcType=INTEGER},
-    `name` = #{record.name,jdbcType=VARCHAR},
-    gender = #{record.gender,jdbcType=CHAR},
-    birthday = #{record.birthday,jdbcType=DATE},
-    idCard = #{record.idcard,jdbcType=CHAR},
-    wedlock = #{record.wedlock,jdbcType=OTHER},
-    nationId = #{record.nationid,jdbcType=INTEGER},
-    nativePlace = #{record.nativeplace,jdbcType=VARCHAR},
-    politicId = #{record.politicid,jdbcType=INTEGER},
-    email = #{record.email,jdbcType=VARCHAR},
-    phone = #{record.phone,jdbcType=VARCHAR},
-    address = #{record.address,jdbcType=VARCHAR},
-    departmentId = #{record.departmentid,jdbcType=INTEGER},
-    jobLevelId = #{record.joblevelid,jdbcType=INTEGER},
-    posId = #{record.posid,jdbcType=INTEGER},
-    engageForm = #{record.engageform,jdbcType=VARCHAR},
-    tiptopDegree = #{record.tiptopdegree,jdbcType=OTHER},
-    specialty = #{record.specialty,jdbcType=VARCHAR},
-    school = #{record.school,jdbcType=VARCHAR},
-    beginDate = #{record.begindate,jdbcType=DATE},
-    workState = #{record.workstate,jdbcType=OTHER},
-    workID = #{record.workid,jdbcType=CHAR},
-    contractTerm = #{record.contractterm,jdbcType=DOUBLE},
-    conversionTime = #{record.conversiontime,jdbcType=DATE},
-    notWorkDate = #{record.notworkdate,jdbcType=DATE},
-    beginContract = #{record.begincontract,jdbcType=DATE},
-    endContract = #{record.endcontract,jdbcType=DATE},
-    workAge = #{record.workage,jdbcType=INTEGER}
+      `name` = #{record.name,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=CHAR},
+      birthday = #{record.birthday,jdbcType=DATE},
+      idCard = #{record.idcard,jdbcType=CHAR},
+      wedlock = #{record.wedlock,jdbcType=OTHER},
+      nationId = #{record.nationid,jdbcType=INTEGER},
+      nativePlace = #{record.nativeplace,jdbcType=VARCHAR},
+      politicId = #{record.politicid,jdbcType=INTEGER},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      departmentId = #{record.departmentid,jdbcType=INTEGER},
+      jobLevelId = #{record.joblevelid,jdbcType=INTEGER},
+      posId = #{record.posid,jdbcType=INTEGER},
+      engageForm = #{record.engageform,jdbcType=VARCHAR},
+      tiptopDegree = #{record.tiptopdegree,jdbcType=OTHER},
+      specialty = #{record.specialty,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      beginDate = #{record.begindate,jdbcType=DATE},
+      workState = #{record.workstate,jdbcType=OTHER},
+      workID = #{record.workid,jdbcType=CHAR},
+      contractTerm = #{record.contractterm,jdbcType=DOUBLE},
+      conversionTime = #{record.conversiontime,jdbcType=DATE},
+      notWorkDate = #{record.notworkdate,jdbcType=DATE},
+      beginContract = #{record.begincontract,jdbcType=DATE},
+      endContract = #{record.endcontract,jdbcType=DATE},
+      workAge = #{record.workage,jdbcType=INTEGER}
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
+      <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Employee">
@@ -561,32 +554,32 @@
     <!--@mbg.generated-->
     update employee
     set `name` = #{name,jdbcType=VARCHAR},
-    gender = #{gender,jdbcType=CHAR},
-    birthday = #{birthday,jdbcType=DATE},
-    idCard = #{idcard,jdbcType=CHAR},
-    wedlock = #{wedlock,jdbcType=OTHER},
-    nationId = #{nationid,jdbcType=INTEGER},
-    nativePlace = #{nativeplace,jdbcType=VARCHAR},
-    politicId = #{politicid,jdbcType=INTEGER},
-    email = #{email,jdbcType=VARCHAR},
-    phone = #{phone,jdbcType=VARCHAR},
-    address = #{address,jdbcType=VARCHAR},
-    departmentId = #{departmentid,jdbcType=INTEGER},
-    jobLevelId = #{joblevelid,jdbcType=INTEGER},
-    posId = #{posid,jdbcType=INTEGER},
-    engageForm = #{engageform,jdbcType=VARCHAR},
-    tiptopDegree = #{tiptopdegree,jdbcType=OTHER},
-    specialty = #{specialty,jdbcType=VARCHAR},
-    school = #{school,jdbcType=VARCHAR},
-    beginDate = #{begindate,jdbcType=DATE},
-    workState = #{workstate,jdbcType=OTHER},
-    workID = #{workid,jdbcType=CHAR},
-    contractTerm = #{contractterm,jdbcType=DOUBLE},
-    conversionTime = #{conversiontime,jdbcType=DATE},
-    notWorkDate = #{notworkdate,jdbcType=DATE},
-    beginContract = #{begincontract,jdbcType=DATE},
-    endContract = #{endcontract,jdbcType=DATE},
-    workAge = #{workage,jdbcType=INTEGER}
+      gender = #{gender,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      idCard = #{idcard,jdbcType=CHAR},
+      wedlock = #{wedlock,jdbcType=OTHER},
+      nationId = #{nationid,jdbcType=INTEGER},
+      nativePlace = #{nativeplace,jdbcType=VARCHAR},
+      politicId = #{politicid,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      departmentId = #{departmentid,jdbcType=INTEGER},
+      jobLevelId = #{joblevelid,jdbcType=INTEGER},
+      posId = #{posid,jdbcType=INTEGER},
+      engageForm = #{engageform,jdbcType=VARCHAR},
+      tiptopDegree = #{tiptopdegree,jdbcType=OTHER},
+      specialty = #{specialty,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      beginDate = #{begindate,jdbcType=DATE},
+      workState = #{workstate,jdbcType=OTHER},
+      workID = #{workid,jdbcType=CHAR},
+      contractTerm = #{contractterm,jdbcType=DOUBLE},
+      conversionTime = #{conversiontime,jdbcType=DATE},
+      notWorkDate = #{notworkdate,jdbcType=DATE},
+      beginContract = #{begincontract,jdbcType=DATE},
+      endContract = #{endcontract,jdbcType=DATE},
+      workAge = #{workage,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

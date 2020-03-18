@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import org.dev.hrm.mapper.HrMapper;
 import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.HrExample;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,7 +20,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @AllArgsConstructor
-public class HrService {
+public class HrService implements UserDetailsService {
 
   private HrMapper hrMapper;
 
@@ -75,4 +79,25 @@ public class HrService {
     return hrMapper.updateByPrimaryKey(record);
   }
 
+  public boolean updateHrPassById(String oldPass, String newPass, Integer hrId) {
+    Hr hr = hrMapper.selectByPrimaryKey(hrId);
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    if (encoder.matches(oldPass, hr.getPassword())) {
+      String encryptedPass = encoder.encode(newPass);
+      Integer result = hrMapper.updatePassById(hrId, encryptedPass);
+      return result == 1;
+    }
+    return false;
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    Hr hr = hrMapper.getUserByUserName(username);
+    if (null == hr) {
+      throw new UsernameNotFoundException("用户名不存在!");
+    }
+    hr.setRoles(hrMapper.getRoleById(hr.getId()));
+    return hr;
+  }
 }
+

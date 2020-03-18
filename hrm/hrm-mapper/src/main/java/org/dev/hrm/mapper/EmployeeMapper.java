@@ -10,8 +10,8 @@ import org.dev.hrm.model.EmployeeExample;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName EmployeeMapper.java
- * @Description EmployeeMapper
- * @createTime 2019年12月29日 23:16:00
+ * @Description TODO
+ * @createTime 2020年03月18日 15:49:00
  */
 @Mapper
 public interface EmployeeMapper {

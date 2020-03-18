@@ -2,6 +2,8 @@ server:
   forward-headers-strategy: framework
   port: 80
 spring:
+  cache:
+    cache-names: menuService
   datasource:
     hikari:
       auto-commit: true
@@ -15,4 +17,10 @@ spring:
     password: hrm
     url: jdbc:mysql://182.92.71.212:3306/hrm?useUnicode=true&characterEncoding=UTF-8
     username: hrm
+  redis:
+    port: 6379
+    password: pa22w0rd
+    host: 182.92.71.212
 debug: false
+mybatis:
+  config-location: classpath:/mybatis-config.xml

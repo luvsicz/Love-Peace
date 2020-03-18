@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dev.hrm.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="org.dev.hrm.model.Menu">
+    <!--@mbg.generated-->
+    <!--@Table menu-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="component" jdbcType="VARCHAR" property="component" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="iconCls" jdbcType="VARCHAR" property="iconCls" />
+    <result column="keepAlive" jdbcType="BOOLEAN" property="keepAlive" />
+    <result column="requireAuth" jdbcType="BOOLEAN" property="requireAuth" />
+    <result column="parentId" jdbcType="INTEGER" property="parentId" />
+    <result column="enabled" jdbcType="BOOLEAN" property="enabled" />
+  </resultMap>
+  <resultMap id="Menus2" type="org.dev.hrm.model.Menu" extends="BaseResultMap">
+    <collection property="children" ofType="org.dev.hrm.model.Menu">
+      <id column="id2" property="id" jdbcType="INTEGER" />
+      <result column="url2" property="url" jdbcType="VARCHAR" />
+      <result column="path2" property="path" jdbcType="VARCHAR" />
+      <result column="component2" property="component" jdbcType="VARCHAR" />
+      <result column="name2" property="name" jdbcType="VARCHAR" />
+      <result column="iconCls2" property="iconCls" jdbcType="VARCHAR" />
+      <result column="parentId2" property="parentId" jdbcType="INTEGER" />
+      <result column="enabled2" property="enabled" jdbcType="BIT" />
+      <association property="meta" javaType="org.dev.hrm.model.Meta">
+        <result column="keepAlive2" property="keepAlive" jdbcType="BIT" />
+        <result column="requireAuth2" property="requireAuth" jdbcType="BIT" />
+      </association>
+    </collection>
+  </resultMap>
+  <resultMap id="MenuWithRole" type="org.dev.hrm.model.Menu" extends="BaseResultMap">
+    <collection property="roles" ofType="org.dev.hrm.model.Role">
+      <id column="rid" property="id"/>
+      <result column="rname" property="name"/>
+      <result column="rnameZh" property="nameZh"/>
+    </collection>
+  </resultMap>
+  <resultMap id="MenuWithChildren" type="org.dev.hrm.model.Menu" extends="BaseResultMap">
+    <id column="id1" property="id"/>
+    <result column="name1" property="name"/>
+    <collection property="children" ofType="org.dev.hrm.model.Menu">
+      <id column="id2" property="id"/>
+      <result column="name2" property="name"/>
+      <collection property="children" ofType="org.dev.hrm.model.Menu">
+        <id column="id3" property="id"/>
+        <result column="name3" property="name"/>
+      </collection>
+    </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, url, `path`, component, `name`, iconCls, keepAlive, requireAuth, parentId, enabled
+  </sql>
+  <select id="selectByExample" parameterType="org.dev.hrm.model.MenuExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.dev.hrm.model.MenuExample">
+    <!--@mbg.generated-->
+    delete from menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Menu" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into menu (url, `path`, component, 
+      `name`, iconCls, keepAlive, 
+      requireAuth, parentId, enabled
+      )
+    values (#{url,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, #{keepAlive,jdbcType=BOOLEAN}, 
+      #{requireAuth,jdbcType=BOOLEAN}, #{parentId,jdbcType=INTEGER}, #{enabled,jdbcType=BOOLEAN}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Menu" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="url != null">
+        url,
+      </if>
+      <if test="path != null">
+        `path`,
+      </if>
+      <if test="component != null">
+        component,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="iconCls != null">
+        iconCls,
+      </if>
+      <if test="keepAlive != null">
+        keepAlive,
+      </if>
+      <if test="requireAuth != null">
+        requireAuth,
+      </if>
+      <if test="parentId != null">
+        parentId,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null">
+        #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="keepAlive != null">
+        #{keepAlive,jdbcType=BOOLEAN},
+      </if>
+      <if test="requireAuth != null">
+        #{requireAuth,jdbcType=BOOLEAN},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.dev.hrm.model.MenuExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update menu
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null">
+        `path` = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.component != null">
+        component = #{record.component,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconCls != null">
+        iconCls = #{record.iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keepAlive != null">
+        keepAlive = #{record.keepAlive,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.requireAuth != null">
+        requireAuth = #{record.requireAuth,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.parentId != null">
+        parentId = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update menu
+    set id = #{record.id,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      `path` = #{record.path,jdbcType=VARCHAR},
+      component = #{record.component,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      iconCls = #{record.iconCls,jdbcType=VARCHAR},
+      keepAlive = #{record.keepAlive,jdbcType=BOOLEAN},
+      requireAuth = #{record.requireAuth,jdbcType=BOOLEAN},
+      parentId = #{record.parentId,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=BOOLEAN}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Menu">
+    <!--@mbg.generated-->
+    update menu
+    <set>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null">
+        iconCls = #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="keepAlive != null">
+        keepAlive = #{keepAlive,jdbcType=BOOLEAN},
+      </if>
+      <if test="requireAuth != null">
+        requireAuth = #{requireAuth,jdbcType=BOOLEAN},
+      </if>
+      <if test="parentId != null">
+        parentId = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.Menu">
+    <!--@mbg.generated-->
+    update menu
+    set url = #{url,jdbcType=VARCHAR},
+      `path` = #{path,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      iconCls = #{iconCls,jdbcType=VARCHAR},
+      keepAlive = #{keepAlive,jdbcType=BOOLEAN},
+      requireAuth = #{requireAuth,jdbcType=BOOLEAN},
+      parentId = #{parentId,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=BOOLEAN}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getAllMenus" resultMap="MenuWithChildren">
+    select m1.`id` as id1,m1.`name` as name1,m2.`id` as id2,m2.`name` as name2,m3.`id` as id3,m3.`name` as name3 from menu m1,menu m2,menu m3 where m1.`id`=m2.`parentId` and m2.`id`=m3.`parentId` and m3.`enabled`=true order by m1.`id`,m2.`id`,m3.`id`
+  </select>
+  <select id="getAllMenusWithRole" resultMap="MenuWithRole">
+    select m.*,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnameZh from menu m,menu_role mr,role r where m.`id`=mr.`mid` and mr.`rid`=r.`id` order by m.`id`
+  </select>
+  <select id="getMenusByHrId" resultMap="Menus2">
+    select distinct m1.*,m2.`id` as id2,m2.`component` as component2,m2.`enabled` as enabled2,m2.`iconCls` as iconCls2,m2.`keepAlive` as keepAlive2,m2.`name` as name2,m2.`parentId` as parentId2,m2.`requireAuth` as requireAuth2,m2.`path` as path2 from menu m1,menu m2,hr_role hrr,menu_role mr where m1.`id`=m2.`parentId` and hrr.`hrid`=#{hrid} and hrr.`rid`=mr.`rid` and mr.`mid`=m2.`id` and m2.`enabled`=true order by m1.`id`,m2.`id`
+  </select>
+</mapper>

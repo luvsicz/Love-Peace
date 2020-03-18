@@ -15,6 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
 @Slf4j
@@ -39,6 +40,11 @@ class HrmServerApplicationTests {
 //    exp.createCriteria().andPasswordIsNotNull().andAddressIsNotNull();
 //    List<Hr> hrExampleList = hrService.selectByExample(exp);
 //    log.info("\n HR Query Result Size:{}", hrExampleList.size());
+  }
+
+  @Test
+  void 密码生成() {
+    System.out.println(new BCryptPasswordEncoder().encode("123"));
   }
 
   @Test

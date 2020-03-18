@@ -166,7 +166,7 @@ public class AspectLogger {
     StringBuilder sb = new StringBuilder(1000);
     // 处理完请求，返回内容
     sb.append("\n");
-    sb.append("Result        :  ").append(ret);
+    sb.append("Result        :  ").append(JackSonUtils.bean2Json(ret));
     log.info(sb.toString());
   }
 

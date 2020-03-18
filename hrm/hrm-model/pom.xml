@@ -20,6 +20,17 @@
       <groupId>org.projectlombok</groupId>
       <version>${lombok.version}</version>
     </dependency>
+    <!--Spring Security-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <!--Swagger-ui-->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${swagger.version}</version>
+    </dependency>
   </dependencies>
 
 </project>

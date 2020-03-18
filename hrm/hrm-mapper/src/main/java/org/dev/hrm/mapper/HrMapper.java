@@ -5,13 +5,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.HrExample;
+import org.dev.hrm.model.Role;
 
 /**
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName HrMapper.java
- * @Description HrMapper
- * @createTime 2019年12月29日 22:03:00
+ * @Description TODO
+ * @createTime 2020年03月18日 15:49:00
  */
 @Mapper
 public interface HrMapper {
@@ -37,4 +38,11 @@ public interface HrMapper {
   int updateByPrimaryKeySelective(Hr record);
 
   int updateByPrimaryKey(Hr record);
+
+  List<Role> getRoleById(Integer id);
+
+  Hr getUserByUserName(String username);
+
+  Integer updatePassById(@Param("id") Integer id, @Param("password") String encryptedPass);
+
 }
