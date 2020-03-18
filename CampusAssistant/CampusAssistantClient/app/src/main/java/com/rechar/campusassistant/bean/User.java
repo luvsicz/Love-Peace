@@ -8,43 +8,36 @@ import androidx.annotation.Nullable;
  * @fileName:User
  * @date on:2019/11/13 14:13
  */
-public class User {
-  @Nullable
-  private String userName;
-  @Nullable
-  private String passWord;
 
-  private boolean isDataValid;
+import org.litepal.crud.DataSupport;
 
-  public User(@Nullable String userName, @Nullable String passWord) {
-    this.userName = userName;
-    this.passWord = passWord;
-    this.isDataValid = false;
+public class User extends DataSupport{
+ // private int id;
+  private String username;
+  private String password;
+
+
+  public String getPassword() {
+    return password;
   }
 
-  @Nullable
-  public String getUserName() {
-    return userName;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
-  public void setUserName(@Nullable String userName) {
-    this.userName = userName;
+ /* public int getId() {
+    return id;
   }
 
-  @Nullable
-  public String getPassWord() {
-    return passWord;
+  public void setId(int id) {
+    this.id = id;
+  }*/
+
+  public String getUsername() {
+    return username;
   }
 
-  public void setPassWord(@Nullable String passWord) {
-    this.passWord = passWord;
-  }
-
-  public boolean isDataValid() {
-    return isDataValid;
-  }
-
-  public void setDataValid(boolean dataValid) {
-    isDataValid = dataValid;
+  public void setUsername(String username) {
+    this.username = username;
   }
 }

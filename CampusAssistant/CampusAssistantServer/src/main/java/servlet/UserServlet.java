@@ -17,7 +17,6 @@ import java.util.HashMap;
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
     private final static long serialVersionUID = 1L;
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -27,13 +26,12 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        // String name = request.getParameter("username");// 获取输入用户名
-        // String pass = request.getParameter("password");// 获取输入密码
         response.setContentType("text/html; charset=UTF-8");
         DataOutputStream dos = new DataOutputStream(response.getOutputStream());
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+
         String result = doLogin(username, password);
         System.out.println("result = " + result);
         dos.writeUTF(result);
@@ -64,6 +62,7 @@ public class UserServlet extends HttpServlet {
             } else {
                 //找到
                 resultMap.put("result_code", 0);
+                //悄悄地来了 悄悄地走了
             }
         } catch (Exception e) {
             e.printStackTrace();

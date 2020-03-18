@@ -25,8 +25,6 @@ import androidx.core.app.ActivityOptionsCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rechar.campusassistant.MainActivity;
 import com.rechar.campusassistant.R;
-import com.rechar.campusassistant.server.LoginService;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -45,6 +43,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -120,11 +120,6 @@ public class LoginActivity extends AppCompatActivity {
                 handleLogin();
             }
 
-
-            // 创建子线程，分别进行Get和Post传输
-          //  new Thread(new LoginThread()).start();
-
-
         });
         fab.setOnClickListener(view -> {
             getWindow().setExitTransition(null);
@@ -137,30 +132,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-   /* public class LoginThread implements Runnable {
-
-        @Override
-        public void run() {
-            info = LoginService.executeHttpGet(etUsername.getText().toString(), etPassword.getText().toString());
-            Log.e(TAG, "run: username:" + etUsername.getText().toString() + " password:" + etPassword.getText().toString());
-            // info = WebServicePost.executeHttpPost(username.getText().toString(), password.getText().toString());
-
-            Log.e(TAG, "run2: " + info);
-            logHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e(TAG, "run1: " + info);
-                    //  infotv.setText(info);
-                    // dialog.dismiss();
-               *//* ActivityOptionsCompat oc2 =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
-                Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(i2, oc2.toBundle());*//*
-                }
-            });
-        }
-    }*/
    private void handleLogin() {
        String username = etUsername.getText().toString();
        String password = etPassword.getText().toString();
