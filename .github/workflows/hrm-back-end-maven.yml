@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'hrm/**'
-      - '.github/workflows/hrm-server-maven.yml'
+      - '.github/workflows/hrm-back-end-maven.yml'
 
 jobs:
   build:
