@@ -38,6 +38,10 @@ public class RespBean {
     return new RespBean(500, msg, null);
   }
 
+  public static RespBean error(Integer status, String msg) {
+    return new RespBean(status, msg, null);
+  }
+
   public static RespBean error(String msg, Object obj) {
     return new RespBean(500, msg, obj);
   }
