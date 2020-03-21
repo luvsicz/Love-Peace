@@ -3,10 +3,12 @@ package org.dev.hrm.service;
 import java.util.List;
 import javax.annotation.Resource;
 import org.dev.hrm.mapper.MenuMapper;
+import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.Menu;
 import org.dev.hrm.model.MenuExample;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -78,9 +80,19 @@ public class MenuService {
     return menuMapper.updateByPrimaryKey(record);
   }
 
-  //用方法名作为缓存的key
+  /**
+   * 用方法名作为缓存的key
+   *
+   * @return 菜单和角色信息
+   */
   @Cacheable(key = "#root.method.name")
   public List<Menu> getAllMenusWithRole() {
     return menuMapper.getAllMenusWithRole();
   }
+
+  public List<Menu> getMenusByHrId() {
+    return menuMapper.getMenusByHrId(
+        ((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+  }
+
 }

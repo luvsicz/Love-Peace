@@ -7,35 +7,44 @@ import org.dev.hrm.model.Menu;
 import org.dev.hrm.model.MenuExample;
 
 /**
- * @ClassName MenuMapper.java
  * @author 冷嘉贤
  * @version 1.0.0
+ * @ClassName MenuMapper.java
  * @Description TODO
  * @createTime 2020年03月18日 15:49:00
  */
 @Mapper
 public interface MenuMapper {
-    long countByExample(MenuExample example);
 
-    int deleteByExample(MenuExample example);
+  long countByExample(MenuExample example);
 
-    int deleteByPrimaryKey(Integer id);
+  int deleteByExample(MenuExample example);
 
-    int insert(Menu record);
+  int deleteByPrimaryKey(Integer id);
 
-    int insertSelective(Menu record);
+  int insert(Menu record);
 
-    List<Menu> selectByExample(MenuExample example);
+  int insertSelective(Menu record);
 
-    Menu selectByPrimaryKey(Integer id);
+  List<Menu> selectByExample(MenuExample example);
 
-    int updateByExampleSelective(@Param("record") Menu record, @Param("example") MenuExample example);
+  Menu selectByPrimaryKey(Integer id);
 
-    int updateByExample(@Param("record") Menu record, @Param("example") MenuExample example);
+  int updateByExampleSelective(@Param("record") Menu record, @Param("example") MenuExample example);
 
-    int updateByPrimaryKeySelective(Menu record);
+  int updateByExample(@Param("record") Menu record, @Param("example") MenuExample example);
 
-    int updateByPrimaryKey(Menu record);
+  int updateByPrimaryKeySelective(Menu record);
+
+  int updateByPrimaryKey(Menu record);
 
   List<Menu> getAllMenusWithRole();
+
+  /**
+   * 根据HrId返回当前角色的菜单
+   *
+   * @param hrId
+   * @return MenuList
+   */
+  List<Menu> getMenusByHrId(@Param("hrId") Integer hrId);
 }
