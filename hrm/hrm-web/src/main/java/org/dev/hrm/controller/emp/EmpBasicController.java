@@ -1,7 +1,6 @@
 package org.dev.hrm.controller.emp;
 
 import org.dev.hrm.model.RespBean;
-import org.dev.hrm.model.RespPageBean;
 import org.dev.hrm.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
