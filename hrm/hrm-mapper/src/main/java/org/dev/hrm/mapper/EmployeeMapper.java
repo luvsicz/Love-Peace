@@ -38,4 +38,7 @@ public interface EmployeeMapper {
   int updateByPrimaryKeySelective(Employee record);
 
   int updateByPrimaryKey(Employee record);
+
+  List<Employee> getEmployeeByPage(@Param("page") Integer page, @Param("size") Integer size,
+      @Param("keyword") String keyword);
 }

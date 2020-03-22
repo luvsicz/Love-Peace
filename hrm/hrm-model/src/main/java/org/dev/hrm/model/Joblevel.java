@@ -32,7 +32,7 @@ public class Joblevel implements Serializable {
     private String name;
 
     @ApiModelProperty(value="")
-    private Object titlelevel;
+    private String titlelevel;
 
     @ApiModelProperty(value="")
     private LocalDateTime createdate;

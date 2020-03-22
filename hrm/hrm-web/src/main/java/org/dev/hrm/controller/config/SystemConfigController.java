@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+/**
+ * @author 冷嘉贤
+ */
 @RestController
 @RequestMapping("/system/config")
 public class SystemConfigController {
-    @Autowired
-    MenuService menuService;
-    @GetMapping("/menu")
-    public List<Menu> getMenusByHrId() {
-        return menuService.getMenusByHrId();
-    }
+
+  @Autowired
+  MenuService menuService;
+
+  @GetMapping("/menu")
+  public List<Menu> getMenusByHrId() {
+    return menuService.getMenusByHrId();
+  }
 }

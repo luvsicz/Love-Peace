@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.dev.hrm.mapper.EmployeeMapper;
 import org.dev.hrm.model.Employee;
 import org.dev.hrm.model.EmployeeExample;
+import org.dev.hrm.model.RespBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -75,6 +76,13 @@ public class EmployeeService {
     return employeeMapper.updateByPrimaryKey(record);
   }
 
+  public RespBean getEmployeeByPage(Integer page, Integer size, String keyword) {
+    if (page != null && size != null) {
+      page = (page - 1) * size;
+    }
+    List<Employee> data = employeeMapper.getEmployeeByPage(page, size, keyword);
+    return RespBean.ok("success", data);
+  }
 }
 
 

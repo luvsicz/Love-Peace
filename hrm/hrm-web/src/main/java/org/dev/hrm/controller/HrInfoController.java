@@ -1,14 +1,11 @@
 package org.dev.hrm.controller;
 
 import java.util.Map;
-import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.HrService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,10 +17,6 @@ public class HrInfoController {
   @Autowired
   HrService hrService;
 
-
-  @RequestMapping("/hello/m")
-  public void updateHr() {
-  }
 
   @PutMapping("/hr/pass")
   public RespBean updateHrPasswd(@RequestBody Map<String, Object> info) {
