@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +17,7 @@ import lombok.NoArgsConstructor;
  */
 @ApiModel(value = "org-dev-hrm-model-Employee")
 @Data
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee implements Serializable {
@@ -48,7 +47,7 @@ public class Employee implements Serializable {
    * 身份证号
    */
   @ApiModelProperty(value = "身份证号")
-  private String idcard;
+  private String idCard;
   /**
    * 婚姻状况
    */
@@ -58,17 +57,17 @@ public class Employee implements Serializable {
    * 民族
    */
   @ApiModelProperty(value = "民族")
-  private Integer nationid;
+  private Integer nationId;
   /**
    * 籍贯
    */
   @ApiModelProperty(value = "籍贯")
-  private String nativeplace;
+  private String nativePlace;
   /**
    * 政治面貌
    */
   @ApiModelProperty(value = "政治面貌")
-  private Integer politicid;
+  private Integer politicId;
   /**
    * 邮箱
    */
@@ -88,27 +87,27 @@ public class Employee implements Serializable {
    * 所属部门
    */
   @ApiModelProperty(value = "所属部门")
-  private Integer departmentid;
+  private Integer departmentId;
   /**
    * 职称ID
    */
   @ApiModelProperty(value = "职称ID")
-  private Integer joblevelid;
+  private Integer jobLevelId;
   /**
    * 职位ID
    */
   @ApiModelProperty(value = "职位ID")
-  private Integer posid;
+  private Integer posId;
   /**
    * 聘用形式
    */
   @ApiModelProperty(value = "聘用形式")
-  private String engageform;
+  private String engageForm;
   /**
    * 最高学历
    */
   @ApiModelProperty(value = "最高学历")
-  private String tiptopdegree;
+  private String tiptopDegree;
   /**
    * 所属专业
    */
@@ -123,47 +122,47 @@ public class Employee implements Serializable {
    * 入职日期
    */
   @ApiModelProperty(value = "入职日期")
-  private Date begindate;
+  private Date beginDate;
   /**
    * 在职状态
    */
   @ApiModelProperty(value = "在职状态")
-  private String workstate;
+  private String workState;
   /**
    * 工号
    */
   @ApiModelProperty(value = "工号")
-  private String workid;
+  private String workId;
   /**
    * 合同期限
    */
   @ApiModelProperty(value = "合同期限")
-  private Double contractterm;
+  private Double contractTerm;
   /**
    * 转正日期
    */
   @ApiModelProperty(value = "转正日期")
-  private Date conversiontime;
+  private Date conversionTime;
   /**
    * 离职日期
    */
   @ApiModelProperty(value = "离职日期")
-  private Date notworkdate;
+  private Date notworkDate;
   /**
    * 合同起始日期
    */
   @ApiModelProperty(value = "合同起始日期")
-  private Date begincontract;
+  private Date beginconTract;
   /**
    * 合同终止日期
    */
   @ApiModelProperty(value = "合同终止日期")
-  private Date endcontract;
+  private Date endconTract;
   /**
    * 工龄
    */
   @ApiModelProperty(value = "工龄")
-  private Integer workage;
+  private Integer workAge;
   private Nation nation;
   private Politicsstatus politicsstatus;
   private Department department;
@@ -171,7 +170,4 @@ public class Employee implements Serializable {
   private Position position;
   private Salary salary;
 
-  public static EmployeeBuilder builder() {
-    return new EmployeeBuilder();
-  }
 }

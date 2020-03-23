@@ -2,7 +2,6 @@ package org.dev.hrm.model;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
  * @createTime 2020年03月23日 16:18:00
  */
 @Data
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class RespPageBean {

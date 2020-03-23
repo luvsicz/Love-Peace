@@ -4,47 +4,41 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @ClassName Department.java
  * @author 冷嘉贤
  * @version 1.0.0
+ * @ClassName Department.java
  * @Description TODO
- * @createTime 2020年03月18日 15:49:00
+ * @createTime 2020年03月23日 19:57:00
  */
-@ApiModel(value="org-dev-hrm-model-Department")
+@ApiModel(value = "org-dev-hrm-model-Department")
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Department implements Serializable {
-    @ApiModelProperty(value="")
-    private Integer id;
 
-    /**
-    * 部门名称
-    */
-    @ApiModelProperty(value="部门名称")
-    private String name;
+  private static final long serialVersionUID = 1L;
+  @ApiModelProperty(value = "")
+  private Integer id;
+  /**
+   * 部门名称
+   */
+  @ApiModelProperty(value = "部门名称")
+  private String name;
+  @ApiModelProperty(value = "")
+  private Integer parentId;
+  @ApiModelProperty(value = "")
+  private String depPath;
+  @ApiModelProperty(value = "")
+  private Boolean enabled;
+  @ApiModelProperty(value = "")
+  private Boolean isParent;
 
-    @ApiModelProperty(value="")
-    private Integer parentid;
+  public Department(String name) {
 
-    @ApiModelProperty(value="")
-    private String deppath;
-
-    @ApiModelProperty(value="")
-    private Boolean enabled;
-
-    @ApiModelProperty(value="")
-    private Boolean isparent;
-
-    private static final long serialVersionUID = 1L;
-    public Department(String name) {
-
-        this.name = name;
-    }
+    this.name = name;
+  }
 }

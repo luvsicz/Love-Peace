@@ -1,10 +1,8 @@
 package org.dev.hrm.service;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.dev.hrm.mapper.HrMapper;
 import org.dev.hrm.model.Hr;
-import org.dev.hrm.model.HrExample;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,16 +23,6 @@ public class HrService implements UserDetailsService {
   private HrMapper hrMapper;
 
 
-  public long countByExample(HrExample example) {
-    return hrMapper.countByExample(example);
-  }
-
-
-  public int deleteByExample(HrExample example) {
-    return hrMapper.deleteByExample(example);
-  }
-
-
   public int deleteByPrimaryKey(Integer id) {
     return hrMapper.deleteByPrimaryKey(id);
   }
@@ -50,23 +38,8 @@ public class HrService implements UserDetailsService {
   }
 
 
-  public List<Hr> selectByExample(HrExample example) {
-    return hrMapper.selectByExample(example);
-  }
-
-
   public Hr selectByPrimaryKey(Integer id) {
     return hrMapper.selectByPrimaryKey(id);
-  }
-
-
-  public int updateByExampleSelective(Hr record, HrExample example) {
-    return hrMapper.updateByExampleSelective(record, example);
-  }
-
-
-  public int updateByExample(Hr record, HrExample example) {
-    return hrMapper.updateByExample(record, example);
   }
 
 

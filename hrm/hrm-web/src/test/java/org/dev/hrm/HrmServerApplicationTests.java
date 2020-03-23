@@ -1,16 +1,9 @@
 package org.dev.hrm;
 
 import java.io.IOException;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.dev.hrm.model.Employee;
-import org.dev.hrm.model.EmployeeExample;
-import org.dev.hrm.model.Hr;
-import org.dev.hrm.model.HrExample;
 import org.dev.hrm.service.EmployeeService;
 import org.dev.hrm.service.HrService;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

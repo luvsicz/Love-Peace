@@ -4,7 +4,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.dev.hrm.model.Employee;
-import org.dev.hrm.model.EmployeeExample;
 
 /**
  * @author 冷嘉贤
@@ -16,9 +15,6 @@ import org.dev.hrm.model.EmployeeExample;
 @Mapper
 public interface EmployeeMapper {
 
-  long countByExample(EmployeeExample example);
-
-  int deleteByExample(EmployeeExample example);
 
   int deleteByPrimaryKey(Integer id);
 
@@ -26,14 +22,9 @@ public interface EmployeeMapper {
 
   int insertSelective(Employee record);
 
-  List<Employee> selectByExample(EmployeeExample example);
 
   Employee selectByPrimaryKey(Integer id);
 
-  int updateByExampleSelective(@Param("record") Employee record,
-      @Param("example") EmployeeExample example);
-
-  int updateByExample(@Param("record") Employee record, @Param("example") EmployeeExample example);
 
   int updateByPrimaryKeySelective(Employee record);
 

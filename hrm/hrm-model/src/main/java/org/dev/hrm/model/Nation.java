@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +16,7 @@ import lombok.NoArgsConstructor;
  */
 @ApiModel(value = "org-dev-hrm-model-Nation")
 @Data
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class Nation implements Serializable {

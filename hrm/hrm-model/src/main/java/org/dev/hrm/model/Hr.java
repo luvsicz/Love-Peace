@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @ApiModel(value = "org-dev-hrm-model-Hr")
 @Data
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class Hr implements UserDetails {
@@ -71,10 +70,6 @@ public class Hr implements UserDetails {
   private String remark;
   @ApiModelProperty(value = "")
   private List<Role> roles;
-
-  public static HrBuilder builder() {
-    return new HrBuilder();
-  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

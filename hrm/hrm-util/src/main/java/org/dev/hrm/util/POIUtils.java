@@ -46,17 +46,17 @@ public class POIUtils {
     //文档类别
     docInfo.setCategory("员工信息");
     //文档管理员
-    docInfo.setManager("javaboy");
+    docInfo.setManager("admin");
     //设置公司信息
-    docInfo.setCompany("www.javaboy.org");
+    docInfo.setCompany("Company");
     //4. 获取文档摘要信息
     SummaryInformation summInfo = workbook.getSummaryInformation();
     //文档标题
     summInfo.setTitle("员工信息表");
     //文档作者
-    summInfo.setAuthor("javaboy");
+    summInfo.setAuthor("admin");
     // 文档备注
-    summInfo.setComments("本文档由 javaboy 提供");
+    summInfo.setComments("本文档由POI组装");
     //5. 创建样式
     //创建标题行的样式
     HSSFCellStyle headerStyle = workbook.createCellStyle();
@@ -176,40 +176,40 @@ public class POIUtils {
       HSSFRow row = sheet.createRow(i + 1);
       row.createCell(0).setCellValue(emp.getId());
       row.createCell(1).setCellValue(emp.getName());
-      row.createCell(2).setCellValue(emp.getWorkid());
+      row.createCell(2).setCellValue(emp.getWorkId());
       row.createCell(3).setCellValue(emp.getGender());
       HSSFCell cell4 = row.createCell(4);
       cell4.setCellStyle(dateCellStyle);
       cell4.setCellValue(emp.getBirthday());
-      row.createCell(5).setCellValue(emp.getIdcard());
+      row.createCell(5).setCellValue(emp.getIdCard());
       row.createCell(6).setCellValue(emp.getWedlock());
       row.createCell(7).setCellValue(emp.getNation().getName());
-      row.createCell(8).setCellValue(emp.getNativeplace());
+      row.createCell(8).setCellValue(emp.getNativePlace());
       row.createCell(9).setCellValue(emp.getPoliticsstatus().getName());
       row.createCell(10).setCellValue(emp.getPhone());
       row.createCell(11).setCellValue(emp.getAddress());
       row.createCell(12).setCellValue(emp.getDepartment().getName());
       row.createCell(13).setCellValue(emp.getJobLevel().getName());
       row.createCell(14).setCellValue(emp.getPosition().getName());
-      row.createCell(15).setCellValue(emp.getEndcontract());
-      row.createCell(16).setCellValue(emp.getTiptopdegree());
+      row.createCell(15).setCellValue(emp.getEndconTract());
+      row.createCell(16).setCellValue(emp.getTiptopDegree());
       row.createCell(17).setCellValue(emp.getSpecialty());
       row.createCell(18).setCellValue(emp.getSchool());
       HSSFCell cell19 = row.createCell(19);
       cell19.setCellStyle(dateCellStyle);
       cell19.setCellValue(emp.getBirthday());
-      row.createCell(20).setCellValue(emp.getWorkstate());
+      row.createCell(20).setCellValue(emp.getWorkState());
       row.createCell(21).setCellValue(emp.getEmail());
-      row.createCell(22).setCellValue(emp.getContractterm());
+      row.createCell(22).setCellValue(emp.getContractTerm());
       HSSFCell cell23 = row.createCell(23);
       cell23.setCellStyle(dateCellStyle);
-      cell23.setCellValue(emp.getBegincontract());
+      cell23.setCellValue(emp.getBeginconTract());
       HSSFCell cell24 = row.createCell(24);
       cell24.setCellStyle(dateCellStyle);
-      cell24.setCellValue(emp.getEndcontract());
+      cell24.setCellValue(emp.getEndconTract());
       HSSFCell cell25 = row.createCell(25);
       cell25.setCellStyle(dateCellStyle);
-      cell25.setCellValue(emp.getConversiontime());
+      cell25.setCellValue(emp.getConversionTime());
     }
 
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -227,7 +227,6 @@ public class POIUtils {
 
   /**
    * Excel 解析成 员工数据集合
-   *
    */
   public static List<Employee> excel2Employee(MultipartFile file, List<Nation> allNations,
       List<Politicsstatus> allPoliticsstatus, List<Department> allDepartments,
@@ -267,28 +266,28 @@ public class POIUtils {
                     employee.setName(cellValue);
                     break;
                   case 2:
-                    employee.setWorkid(cellValue);
+                    employee.setWorkId(cellValue);
                     break;
                   case 3:
                     employee.setGender(cellValue);
                     break;
                   case 5:
-                    employee.setIdcard(cellValue);
+                    employee.setIdCard(cellValue);
                     break;
                   case 6:
                     employee.setWedlock(cellValue);
                     break;
                   case 7:
                     int nationIndex = allNations.indexOf(new Nation(cellValue));
-                    employee.setNationid(allNations.get(nationIndex).getId());
+                    employee.setNationId(allNations.get(nationIndex).getId());
                     break;
                   case 8:
-                    employee.setNativeplace(cellValue);
+                    employee.setNativePlace(cellValue);
                     break;
                   case 9:
                     int politicstatusIndex = allPoliticsstatus
                         .indexOf(new Politicsstatus(cellValue));
-                    employee.setPoliticid(allPoliticsstatus.get(politicstatusIndex).getId());
+                    employee.setPoliticId(allPoliticsstatus.get(politicstatusIndex).getId());
                     break;
                   case 10:
                     employee.setPhone(cellValue);
@@ -298,22 +297,22 @@ public class POIUtils {
                     break;
                   case 12:
                     int departmentIndex = allDepartments.indexOf(new Department(cellValue));
-                    employee.setDepartmentid(allDepartments.get(departmentIndex).getId());
+                    employee.setDepartmentId(allDepartments.get(departmentIndex).getId());
                     break;
                   case 13:
                     int jobLevelIndex = allJobLevels.indexOf(new Joblevel(cellValue));
-                    employee.setJoblevelid(allJobLevels.get(jobLevelIndex).getId());
+                    employee.setJobLevelId(allJobLevels.get(jobLevelIndex).getId());
                     break;
                   case 14:
                     int positionIndex = allPositions
                         .indexOf(new org.dev.hrm.model.Position(cellValue));
-                    employee.setPosid(allPositions.get(positionIndex).getId());
+                    employee.setPosId(allPositions.get(positionIndex).getId());
                     break;
                   case 15:
-                    employee.setEngageform(cellValue);
+                    employee.setEngageForm(cellValue);
                     break;
                   case 16:
-                    employee.setTiptopdegree(cellValue);
+                    employee.setTiptopDegree(cellValue);
                     break;
                   case 17:
                     employee.setSpecialty(cellValue);
@@ -322,7 +321,7 @@ public class POIUtils {
                     employee.setSchool(cellValue);
                     break;
                   case 20:
-                    employee.setWorkstate(cellValue);
+                    employee.setWorkState(cellValue);
                     break;
                   case 21:
                     employee.setEmail(cellValue);
@@ -335,19 +334,19 @@ public class POIUtils {
                     employee.setBirthday(cell.getDateCellValue());
                     break;
                   case 19:
-                    employee.setBegindate(cell.getDateCellValue());
+                    employee.setBeginDate(cell.getDateCellValue());
                     break;
                   case 23:
-                    employee.setBegincontract(cell.getDateCellValue());
+                    employee.setBeginconTract(cell.getDateCellValue());
                     break;
                   case 24:
-                    employee.setEndcontract(cell.getDateCellValue());
+                    employee.setEndconTract(cell.getDateCellValue());
                     break;
                   case 22:
-                    employee.setContractterm(cell.getNumericCellValue());
+                    employee.setContractTerm(cell.getNumericCellValue());
                     break;
                   case 25:
-                    employee.setConversiontime(cell.getDateCellValue());
+                    employee.setConversionTime(cell.getDateCellValue());
                     break;
                 }
               }

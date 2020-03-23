@@ -117,22 +117,6 @@
     <!--@mbg.generated-->
     id, url, `path`, component, `name`, iconCls, keepAlive, requireAuth, parentId, enabled
   </sql>
-  <select id="selectByExample" parameterType="org.dev.hrm.model.MenuExample"
-    resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List"/>
-    from menu
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select
@@ -144,13 +128,6 @@
     <!--@mbg.generated-->
     delete from menu
     where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="org.dev.hrm.model.MenuExample">
-    <!--@mbg.generated-->
-    delete from menu
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
-    </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Menu"
     useGeneratedKeys="true">
@@ -227,70 +204,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.dev.hrm.model.MenuExample"
-    resultType="java.lang.Long">
-    <!--@mbg.generated-->
-    select count(*) from menu
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    <!--@mbg.generated-->
-    update menu
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.url != null">
-        url = #{record.url,jdbcType=VARCHAR},
-      </if>
-      <if test="record.path != null">
-        `path` = #{record.path,jdbcType=VARCHAR},
-      </if>
-      <if test="record.component != null">
-        component = #{record.component,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null">
-        `name` = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.iconCls != null">
-        iconCls = #{record.iconCls,jdbcType=VARCHAR},
-      </if>
-      <if test="record.keepAlive != null">
-        keepAlive = #{record.keepAlive,jdbcType=BOOLEAN},
-      </if>
-      <if test="record.requireAuth != null">
-        requireAuth = #{record.requireAuth,jdbcType=BOOLEAN},
-      </if>
-      <if test="record.parentId != null">
-        parentId = #{record.parentId,jdbcType=INTEGER},
-      </if>
-      <if test="record.enabled != null">
-        enabled = #{record.enabled,jdbcType=BOOLEAN},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    <!--@mbg.generated-->
-    update menu
-    set id = #{record.id,jdbcType=INTEGER},
-    url = #{record.url,jdbcType=VARCHAR},
-    `path` = #{record.path,jdbcType=VARCHAR},
-    component = #{record.component,jdbcType=VARCHAR},
-    `name` = #{record.name,jdbcType=VARCHAR},
-    iconCls = #{record.iconCls,jdbcType=VARCHAR},
-    keepAlive = #{record.keepAlive,jdbcType=BOOLEAN},
-    requireAuth = #{record.requireAuth,jdbcType=BOOLEAN},
-    parentId = #{record.parentId,jdbcType=INTEGER},
-    enabled = #{record.enabled,jdbcType=BOOLEAN}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Menu">
     <!--@mbg.generated-->
     update menu
@@ -346,6 +259,10 @@
     select m.*,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnameZh from menu m,menu_role mr,role r where m.`id`=mr.`mid` and mr.`rid`=r.`id` order by m.`id`
   </select>
   <select id="getMenusByHrId" resultMap="Menus2">
-    select distinct m1.*,m2.`id` as id2,m2.`component` as component2,m2.`enabled` as enabled2,m2.`iconCls` as iconCls2,m2.`keepAlive` as keepAlive2,m2.`name` as name2,m2.`parentId` as parentId2,m2.`requireAuth` as requireAuth2,m2.`path` as path2 from menu m1,menu m2,hr_role hrr,menu_role mr where m1.`id`=m2.`parentId` and hrr.`hrid`=#{hrId,jdbcType=INTEGER} and hrr.`rid`=mr.`rid` and mr.`mid`=m2.`id` and m2.`enabled`=true order by m1.`id`,m2.`id`
+    select distinct m1.*,m2.`id` as id2,m2.`component` as component2,m2.`enabled` as
+    enabled2,m2.`iconCls` as iconCls2,m2.`keepAlive` as keepAlive2,m2.`name` as name2,m2.`parentId`
+    as parentId2,m2.`requireAuth` as requireAuth2,m2.`path` as path2 from menu m1,menu m2,hr_role
+    hrr,menu_role mr where m1.`id`=m2.`parentId` and hrr.`hrid`=#{hrId,jdbcType=INTEGER} and
+    hrr.`rid`=mr.`rid` and mr.`mid`=m2.`id` and m2.`enabled`=true order by m1.`id`,m2.`id`
   </select>
 </mapper>

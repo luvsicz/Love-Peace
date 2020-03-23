@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.dev.hrm.mapper.MenuMapper;
 import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.Menu;
-import org.dev.hrm.model.MenuExample;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,16 +25,6 @@ public class MenuService {
   private MenuMapper menuMapper;
 
 
-  public long countByExample(MenuExample example) {
-    return menuMapper.countByExample(example);
-  }
-
-
-  public int deleteByExample(MenuExample example) {
-    return menuMapper.deleteByExample(example);
-  }
-
-
   public int deleteByPrimaryKey(Integer id) {
     return menuMapper.deleteByPrimaryKey(id);
   }
@@ -51,23 +40,8 @@ public class MenuService {
   }
 
 
-  public List<Menu> selectByExample(MenuExample example) {
-    return menuMapper.selectByExample(example);
-  }
-
-
   public Menu selectByPrimaryKey(Integer id) {
     return menuMapper.selectByPrimaryKey(id);
-  }
-
-
-  public int updateByExampleSelective(Menu record, MenuExample example) {
-    return menuMapper.updateByExampleSelective(record, example);
-  }
-
-
-  public int updateByExample(Menu record, MenuExample example) {
-    return menuMapper.updateByExample(record, example);
   }
 
 

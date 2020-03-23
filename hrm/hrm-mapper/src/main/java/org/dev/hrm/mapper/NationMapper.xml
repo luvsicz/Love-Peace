@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.dev.hrm.mapper.NationMapper">
   <resultMap id="BaseResultMap" type="org.dev.hrm.model.Nation">
     <!--@mbg.generated-->
     <!--@Table nation-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -26,7 +27,8 @@
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach close=")" collection="criterion.value" item="listItem" open="("
+                    separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -56,7 +58,8 @@
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach close=")" collection="criterion.value" item="listItem" open="("
+                    separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -71,25 +74,10 @@
     <!--@mbg.generated-->
     id, `name`
   </sql>
-  <select id="selectByExample" parameterType="org.dev.hrm.model.NationExample" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from nation
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from nation
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -98,19 +86,14 @@
     delete from nation
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="org.dev.hrm.model.NationExample">
-    <!--@mbg.generated-->
-    delete from nation
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Nation" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Nation"
+    useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into nation (`name`)
     values (#{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Nation" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.Nation" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into nation
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -124,37 +107,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.dev.hrm.model.NationExample" resultType="java.lang.Long">
-    <!--@mbg.generated-->
-    select count(*) from nation
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    <!--@mbg.generated-->
-    update nation
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.name != null">
-        `name` = #{record.name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    <!--@mbg.generated-->
-    update nation
-    set id = #{record.id,jdbcType=INTEGER},
-      `name` = #{record.name,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Nation">
     <!--@mbg.generated-->
     update nation

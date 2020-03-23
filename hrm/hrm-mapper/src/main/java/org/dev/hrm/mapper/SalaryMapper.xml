@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.dev.hrm.mapper.SalaryMapper">
   <resultMap id="BaseResultMap" type="org.dev.hrm.model.Salary">
     <!--@mbg.generated-->
     <!--@Table salary-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="basicSalary" jdbcType="INTEGER" property="basicsalary" />
-    <result column="bonus" jdbcType="INTEGER" property="bonus" />
-    <result column="lunchSalary" jdbcType="INTEGER" property="lunchsalary" />
-    <result column="trafficSalary" jdbcType="INTEGER" property="trafficsalary" />
-    <result column="allSalary" jdbcType="INTEGER" property="allsalary" />
-    <result column="pensionBase" jdbcType="INTEGER" property="pensionbase" />
-    <result column="pensionPer" jdbcType="FLOAT" property="pensionper" />
-    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
-    <result column="medicalBase" jdbcType="INTEGER" property="medicalbase" />
-    <result column="medicalPer" jdbcType="FLOAT" property="medicalper" />
-    <result column="accumulationFundBase" jdbcType="INTEGER" property="accumulationfundbase" />
-    <result column="accumulationFundPer" jdbcType="FLOAT" property="accumulationfundper" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="basicSalary" jdbcType="INTEGER" property="basicsalary"/>
+    <result column="bonus" jdbcType="INTEGER" property="bonus"/>
+    <result column="lunchSalary" jdbcType="INTEGER" property="lunchsalary"/>
+    <result column="trafficSalary" jdbcType="INTEGER" property="trafficsalary"/>
+    <result column="allSalary" jdbcType="INTEGER" property="allsalary"/>
+    <result column="pensionBase" jdbcType="INTEGER" property="pensionbase"/>
+    <result column="pensionPer" jdbcType="FLOAT" property="pensionper"/>
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate"/>
+    <result column="medicalBase" jdbcType="INTEGER" property="medicalbase"/>
+    <result column="medicalPer" jdbcType="FLOAT" property="medicalper"/>
+    <result column="accumulationFundBase" jdbcType="INTEGER" property="accumulationfundbase"/>
+    <result column="accumulationFundPer" jdbcType="FLOAT" property="accumulationfundper"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -38,7 +39,8 @@
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach close=")" collection="criterion.value" item="listItem" open="("
+                    separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -68,7 +70,8 @@
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach close=")" collection="criterion.value" item="listItem" open="("
+                    separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -81,28 +84,13 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, basicSalary, bonus, lunchSalary, trafficSalary, allSalary, pensionBase, pensionPer, 
+    id, basicSalary, bonus, lunchSalary, trafficSalary, allSalary, pensionBase, pensionPer,
     createDate, medicalBase, medicalPer, accumulationFundBase, accumulationFundPer, `name`
   </sql>
-  <select id="selectByExample" parameterType="org.dev.hrm.model.SalaryExample" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from salary
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from salary
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -111,27 +99,25 @@
     delete from salary
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="org.dev.hrm.model.SalaryExample">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Salary"
+    useGeneratedKeys="true">
     <!--@mbg.generated-->
-    delete from salary
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Salary" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into salary (basicSalary, bonus, lunchSalary, 
-      trafficSalary, allSalary, pensionBase, 
-      pensionPer, createDate, medicalBase, 
-      medicalPer, accumulationFundBase, accumulationFundPer, 
-      `name`)
-    values (#{basicsalary,jdbcType=INTEGER}, #{bonus,jdbcType=INTEGER}, #{lunchsalary,jdbcType=INTEGER}, 
-      #{trafficsalary,jdbcType=INTEGER}, #{allsalary,jdbcType=INTEGER}, #{pensionbase,jdbcType=INTEGER}, 
-      #{pensionper,jdbcType=FLOAT}, #{createdate,jdbcType=TIMESTAMP}, #{medicalbase,jdbcType=INTEGER}, 
-      #{medicalper,jdbcType=FLOAT}, #{accumulationfundbase,jdbcType=INTEGER}, #{accumulationfundper,jdbcType=FLOAT}, 
-      #{name,jdbcType=VARCHAR})
+    insert into salary (basicSalary, bonus, lunchSalary,
+    trafficSalary, allSalary, pensionBase,
+    pensionPer, createDate, medicalBase,
+    medicalPer, accumulationFundBase, accumulationFundPer,
+    `name`)
+    values (#{basicsalary,jdbcType=INTEGER}, #{bonus,jdbcType=INTEGER},
+    #{lunchsalary,jdbcType=INTEGER},
+    #{trafficsalary,jdbcType=INTEGER}, #{allsalary,jdbcType=INTEGER},
+    #{pensionbase,jdbcType=INTEGER},
+    #{pensionper,jdbcType=FLOAT}, #{createdate,jdbcType=TIMESTAMP}, #{medicalbase,jdbcType=INTEGER},
+    #{medicalper,jdbcType=FLOAT}, #{accumulationfundbase,jdbcType=INTEGER},
+    #{accumulationfundper,jdbcType=FLOAT},
+    #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Salary" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.Salary" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into salary
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -217,85 +203,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.dev.hrm.model.SalaryExample" resultType="java.lang.Long">
-    <!--@mbg.generated-->
-    select count(*) from salary
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    <!--@mbg.generated-->
-    update salary
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.basicsalary != null">
-        basicSalary = #{record.basicsalary,jdbcType=INTEGER},
-      </if>
-      <if test="record.bonus != null">
-        bonus = #{record.bonus,jdbcType=INTEGER},
-      </if>
-      <if test="record.lunchsalary != null">
-        lunchSalary = #{record.lunchsalary,jdbcType=INTEGER},
-      </if>
-      <if test="record.trafficsalary != null">
-        trafficSalary = #{record.trafficsalary,jdbcType=INTEGER},
-      </if>
-      <if test="record.allsalary != null">
-        allSalary = #{record.allsalary,jdbcType=INTEGER},
-      </if>
-      <if test="record.pensionbase != null">
-        pensionBase = #{record.pensionbase,jdbcType=INTEGER},
-      </if>
-      <if test="record.pensionper != null">
-        pensionPer = #{record.pensionper,jdbcType=FLOAT},
-      </if>
-      <if test="record.createdate != null">
-        createDate = #{record.createdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.medicalbase != null">
-        medicalBase = #{record.medicalbase,jdbcType=INTEGER},
-      </if>
-      <if test="record.medicalper != null">
-        medicalPer = #{record.medicalper,jdbcType=FLOAT},
-      </if>
-      <if test="record.accumulationfundbase != null">
-        accumulationFundBase = #{record.accumulationfundbase,jdbcType=INTEGER},
-      </if>
-      <if test="record.accumulationfundper != null">
-        accumulationFundPer = #{record.accumulationfundper,jdbcType=FLOAT},
-      </if>
-      <if test="record.name != null">
-        `name` = #{record.name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    <!--@mbg.generated-->
-    update salary
-    set id = #{record.id,jdbcType=INTEGER},
-      basicSalary = #{record.basicsalary,jdbcType=INTEGER},
-      bonus = #{record.bonus,jdbcType=INTEGER},
-      lunchSalary = #{record.lunchsalary,jdbcType=INTEGER},
-      trafficSalary = #{record.trafficsalary,jdbcType=INTEGER},
-      allSalary = #{record.allsalary,jdbcType=INTEGER},
-      pensionBase = #{record.pensionbase,jdbcType=INTEGER},
-      pensionPer = #{record.pensionper,jdbcType=FLOAT},
-      createDate = #{record.createdate,jdbcType=TIMESTAMP},
-      medicalBase = #{record.medicalbase,jdbcType=INTEGER},
-      medicalPer = #{record.medicalper,jdbcType=FLOAT},
-      accumulationFundBase = #{record.accumulationfundbase,jdbcType=INTEGER},
-      accumulationFundPer = #{record.accumulationfundper,jdbcType=FLOAT},
-      `name` = #{record.name,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Salary">
     <!--@mbg.generated-->
     update salary
@@ -346,18 +253,18 @@
     <!--@mbg.generated-->
     update salary
     set basicSalary = #{basicsalary,jdbcType=INTEGER},
-      bonus = #{bonus,jdbcType=INTEGER},
-      lunchSalary = #{lunchsalary,jdbcType=INTEGER},
-      trafficSalary = #{trafficsalary,jdbcType=INTEGER},
-      allSalary = #{allsalary,jdbcType=INTEGER},
-      pensionBase = #{pensionbase,jdbcType=INTEGER},
-      pensionPer = #{pensionper,jdbcType=FLOAT},
-      createDate = #{createdate,jdbcType=TIMESTAMP},
-      medicalBase = #{medicalbase,jdbcType=INTEGER},
-      medicalPer = #{medicalper,jdbcType=FLOAT},
-      accumulationFundBase = #{accumulationfundbase,jdbcType=INTEGER},
-      accumulationFundPer = #{accumulationfundper,jdbcType=FLOAT},
-      `name` = #{name,jdbcType=VARCHAR}
+    bonus = #{bonus,jdbcType=INTEGER},
+    lunchSalary = #{lunchsalary,jdbcType=INTEGER},
+    trafficSalary = #{trafficsalary,jdbcType=INTEGER},
+    allSalary = #{allsalary,jdbcType=INTEGER},
+    pensionBase = #{pensionbase,jdbcType=INTEGER},
+    pensionPer = #{pensionper,jdbcType=FLOAT},
+    createDate = #{createdate,jdbcType=TIMESTAMP},
+    medicalBase = #{medicalbase,jdbcType=INTEGER},
+    medicalPer = #{medicalper,jdbcType=FLOAT},
+    accumulationFundBase = #{accumulationfundbase,jdbcType=INTEGER},
+    accumulationFundPer = #{accumulationfundper,jdbcType=FLOAT},
+    `name` = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

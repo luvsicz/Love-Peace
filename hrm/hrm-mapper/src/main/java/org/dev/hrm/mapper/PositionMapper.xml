@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.dev.hrm.mapper.PositionMapper">
   <resultMap id="BaseResultMap" type="org.dev.hrm.model.Position">
     <!--@mbg.generated-->
     <!--@Table position-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
-    <result column="enabled" jdbcType="BOOLEAN" property="enabled" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate"/>
+    <result column="enabled" jdbcType="BOOLEAN" property="enabled"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -28,7 +29,8 @@
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach close=")" collection="criterion.value" item="listItem" open="("
+                    separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -58,7 +60,8 @@
                 </when>
                 <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach close=")" collection="criterion.value" item="listItem" open="("
+                    separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -73,25 +76,10 @@
     <!--@mbg.generated-->
     id, `name`, createDate, enabled
   </sql>
-  <select id="selectByExample" parameterType="org.dev.hrm.model.PositionExample" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from position
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from position
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -100,21 +88,16 @@
     delete from position
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="org.dev.hrm.model.PositionExample">
-    <!--@mbg.generated-->
-    delete from position
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Position" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Position"
+    useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into position (`name`, createDate, enabled
-      )
+    )
     values (#{name,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BOOLEAN}
-      )
+    )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Position" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.Position" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into position
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -140,45 +123,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.dev.hrm.model.PositionExample" resultType="java.lang.Long">
-    <!--@mbg.generated-->
-    select count(*) from position
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    <!--@mbg.generated-->
-    update position
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.name != null">
-        `name` = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createdate != null">
-        createDate = #{record.createdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.enabled != null">
-        enabled = #{record.enabled,jdbcType=BOOLEAN},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    <!--@mbg.generated-->
-    update position
-    set id = #{record.id,jdbcType=INTEGER},
-      `name` = #{record.name,jdbcType=VARCHAR},
-      createDate = #{record.createdate,jdbcType=TIMESTAMP},
-      enabled = #{record.enabled,jdbcType=BOOLEAN}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Position">
     <!--@mbg.generated-->
     update position
@@ -199,8 +143,8 @@
     <!--@mbg.generated-->
     update position
     set `name` = #{name,jdbcType=VARCHAR},
-      createDate = #{createdate,jdbcType=TIMESTAMP},
-      enabled = #{enabled,jdbcType=BOOLEAN}
+    createDate = #{createdate,jdbcType=TIMESTAMP},
+    enabled = #{enabled,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

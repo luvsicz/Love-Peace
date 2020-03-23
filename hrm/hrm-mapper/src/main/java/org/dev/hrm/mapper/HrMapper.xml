@@ -89,22 +89,6 @@
     <!--@mbg.generated-->
     id, `name`, phone, telephone, address, enabled, username, `password`, userface, remark
   </sql>
-  <select id="selectByExample" parameterType="org.dev.hrm.model.HrExample"
-    resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List"/>
-    from hr
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select
@@ -116,13 +100,6 @@
     <!--@mbg.generated-->
     delete from hr
     where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="org.dev.hrm.model.HrExample">
-    <!--@mbg.generated-->
-    delete from hr
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
-    </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Hr"
     useGeneratedKeys="true">
@@ -199,70 +176,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.dev.hrm.model.HrExample"
-    resultType="java.lang.Long">
-    <!--@mbg.generated-->
-    select count(*) from hr
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    <!--@mbg.generated-->
-    update hr
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.name != null">
-        `name` = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phone != null">
-        phone = #{record.phone,jdbcType=CHAR},
-      </if>
-      <if test="record.telephone != null">
-        telephone = #{record.telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
-      </if>
-      <if test="record.enabled != null">
-        enabled = #{record.enabled,jdbcType=BOOLEAN},
-      </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        `password` = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userface != null">
-        userface = #{record.userface,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    <!--@mbg.generated-->
-    update hr
-    set id = #{record.id,jdbcType=INTEGER},
-    `name` = #{record.name,jdbcType=VARCHAR},
-    phone = #{record.phone,jdbcType=CHAR},
-    telephone = #{record.telephone,jdbcType=VARCHAR},
-    address = #{record.address,jdbcType=VARCHAR},
-    enabled = #{record.enabled,jdbcType=BOOLEAN},
-    username = #{record.username,jdbcType=VARCHAR},
-    `password` = #{record.password,jdbcType=VARCHAR},
-    userface = #{record.userface,jdbcType=VARCHAR},
-    remark = #{record.remark,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Hr">
     <!--@mbg.generated-->
     update hr

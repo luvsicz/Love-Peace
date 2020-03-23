@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
  */
 @ApiModel(value = "org-dev-hrm-model-Meta")
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Meta {

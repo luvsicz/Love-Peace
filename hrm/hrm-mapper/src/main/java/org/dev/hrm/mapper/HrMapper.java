@@ -4,7 +4,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.dev.hrm.model.Hr;
-import org.dev.hrm.model.HrExample;
 import org.dev.hrm.model.Role;
 
 /**
@@ -17,9 +16,6 @@ import org.dev.hrm.model.Role;
 @Mapper
 public interface HrMapper {
 
-  long countByExample(HrExample example);
-
-  int deleteByExample(HrExample example);
 
   int deleteByPrimaryKey(Integer id);
 
@@ -27,13 +23,9 @@ public interface HrMapper {
 
   int insertSelective(Hr record);
 
-  List<Hr> selectByExample(HrExample example);
 
   Hr selectByPrimaryKey(Integer id);
 
-  int updateByExampleSelective(@Param("record") Hr record, @Param("example") HrExample example);
-
-  int updateByExample(@Param("record") Hr record, @Param("example") HrExample example);
 
   int updateByPrimaryKeySelective(Hr record);
 
