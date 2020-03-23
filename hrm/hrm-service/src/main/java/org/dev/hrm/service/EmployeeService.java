@@ -2,10 +2,11 @@ package org.dev.hrm.service;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.dev.hrm.mapper.EmployeeMapper;
 import org.dev.hrm.model.Employee;
 import org.dev.hrm.model.EmployeeExample;
-import org.dev.hrm.model.RespBean;
+import org.dev.hrm.model.RespPageBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,6 +35,11 @@ public class EmployeeService {
 
   public int deleteByPrimaryKey(Integer id) {
     return employeeMapper.deleteByPrimaryKey(id);
+  }
+
+  public int deleteByPrimaryKeys(String ids) {
+    String[] id = ids.split(",");
+    return employeeMapper.deleteByPrimaryKeys(id);
   }
 
 
@@ -76,12 +82,16 @@ public class EmployeeService {
     return employeeMapper.updateByPrimaryKey(record);
   }
 
-  public RespBean getEmployeeByPage(Integer page, Integer size, String keyword) {
+  public RespPageBean getEmployeeByPage(Integer page, Integer size, Employee emp) {
     if (page != null && size != null) {
       page = (page - 1) * size;
     }
-    List<Employee> data = employeeMapper.getEmployeeByPage(page, size, keyword);
-    return RespBean.ok("success", data);
+    List<Employee> data = employeeMapper.getEmployeeByPage(page, size, emp);
+    long total = employeeMapper.getTotal(emp);
+    RespPageBean pageBean = new RespPageBean();
+    pageBean.setTotal(total);
+    pageBean.setData(data);
+    return pageBean;
   }
 }
 

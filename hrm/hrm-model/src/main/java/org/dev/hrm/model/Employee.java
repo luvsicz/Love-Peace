@@ -3,7 +3,7 @@ package org.dev.hrm.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,7 +43,7 @@ public class Employee implements Serializable {
    * 出生日期
    */
   @ApiModelProperty(value = "出生日期")
-  private LocalDate birthday;
+  private Date birthday;
   /**
    * 身份证号
    */
@@ -53,7 +53,7 @@ public class Employee implements Serializable {
    * 婚姻状况
    */
   @ApiModelProperty(value = "婚姻状况")
-  private Object wedlock;
+  private String wedlock;
   /**
    * 民族
    */
@@ -108,7 +108,7 @@ public class Employee implements Serializable {
    * 最高学历
    */
   @ApiModelProperty(value = "最高学历")
-  private Object tiptopdegree;
+  private String tiptopdegree;
   /**
    * 所属专业
    */
@@ -123,12 +123,12 @@ public class Employee implements Serializable {
    * 入职日期
    */
   @ApiModelProperty(value = "入职日期")
-  private LocalDate begindate;
+  private Date begindate;
   /**
    * 在职状态
    */
   @ApiModelProperty(value = "在职状态")
-  private Object workstate;
+  private String workstate;
   /**
    * 工号
    */
@@ -143,22 +143,22 @@ public class Employee implements Serializable {
    * 转正日期
    */
   @ApiModelProperty(value = "转正日期")
-  private LocalDate conversiontime;
+  private Date conversiontime;
   /**
    * 离职日期
    */
   @ApiModelProperty(value = "离职日期")
-  private LocalDate notworkdate;
+  private Date notworkdate;
   /**
    * 合同起始日期
    */
   @ApiModelProperty(value = "合同起始日期")
-  private LocalDate begincontract;
+  private Date begincontract;
   /**
    * 合同终止日期
    */
   @ApiModelProperty(value = "合同终止日期")
-  private LocalDate endcontract;
+  private Date endcontract;
   /**
    * 工龄
    */

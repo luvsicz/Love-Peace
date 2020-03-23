@@ -43,4 +43,8 @@ public class Department implements Serializable {
     private Boolean isparent;
 
     private static final long serialVersionUID = 1L;
+    public Department(String name) {
+
+        this.name = name;
+    }
 }

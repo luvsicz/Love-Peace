@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,7 +36,7 @@ public class Employeetrain implements Serializable {
     * 培训日期
     */
     @ApiModelProperty(value="培训日期")
-    private LocalDate traindate;
+    private Date traindate;
 
     /**
     * 培训内容

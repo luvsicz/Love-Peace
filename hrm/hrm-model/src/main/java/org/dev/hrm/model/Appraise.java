@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class Appraise implements Serializable {
     * 考评日期
     */
     @ApiModelProperty(value="考评日期")
-    private LocalDate appdate;
+    private Date appdate;
 
     /**
     * 考评结果

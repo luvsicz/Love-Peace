@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class Msgcontent implements Serializable {
     private String message;
 
     @ApiModelProperty(value="")
-    private LocalDateTime createdate;
+    private Date createdate;
 
     private static final long serialVersionUID = 1L;
 }

@@ -3,7 +3,7 @@ package org.dev.hrm.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,7 +35,7 @@ public class Employeeec implements Serializable {
     * 奖罚日期
     */
     @ApiModelProperty(value="奖罚日期")
-    private LocalDate ecdate;
+    private Date ecdate;
 
     /**
     * 奖罚原因

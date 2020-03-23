@@ -23,6 +23,7 @@
     <commons-lang3.version>3.9</commons-lang3.version>
     <mybatis.version>2.1.1</mybatis.version>
     <jackson.version>2.9.10</jackson.version>
+    <poi-version>4.1.1</poi-version>
 
   </properties>
 

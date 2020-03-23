@@ -4,38 +4,43 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @ClassName Position.java
  * @author 冷嘉贤
  * @version 1.0.0
+ * @ClassName Position.java
  * @Description TODO
  * @createTime 2020年03月18日 15:49:00
  */
-@ApiModel(value="org-dev-hrm-model-Position")
+@ApiModel(value = "org-dev-hrm-model-Position")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Position implements Serializable {
-    @ApiModelProperty(value="")
-    private Integer id;
 
-    /**
-    * 职位
-    */
-    @ApiModelProperty(value="职位")
-    private String name;
+  private static final long serialVersionUID = 1L;
+  @ApiModelProperty(value = "")
+  private Integer id;
+  /**
+   * 职位
+   */
+  @ApiModelProperty(value = "职位")
+  private String name;
 
-    @ApiModelProperty(value="")
-    private LocalDateTime createdate;
+  @ApiModelProperty(value = "")
+  private Date createdate;
 
-    @ApiModelProperty(value="")
-    private Boolean enabled;
+  @ApiModelProperty(value = "")
+  private Boolean enabled;
 
-    private static final long serialVersionUID = 1L;
+  public Position(String name) {
+
+    this.name = name;
+  }
 }

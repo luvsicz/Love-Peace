@@ -40,5 +40,9 @@ public interface EmployeeMapper {
   int updateByPrimaryKey(Employee record);
 
   List<Employee> getEmployeeByPage(@Param("page") Integer page, @Param("size") Integer size,
-      @Param("keyword") String keyword);
+      @Param("emp") Employee emp);
+
+  int deleteByPrimaryKeys(@Param("ids") String[] ids);
+
+  long getTotal(@Param("emp") Employee emp);
 }

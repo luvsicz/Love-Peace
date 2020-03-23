@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +30,7 @@ public class Oplog implements Serializable {
     * 添加日期
     */
     @ApiModelProperty(value="添加日期")
-    private LocalDate adddate;
+    private Date adddate;
 
     /**
     * 操作内容

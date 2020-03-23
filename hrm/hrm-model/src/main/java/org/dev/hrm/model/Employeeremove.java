@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,7 +45,7 @@ public class Employeeremove implements Serializable {
     * 调动日期
     */
     @ApiModelProperty(value="调动日期")
-    private LocalDate removedate;
+    private Date removedate;
 
     /**
     * 调动原因
