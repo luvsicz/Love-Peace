@@ -90,11 +90,11 @@ public class EmpBasicController {
    * @return
    */
   @PutMapping
-  public RespBean insertEmployee(@RequestBody Employee employee) {
-    if (empService.insert(employee) == 1) {
-      return RespBean.ok("添加成功");
+  public RespBean updateEmployee(@RequestBody Employee employee) {
+    if (empService.updateByPrimaryKeySelective(employee) == 1) {
+      return RespBean.ok("更新成功");
     } else {
-      return RespBean.error("添加失败");
+      return RespBean.error("更新失败");
     }
   }
 

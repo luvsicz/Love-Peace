@@ -7,7 +7,7 @@
       <div style="display: flex;align-items: center">
         <el-dropdown @command="handleCommand">
   <span class="el-dropdown-link" style="display: flex;align-items: center">
-    <font color="white"> {{user.name}}</font>
+    <span style="color: white; "> {{user.name}}</span>
     <img :src="user.userface" style="width: 40px;height: 40px;border-radius: 40px" alt="用户头像"/>
 
   </span>
@@ -43,10 +43,10 @@
       </el-aside>
       <el-main>
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <div class="homeWelcome" v-if="this.$router.currentRoute.path=='/home'">
+        <div class="homeWelcome" v-if="this.$router.currentRoute.path==='/home'">
           欢迎来到HRM系统！
         </div>
         <router-view>

@@ -4,7 +4,12 @@ import VueRouter from 'vue-router'
 import Login from '@/components/Login'
 import Home from "@/components/Home";
 
-Vue.use(VueRouter)
+//Navigating to current location ("XXXXXX") is not allowed
+Vue.use(VueRouter);
+const routerPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error => error)
+};
 
 export default new VueRouter(
   {
@@ -21,7 +26,7 @@ export default new VueRouter(
         component: Home,
         hidden: true
       }, {
-        //其他请求就跳转到Home页面
+        //其他未注册到路由的请求就跳转到Home页面
         path: '*',
         redirect: '/home'
       }

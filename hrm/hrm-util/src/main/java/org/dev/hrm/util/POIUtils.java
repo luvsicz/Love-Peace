@@ -176,7 +176,7 @@ public class POIUtils {
       HSSFRow row = sheet.createRow(i + 1);
       row.createCell(0).setCellValue(emp.getId());
       row.createCell(1).setCellValue(emp.getName());
-      row.createCell(2).setCellValue(emp.getWorkId());
+      row.createCell(2).setCellValue(emp.getWorkID());
       row.createCell(3).setCellValue(emp.getGender());
       HSSFCell cell4 = row.createCell(4);
       cell4.setCellStyle(dateCellStyle);
@@ -191,7 +191,7 @@ public class POIUtils {
       row.createCell(12).setCellValue(emp.getDepartment().getName());
       row.createCell(13).setCellValue(emp.getJobLevel().getName());
       row.createCell(14).setCellValue(emp.getPosition().getName());
-      row.createCell(15).setCellValue(emp.getEndconTract());
+      row.createCell(15).setCellValue(emp.getEndContract());
       row.createCell(16).setCellValue(emp.getTiptopDegree());
       row.createCell(17).setCellValue(emp.getSpecialty());
       row.createCell(18).setCellValue(emp.getSchool());
@@ -203,10 +203,10 @@ public class POIUtils {
       row.createCell(22).setCellValue(emp.getContractTerm());
       HSSFCell cell23 = row.createCell(23);
       cell23.setCellStyle(dateCellStyle);
-      cell23.setCellValue(emp.getBeginconTract());
+      cell23.setCellValue(emp.getBeginContract());
       HSSFCell cell24 = row.createCell(24);
       cell24.setCellStyle(dateCellStyle);
-      cell24.setCellValue(emp.getEndconTract());
+      cell24.setCellValue(emp.getEndContract());
       HSSFCell cell25 = row.createCell(25);
       cell25.setCellStyle(dateCellStyle);
       cell25.setCellValue(emp.getConversionTime());
@@ -266,7 +266,7 @@ public class POIUtils {
                     employee.setName(cellValue);
                     break;
                   case 2:
-                    employee.setWorkId(cellValue);
+                    employee.setWorkID(cellValue);
                     break;
                   case 3:
                     employee.setGender(cellValue);
@@ -337,10 +337,10 @@ public class POIUtils {
                     employee.setBeginDate(cell.getDateCellValue());
                     break;
                   case 23:
-                    employee.setBeginconTract(cell.getDateCellValue());
+                    employee.setBeginContract(cell.getDateCellValue());
                     break;
                   case 24:
-                    employee.setEndconTract(cell.getDateCellValue());
+                    employee.setEndContract(cell.getDateCellValue());
                     break;
                   case 22:
                     employee.setContractTerm(cell.getNumericCellValue());

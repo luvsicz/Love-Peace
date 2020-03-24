@@ -26,12 +26,12 @@
     <result column="school" jdbcType="VARCHAR" property="school"/>
     <result column="beginDate" jdbcType="DATE" property="beginDate"/>
     <result column="workState" jdbcType="OTHER" property="workState"/>
-    <result column="workID" jdbcType="CHAR" property="workId"/>
+    <result column="workID" jdbcType="CHAR" property="workID"/>
     <result column="contractTerm" jdbcType="DOUBLE" property="contractTerm"/>
     <result column="conversionTime" jdbcType="DATE" property="conversionTime"/>
     <result column="notWorkDate" jdbcType="DATE" property="notworkDate"/>
-    <result column="beginContract" jdbcType="DATE" property="beginconTract"/>
-    <result column="endContract" jdbcType="DATE" property="endconTract"/>
+    <result column="beginContract" jdbcType="DATE" property="beginContract"/>
+    <result column="endContract" jdbcType="DATE" property="endContract"/>
     <result column="workAge" jdbcType="INTEGER" property="workAge"/>
   </resultMap>
   <resultMap id="AllEmployeeInfo" type="org.dev.hrm.model.Employee" extends="BaseResultMap">
@@ -157,9 +157,9 @@
     #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER},
     #{jobLevelId,jdbcType=INTEGER}, #{posId,jdbcType=INTEGER}, #{engageForm,jdbcType=VARCHAR},
     #{tiptopDegree,jdbcType=OTHER}, #{specialty,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR},
-    #{beginDate,jdbcType=DATE}, #{workState,jdbcType=OTHER}, #{workId,jdbcType=CHAR},
+    #{beginDate,jdbcType=DATE}, #{workState,jdbcType=OTHER}, #{workID,jdbcType=CHAR},
     #{contractTerm,jdbcType=DOUBLE}, #{conversionTime,jdbcType=DATE}, #{notworkDate,jdbcType=DATE},
-    #{beginconTract,jdbcType=DATE}, #{endconTract,jdbcType=DATE}, #{workAge,jdbcType=INTEGER}
+    #{beginContract,jdbcType=DATE}, #{endContract,jdbcType=DATE}, #{workAge,jdbcType=INTEGER}
     )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id"
@@ -227,7 +227,7 @@
       <if test="workState != null">
         workState,
       </if>
-      <if test="workId != null">
+      <if test="workID != null">
         workID,
       </if>
       <if test="contractTerm != null">
@@ -239,10 +239,10 @@
       <if test="notworkDate != null">
         notWorkDate,
       </if>
-      <if test="beginconTract != null">
+      <if test="beginContract != null">
         beginContract,
       </if>
-      <if test="endconTract != null">
+      <if test="endContract != null">
         endContract,
       </if>
       <if test="workAge != null">
@@ -310,8 +310,8 @@
       <if test="workState != null">
         #{workState,jdbcType=OTHER},
       </if>
-      <if test="workId != null">
-        #{workId,jdbcType=CHAR},
+      <if test="workID != null">
+        #{workID,jdbcType=CHAR},
       </if>
       <if test="contractTerm != null">
         #{contractTerm,jdbcType=DOUBLE},
@@ -322,11 +322,11 @@
       <if test="notworkDate != null">
         #{notworkDate,jdbcType=DATE},
       </if>
-      <if test="beginconTract != null">
-        #{beginconTract,jdbcType=DATE},
+      <if test="beginContract != null">
+        #{beginContract,jdbcType=DATE},
       </if>
-      <if test="endconTract != null">
-        #{endconTract,jdbcType=DATE},
+      <if test="endContract != null">
+        #{endContract,jdbcType=DATE},
       </if>
       <if test="workAge != null">
         #{workAge,jdbcType=INTEGER},
@@ -397,8 +397,8 @@
       <if test="workState != null">
         workState = #{workState,jdbcType=OTHER},
       </if>
-      <if test="workId != null">
-        workID = #{workId,jdbcType=CHAR},
+      <if test="workID != null">
+        workID = #{workID,jdbcType=CHAR},
       </if>
       <if test="contractTerm != null">
         contractTerm = #{contractTerm,jdbcType=DOUBLE},
@@ -409,11 +409,11 @@
       <if test="notworkDate != null">
         notWorkDate = #{notworkDate,jdbcType=DATE},
       </if>
-      <if test="beginconTract != null">
-        beginContract = #{beginconTract,jdbcType=DATE},
+      <if test="beginContract != null">
+        beginContract = #{beginContract,jdbcType=DATE},
       </if>
-      <if test="endconTract != null">
-        endContract = #{endconTract,jdbcType=DATE},
+      <if test="endContract != null">
+        endContract = #{endContract,jdbcType=DATE},
       </if>
       <if test="workAge != null">
         workAge = #{workAge,jdbcType=INTEGER},
@@ -444,12 +444,12 @@
     school = #{school,jdbcType=VARCHAR},
     beginDate = #{beginDate,jdbcType=DATE},
     workState = #{workState,jdbcType=OTHER},
-    workID = #{workId,jdbcType=CHAR},
+    workID = #{workID,jdbcType=CHAR},
     contractTerm = #{contractTerm,jdbcType=DOUBLE},
     conversionTime = #{conversionTime,jdbcType=DATE},
     notWorkDate = #{notworkDate,jdbcType=DATE},
-    beginContract = #{beginconTract,jdbcType=DATE},
-    endContract = #{endconTract,jdbcType=DATE},
+    beginContract = #{beginContract,jdbcType=DATE},
+    endContract = #{endContract,jdbcType=DATE},
     workAge = #{workAge,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

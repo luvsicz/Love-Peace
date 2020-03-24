@@ -135,7 +135,7 @@ public class Employee implements Serializable {
    * 工号
    */
   @ApiModelProperty(value = "工号")
-  private String workId;
+  private String workID;
   /**
    * 合同期限
    */
@@ -158,13 +158,13 @@ public class Employee implements Serializable {
    */
   @ApiModelProperty(value = "合同起始日期")
  @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date beginconTract;
+    private Date beginContract;
   /**
    * 合同终止日期
    */
   @ApiModelProperty(value = "合同终止日期")
  @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date endconTract;
+    private Date endContract;
   /**
    * 工龄
    */
