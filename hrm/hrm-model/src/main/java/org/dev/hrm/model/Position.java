@@ -1,5 +1,6 @@
 package org.dev.hrm.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -32,7 +33,8 @@ public class Position implements Serializable {
   private String name;
 
   @ApiModelProperty(value = "")
-  private Date createdate;
+ @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    private Date createdate;
 
   @ApiModelProperty(value = "")
   private Boolean enabled;

@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.dev.hrm.mapper.PositionMapper">
-  <resultMap id="BaseResultMap" type="org.dev.hrm.model.Position">
+<mapper namespace="org.dev.hrm.mapper.JobLevelMapper">
+  <resultMap id="BaseResultMap" type="org.dev.hrm.model.JobLevel">
     <!--@mbg.generated-->
-    <!--@Table position-->
+    <!--@Table joblevel-->
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="titleLevel" jdbcType="OTHER" property="titlelevel"/>
     <result column="createDate" jdbcType="TIMESTAMP" property="createdate"/>
     <result column="enabled" jdbcType="BOOLEAN" property="enabled"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, `name`, createDate, enabled
+    id, `name`, titleLevel, createDate, enabled
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select
     <include refid="Base_Column_List"/>
-    from position
+    from joblevel
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from position
+    delete from joblevel
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Position"
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.JobLevel"
     useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into position (`name`, createDate, enabled
-    )
-    values (#{name,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BOOLEAN}
-    )
+    insert into joblevel (`name`, titleLevel, createDate,
+    enabled)
+    values (#{name,jdbcType=VARCHAR}, #{titlelevel,jdbcType=OTHER},
+    #{createdate,jdbcType=TIMESTAMP},
+    #{enabled,jdbcType=BOOLEAN})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id"
-    parameterType="org.dev.hrm.model.Position" useGeneratedKeys="true">
+    parameterType="org.dev.hrm.model.JobLevel" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into position
+    insert into joblevel
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
         `name`,
+      </if>
+      <if test="titlelevel != null">
+        titleLevel,
       </if>
       <if test="createdate != null">
         createDate,
@@ -53,6 +58,9 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="titlelevel != null">
+        #{titlelevel,jdbcType=OTHER},
+      </if>
       <if test="createdate != null">
         #{createdate,jdbcType=TIMESTAMP},
       </if>
@@ -61,12 +69,15 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Position">
+  <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.JobLevel">
     <!--@mbg.generated-->
-    update position
+    update joblevel
     <set>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="titlelevel != null">
+        titleLevel = #{titlelevel,jdbcType=OTHER},
       </if>
       <if test="createdate != null">
         createDate = #{createdate,jdbcType=TIMESTAMP},
@@ -77,17 +88,17 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.Position">
+  <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.JobLevel">
     <!--@mbg.generated-->
-    update position
+    update joblevel
     set `name` = #{name,jdbcType=VARCHAR},
+    titleLevel = #{titlelevel,jdbcType=OTHER},
     createDate = #{createdate,jdbcType=TIMESTAMP},
     enabled = #{enabled,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getAllPositions" resultMap="BaseResultMap">
+  <select id="getAllJobLevels" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List"></include>
-    from position
+    <include refid="Base_Column_List"/>from joblevel
   </select>
 </mapper>

@@ -3,7 +3,7 @@ package org.dev.hrm.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,20 +11,19 @@ import lombok.NoArgsConstructor;
 /**
  * @author 冷嘉贤
  * @version 1.0.0
- * @ClassName Joblevel.java
+ * @ClassName JobLevel.java
  * @Description TODO
- * @createTime 2020年03月18日 15:49:00
+ * @createTime 2020年03月24日 15:56:00
  */
-@ApiModel(value = "org-dev-hrm-model-Joblevel")
+@ApiModel(value = "org-dev-hrm-model-JobLevel")
 @Data
-
 @AllArgsConstructor
 @NoArgsConstructor
-public class Joblevel implements Serializable {
+public class JobLevel implements Serializable {
 
-  private static final long serialVersionUID = 1L;
   @ApiModelProperty(value = "")
   private Integer id;
+
   /**
    * 职称名称
    */
@@ -32,16 +31,16 @@ public class Joblevel implements Serializable {
   private String name;
 
   @ApiModelProperty(value = "")
-  private String titlelevel;
+  private Object titlelevel;
 
   @ApiModelProperty(value = "")
-  private Date createdate;
+  private LocalDateTime createdate;
 
   @ApiModelProperty(value = "")
   private Boolean enabled;
-
-  public Joblevel(String name) {
+  public JobLevel(String name) {
 
     this.name = name;
   }
+  private static final long serialVersionUID = 1L;
 }

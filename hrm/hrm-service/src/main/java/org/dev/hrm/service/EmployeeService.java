@@ -1,5 +1,6 @@
 package org.dev.hrm.service;
 
+import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.dev.hrm.mapper.EmployeeMapper;
@@ -55,16 +56,21 @@ public class EmployeeService {
     return employeeMapper.updateByPrimaryKey(record);
   }
 
-  public RespPageBean getEmployeeByPage(Integer page, Integer size, Employee emp) {
+  public RespPageBean getEmployeeByPage(Integer page, Integer size, Employee emp,
+      Date[] beginDateScope) {
     if (page != null && size != null) {
       page = (page - 1) * size;
     }
-    List<Employee> data = employeeMapper.getEmployeeByPage(page, size, emp);
-    long total = employeeMapper.getTotal(emp);
+    List<Employee> data = employeeMapper.getEmployeeByPage(page, size, emp, beginDateScope);
+    long total = employeeMapper.getTotal(emp, beginDateScope);
     RespPageBean pageBean = new RespPageBean();
     pageBean.setTotal(total);
     pageBean.setData(data);
     return pageBean;
+  }
+
+  public Integer getMaxWorkerId() {
+    return employeeMapper.getMaxWorkerId();
   }
 }
 

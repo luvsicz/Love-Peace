@@ -39,7 +39,6 @@
     <module>hrm-service</module>
     <module>hrm-web</module>
     <module>hrm-util</module>
-<!--    <module>hrm-annotation</module>-->
   </modules>
 
 </project>

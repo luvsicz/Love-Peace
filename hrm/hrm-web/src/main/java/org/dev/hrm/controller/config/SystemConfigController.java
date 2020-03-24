@@ -22,5 +22,6 @@ public class SystemConfigController {
   @GetMapping("/menu")
   public List<Menu> getMenusByHrId() {
     return menuService.getMenusByHrId();
+
   }
 }

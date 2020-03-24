@@ -42,12 +42,22 @@ public class HrService implements UserDetailsService {
     return hrMapper.selectByPrimaryKey(id);
   }
 
-
+  /**
+   * 选择性更新
+   *
+   * @param record
+   * @return
+   */
   public int updateByPrimaryKeySelective(Hr record) {
     return hrMapper.updateByPrimaryKeySelective(record);
   }
 
-
+  /**
+   * 强制更新
+   *
+   * @param record
+   * @return
+   */
   public int updateByPrimaryKey(Hr record) {
     return hrMapper.updateByPrimaryKey(record);
   }

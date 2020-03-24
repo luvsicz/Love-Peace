@@ -1,5 +1,6 @@
 package org.dev.hrm.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -42,7 +43,8 @@ public class Employee implements Serializable {
    * 出生日期
    */
   @ApiModelProperty(value = "出生日期")
-  private Date birthday;
+ @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    private Date birthday;
   /**
    * 身份证号
    */
@@ -122,7 +124,8 @@ public class Employee implements Serializable {
    * 入职日期
    */
   @ApiModelProperty(value = "入职日期")
-  private Date beginDate;
+ @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    private Date beginDate;
   /**
    * 在职状态
    */
@@ -142,31 +145,35 @@ public class Employee implements Serializable {
    * 转正日期
    */
   @ApiModelProperty(value = "转正日期")
-  private Date conversionTime;
+ @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    private Date conversionTime;
   /**
    * 离职日期
    */
   @ApiModelProperty(value = "离职日期")
-  private Date notworkDate;
+ @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    private Date notworkDate;
   /**
    * 合同起始日期
    */
   @ApiModelProperty(value = "合同起始日期")
-  private Date beginconTract;
+ @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    private Date beginconTract;
   /**
    * 合同终止日期
    */
   @ApiModelProperty(value = "合同终止日期")
-  private Date endconTract;
+ @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    private Date endconTract;
   /**
    * 工龄
    */
   @ApiModelProperty(value = "工龄")
   private Integer workAge;
   private Nation nation;
-  private Politicsstatus politicsstatus;
+  private PoliticsStatus politicsstatus;
   private Department department;
-  private Joblevel jobLevel;
+  private JobLevel jobLevel;
   private Position position;
   private Salary salary;
 

@@ -39,7 +39,7 @@
       <id column="nid" property="id"/>
       <result column="nname" property="name"/>
     </association>
-    <association property="politicsstatus" javaType="org.dev.hrm.model.Politicsstatus">
+    <association property="politicsstatus" javaType="org.dev.hrm.model.PoliticsStatus">
       <id column="pid" property="id"/>
       <result column="pname" property="name"/>
     </association>
@@ -47,7 +47,7 @@
       <id column="did" property="id"/>
       <result column="dname" property="name"/>
     </association>
-    <association property="jobLevel" javaType="org.dev.hrm.model.Joblevel">
+    <association property="jobLevel" javaType="org.dev.hrm.model.JobLevel">
       <id column="jid" property="id"/>
       <result column="jname" property="name"/>
     </association>
@@ -484,9 +484,9 @@
     <if test="emp.posId !=null">
       and e.posId =#{emp.posId}
     </if>
-    <!--    <if test="beginDateScope !=null">-->
-    <!--      and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}-->
-    <!--    </if>-->
+    <if test="beginDateScope !=null">
+      and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
+    </if>
     <if test="page !=null and size!=null">
       limit #{page},#{size}
     </if>
@@ -524,10 +524,13 @@
           and e.posId =#{emp.posId}
         </if>
       </if>
-      <!--      <if test="beginDateScope !=null">-->
-      <!--        and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}-->
-      <!--      </if>-->
+      <if test="beginDateScope !=null">
+        and e.beginDate between #{beginDateScope[0]} and #{beginDateScope [1]}
+      </if>
     </where>
+  </select>
+  <select id="getMaxWorkerId" resultType="java.lang.Integer">
+    select max( workID) from employee
   </select>
 
 </mapper>

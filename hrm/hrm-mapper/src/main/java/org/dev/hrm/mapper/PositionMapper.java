@@ -1,5 +1,6 @@
 package org.dev.hrm.mapper;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.dev.hrm.model.Position;
 
@@ -8,11 +9,10 @@ import org.dev.hrm.model.Position;
  * @version 1.0.0
  * @ClassName PositionMapper.java
  * @Description TODO
- * @createTime 2020年03月18日 15:49:00
+ * @createTime 2020年03月24日 16:01:00
  */
 @Mapper
 public interface PositionMapper {
-
 
   int deleteByPrimaryKey(Integer id);
 
@@ -20,11 +20,11 @@ public interface PositionMapper {
 
   int insertSelective(Position record);
 
-
   Position selectByPrimaryKey(Integer id);
-
 
   int updateByPrimaryKeySelective(Position record);
 
   int updateByPrimaryKey(Position record);
+
+  List<Position> getAllPositions();
 }

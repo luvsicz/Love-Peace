@@ -1,8 +1,6 @@
 package org.dev.hrm.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.FilterChain;
 import javax.servlet.GenericFilter;
 import javax.servlet.ServletException;
@@ -10,7 +8,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.dev.hrm.model.RespBean;
 import org.springframework.stereotype.Component;
 
 /**
@@ -40,7 +37,7 @@ public class VerificationCodeFilter extends GenericFilter {
 //        out.close();
 //        return;
 //      } else {
-        filterChain.doFilter(req, resp);
+    filterChain.doFilter(req, resp);
 //      }
 //    } else {
 //      filterChain.doFilter(req, resp);

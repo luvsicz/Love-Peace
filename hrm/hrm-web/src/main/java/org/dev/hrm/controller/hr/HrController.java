@@ -1,5 +1,16 @@
 package org.dev.hrm.controller.hr;
 
+import java.util.Map;
+import org.dev.hrm.model.Hr;
+import org.dev.hrm.model.RespBean;
+import org.dev.hrm.service.HrService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,5 +24,48 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/hr/")
 public class HrController {
+
+  @Autowired
+  HrService hrService;
+
+  @GetMapping("/info")
+  public Hr getCurrentHr(Authentication authentication) {
+    return ((Hr) authentication.getPrincipal());
+  }
+
+  @PutMapping("/info")
+  public RespBean updateHr(@RequestBody Hr hr, Authentication authentication) {
+    if (hrService.updateByPrimaryKeySelective(hr) == 1) {
+      SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(hr, authentication.getCredentials(), authentication.getAuthorities()));
+      return RespBean.ok("更新成功!");
+    }
+    return RespBean.error("更新失败!");
+  }
+
+  @PutMapping("/password")
+  public RespBean updateHrPasswd(@RequestBody Map<String, Object> info) {
+    String oldpass = (String) info.get("oldpass");
+    String pass = (String) info.get("pass");
+    Integer hrid = (Integer) info.get("hrid");
+    if (hrService.updateHrPassById(oldpass, pass, hrid)) {
+      return RespBean.ok("更新成功!");
+    }
+    return RespBean.error("更新失败!");
+  }
+
+ /* @PostMapping("/userface")
+  public RespBean updateHrUserface(MultipartFile file, Integer id,Authentication authentication) {
+    String fileId = FastDFSUtils.upload(file);
+    String url = nginxHost + fileId;
+    if (hrService.updateUserface(url, id) == 1) {
+      //更新当前hr的信息
+      Hr hr = (Hr) authentication.getPrincipal();
+      hr.setUserface(url);
+      SecurityContextHolder
+          .getContext().setAuthentication(new UsernamePasswordAuthenticationToken(hr, authentication.getCredentials(), authentication.getAuthorities()));
+      return RespBean.ok("更新成功!", url);
+    }
+    return RespBean.error("更新失败!");
+  }*/
 
 }

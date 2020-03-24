@@ -1,5 +1,6 @@
 package org.dev.hrm.mapper;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.dev.hrm.model.Nation;
 
@@ -27,4 +28,6 @@ public interface NationMapper {
   int updateByPrimaryKeySelective(Nation record);
 
   int updateByPrimaryKey(Nation record);
+
+  List<Nation> selectAllNations();
 }

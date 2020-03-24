@@ -17,9 +17,9 @@ import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.dev.hrm.model.Department;
 import org.dev.hrm.model.Employee;
-import org.dev.hrm.model.Joblevel;
+import org.dev.hrm.model.JobLevel;
 import org.dev.hrm.model.Nation;
-import org.dev.hrm.model.Politicsstatus;
+import org.dev.hrm.model.PoliticsStatus;
 import org.dev.hrm.model.Position;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -229,8 +229,8 @@ public class POIUtils {
    * Excel 解析成 员工数据集合
    */
   public static List<Employee> excel2Employee(MultipartFile file, List<Nation> allNations,
-      List<Politicsstatus> allPoliticsstatus, List<Department> allDepartments,
-      List<Position> allPositions, List<Joblevel> allJobLevels) {
+      List<PoliticsStatus> allPoliticsstatus, List<Department> allDepartments,
+      List<Position> allPositions, List<JobLevel> allJobLevels) {
     List<Employee> list = new ArrayList<>();
     Employee employee;
     try {
@@ -286,7 +286,7 @@ public class POIUtils {
                     break;
                   case 9:
                     int politicstatusIndex = allPoliticsstatus
-                        .indexOf(new Politicsstatus(cellValue));
+                        .indexOf(new PoliticsStatus(cellValue));
                     employee.setPoliticId(allPoliticsstatus.get(politicstatusIndex).getId());
                     break;
                   case 10:
@@ -300,7 +300,7 @@ public class POIUtils {
                     employee.setDepartmentId(allDepartments.get(departmentIndex).getId());
                     break;
                   case 13:
-                    int jobLevelIndex = allJobLevels.indexOf(new Joblevel(cellValue));
+                    int jobLevelIndex = allJobLevels.indexOf(new JobLevel(cellValue));
                     employee.setJobLevelId(allJobLevels.get(jobLevelIndex).getId());
                     break;
                   case 14:

@@ -1,5 +1,6 @@
 package org.dev.hrm.mapper;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.dev.hrm.model.Department;
 
@@ -24,4 +25,6 @@ public interface DepartmentMapper {
   int updateByPrimaryKeySelective(Department record);
 
   int updateByPrimaryKey(Department record);
+
+  List<Department> getAllDepartments();
 }

@@ -40,6 +40,7 @@ class HrmServerApplicationTests {
     System.out.println(new BCryptPasswordEncoder().encode("123"));
   }
 
+
   @Test
   @DisplayName("Employee查询测试")
   void queryEmployee() {

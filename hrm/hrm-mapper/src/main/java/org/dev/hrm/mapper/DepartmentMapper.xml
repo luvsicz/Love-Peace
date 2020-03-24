@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.dev.hrm.mapper.DepartmentMapper">
   <resultMap id="BaseResultMap" type="org.dev.hrm.model.Department">
     <!--@mbg.generated-->
     <!--@Table department-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="parentId" jdbcType="INTEGER" property="parentId" />
-    <result column="depPath" jdbcType="VARCHAR" property="depPath" />
-    <result column="enabled" jdbcType="BOOLEAN" property="enabled" />
-    <result column="isParent" jdbcType="BOOLEAN" property="isParent" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="parentId" jdbcType="INTEGER" property="parentId"/>
+    <result column="depPath" jdbcType="VARCHAR" property="depPath"/>
+    <result column="enabled" jdbcType="BOOLEAN" property="enabled"/>
+    <result column="isParent" jdbcType="BOOLEAN" property="isParent"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -17,8 +18,8 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from department
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -27,14 +28,16 @@
     delete from department
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Department" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Department"
+    useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into department (`name`, parentId, depPath, 
-      enabled, isParent)
-    values (#{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{depPath,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=BOOLEAN}, #{isParent,jdbcType=BOOLEAN})
+    insert into department (`name`, parentId, depPath,
+    enabled, isParent)
+    values (#{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{depPath,jdbcType=VARCHAR},
+    #{enabled,jdbcType=BOOLEAN}, #{isParent,jdbcType=BOOLEAN})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Department" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.Department" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into department
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -98,10 +101,15 @@
     <!--@mbg.generated-->
     update department
     set `name` = #{name,jdbcType=VARCHAR},
-      parentId = #{parentId,jdbcType=INTEGER},
-      depPath = #{depPath,jdbcType=VARCHAR},
-      enabled = #{enabled,jdbcType=BOOLEAN},
-      isParent = #{isParent,jdbcType=BOOLEAN}
+    parentId = #{parentId,jdbcType=INTEGER},
+    depPath = #{depPath,jdbcType=VARCHAR},
+    enabled = #{enabled,jdbcType=BOOLEAN},
+    isParent = #{isParent,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getAllDepartments" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from department
+  </select>
 </mapper>
