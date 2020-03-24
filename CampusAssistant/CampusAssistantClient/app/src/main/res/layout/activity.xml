@@ -44,8 +44,7 @@ android:src="@mipmap/ic_profile"
             android:id="@+id/container_fragment"
             layout="@layout/container_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>

@@ -2,11 +2,14 @@ package com.rechar.campusassistant.app;
 
 
 public class AppContext {
-    public static final String HOST = "http://192.168.157.1";
+    static final  String  ip ="liurechar.utools.club";
+    public static final String HOST = "https://"+ip;
+    //public static final String HOST = "http://192.168.157.1";
 //    public static final String HOST = "http://192.168.10.101";
 //    public static final String HOST = "http://172.26.92.1";
     public static final String WEBPROJECTNAME = "/MSCMS";
-    public static final String URL_GETNEWS = HOST +WEBPROJECTNAME+ "/getnews.action";
+    public static final String URL_GETNEWS = HOST +WEBPROJECTNAME+ "/News" +
+            "Servlet";
     public static final String URL_GETNEXTNEWS = HOST+WEBPROJECTNAME+"/getnextnews.action";
     public static final String URL_LOGIN = HOST+WEBPROJECTNAME+"/applogin.action";
     public static final String URL_REGISTER = HOST+WEBPROJECTNAME+"/appregister.action";

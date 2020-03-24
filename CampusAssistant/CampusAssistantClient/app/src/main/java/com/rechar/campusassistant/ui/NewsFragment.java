@@ -24,7 +24,6 @@ import java.util.ArrayList;
  * @date on:2020/1/15 13:55
  */
 public class NewsFragment extends Fragment {
-
     private static final String TAG="NewsFragment";
     PagerSlidingTabStrip tabs;
    ViewPager pager;
@@ -45,7 +44,7 @@ public class NewsFragment extends Fragment {
             bundle.putString("title", s);
             //设置各类型新闻对应的Fragment
             Log.e(TAG, "onCreateView: "+ s);
-            fragments.add(PlaceholderFragment.getInstance(bundle));
+            fragments.add(CapWeb.getInstance(bundle));
         }
         //设置ViewPager
         pager.setAdapter(new SectionsPagerAdapter(getActivity().getSupportFragmentManager(), titles, fragments));

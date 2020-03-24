@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 
 
 import com.rechar.campusassistant.ui.ActivitysFragment;
+import com.rechar.campusassistant.ui.CapWeb;
 import com.rechar.campusassistant.ui.GuideFragment;
 import com.rechar.campusassistant.ui.NewsFragment;
 import com.rechar.campusassistant.widget.CanaroTextView;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity{
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(null);
         }
+
         root = findViewById(R.id.root);
         container_fragment = findViewById(R.id.container_fragment);
         /**
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity{
         LinearLayout settings = guillotineMenu.findViewById(R.id.settings_group);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.container_fragment, new NewsFragment());
+        transaction.replace(R.id.container_fragment, new CapWeb());
         transaction.commit();
         root.addView(guillotineMenu);
 
@@ -79,11 +82,10 @@ public class MainActivity extends AppCompatActivity{
                 title.setText(getString(R.string.news));
                FragmentManager managerProfile = getSupportFragmentManager();
                 FragmentTransaction transactionProfile = managerProfile.beginTransaction();
-              transactionProfile.replace(R.id.container_fragment, new NewsFragment());
+              transactionProfile.replace(R.id.container_fragment, new CapWeb());
               transactionProfile.commit();
         });
         feed.setOnClickListener((v)-> {
-
                 animation.close();
                 title.setText(getString(R.string.guide));
                 FragmentManager managerFeed = getSupportFragmentManager();
@@ -150,6 +152,12 @@ public class MainActivity extends AppCompatActivity{
         Log.e(TAG, "onDestroy: " );
     }
 
-
-
+  /*public interface  KeyEvent
+    {
+        boolean dispatchKeyEvent(KeyEvent event)
+        {
+            return super.dispatchKeyEvent(event);
+        }
+    }
+*/
 }
