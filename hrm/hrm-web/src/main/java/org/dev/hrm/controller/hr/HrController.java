@@ -36,7 +36,10 @@ public class HrController {
   @PutMapping("/info")
   public RespBean updateHr(@RequestBody Hr hr, Authentication authentication) {
     if (hrService.updateByPrimaryKeySelective(hr) == 1) {
-      SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(hr, authentication.getCredentials(), authentication.getAuthorities()));
+      //如果更新成功则把参数hr更新到Authentication
+      SecurityContextHolder.getContext().setAuthentication(
+          new UsernamePasswordAuthenticationToken(hr, authentication.getCredentials(),
+              authentication.getAuthorities()));
       return RespBean.ok("更新成功!");
     }
     return RespBean.error("更新失败!");

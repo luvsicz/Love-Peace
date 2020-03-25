@@ -1,5 +1,6 @@
 package org.dev.hrm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -72,6 +73,8 @@ public class Hr implements UserDetails {
   private List<Role> roles;
 
   @Override
+  @JsonIgnore
+  //Type definition error: [simple type, class org.springframework.security.core.GrantedAuthority];不错
   public Collection<? extends GrantedAuthority> getAuthorities() {
     List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
     for (Role role : roles) {

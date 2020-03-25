@@ -2,7 +2,7 @@ package org.dev.hrm.controller;
 
 import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.RespBean;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-  @PostMapping("/login")
+  @GetMapping("/login")
   @WebLogger
   public RespBean login() {
     return RespBean.ok("登陆成功");
   }
+
+
 
 }

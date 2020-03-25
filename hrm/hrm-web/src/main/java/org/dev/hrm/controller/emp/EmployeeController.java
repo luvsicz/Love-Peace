@@ -31,13 +31,13 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author 冷嘉贤
  * @version 1.0.0
- * @ClassName EmpBasicController.java
+ * @ClassName EmployeeController.java
  * @Description TODO
  * @createTime 2020年03月22日 17:35:00
  */
 @RestController
 @RequestMapping("/employee/")
-public class EmpBasicController {
+public class EmployeeController {
 
   @Autowired
   EmployeeService empService;
