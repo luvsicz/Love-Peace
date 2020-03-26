@@ -51,68 +51,6 @@
       </collection>
     </collection>
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <!--@mbg.generated-->
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="("
-                    separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <!--@mbg.generated-->
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="("
-                    separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, url, `path`, component, `name`, iconCls, keepAlive, requireAuth, parentId, enabled
@@ -253,16 +191,51 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getAllMenus" resultMap="MenuWithChildren">
-    select m1.`id` as id1,m1.`name` as name1,m2.`id` as id2,m2.`name` as name2,m3.`id` as id3,m3.`name` as name3 from menu m1,menu m2,menu m3 where m1.`id`=m2.`parentId` and m2.`id`=m3.`parentId` and m3.`enabled`=true order by m1.`id`,m2.`id`,m3.`id`
+    select m1.`id`   as id1,
+           m1.`name` as name1,
+           m2.`id`   as id2,
+           m2.`name` as name2,
+           m3.`id`   as id3,
+           m3.`name` as name3
+    from menu m1,
+         menu m2,
+         menu m3
+    where m1.`id` = m2.`parentId`
+      and m2.`id` = m3.`parentId`
+      and m3.`enabled` = true
+    order by m1.`id`, m2.`id`, m3.`id`
   </select>
   <select id="getAllMenusWithRole" resultMap="MenuWithRole">
-    select m.*,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnameZh from menu m,menu_role mr,role r where m.`id`=mr.`mid` and mr.`rid`=r.`id` order by m.`id`
+    select m.*, r.`id` as rid, r.`name` as rname, r.`nameZh` as rnameZh
+    from menu m,
+         menu_role mr,
+         role r
+    where m.`id` = mr.`mid`
+      and mr.`rid` = r.`id`
+    order by m.`id`
   </select>
   <select id="getMenusByHrId" resultMap="Menus2">
-    select distinct m1.*,m2.`id` as id2,m2.`component` as component2,m2.`enabled` as
-    enabled2,m2.`iconCls` as iconCls2,m2.`keepAlive` as keepAlive2,m2.`name` as name2,m2.`parentId`
-    as parentId2,m2.`requireAuth` as requireAuth2,m2.`path` as path2 from menu m1,menu m2,hr_role
-    hrr,menu_role mr where m1.`id`=m2.`parentId` and hrr.`hrid`=#{hrId,jdbcType=INTEGER} and
-    hrr.`rid`=mr.`rid` and mr.`mid`=m2.`id` and m2.`enabled`=true order by m1.`id`,m2.`id`
+    select distinct m1.*,
+                    m2.`id`          as id2,
+                    m2.`component`   as component2,
+                    m2.`enabled`     as
+                                        enabled2,
+                    m2.`iconCls`     as iconCls2,
+                    m2.`keepAlive`   as keepAlive2,
+                    m2.`name`        as name2,
+                    m2.`parentId`
+                                     as parentId2,
+                    m2.`requireAuth` as requireAuth2,
+                    m2.`path`        as path2
+    from menu m1,
+         menu m2,
+         hr_role hrr,
+         menu_role mr
+    where m1.`id` = m2.`parentId`
+      and hrr.`hrid` = #{hrId,jdbcType=INTEGER}
+      and hrr.`rid` = mr.`rid`
+      and mr.`mid` = m2.`id`
+      and m2.`enabled` = true
+    order by m1.`id`, m2.`id`
   </select>
 </mapper>

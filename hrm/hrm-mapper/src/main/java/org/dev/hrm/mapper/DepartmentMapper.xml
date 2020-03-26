@@ -109,7 +109,7 @@
   </update>
   <select id="getAllDepartments" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List"></include>
+    <include refid="Base_Column_List"/>
     from department
   </select>
 </mapper>
