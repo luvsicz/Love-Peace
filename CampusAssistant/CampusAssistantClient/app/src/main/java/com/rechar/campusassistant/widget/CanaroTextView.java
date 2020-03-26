@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.rechar.campusassistant.App;
+import com.rechar.campusassistant.app.App;
 
 /**
  * Created by Dmytro Denysenko on 5/6/15.

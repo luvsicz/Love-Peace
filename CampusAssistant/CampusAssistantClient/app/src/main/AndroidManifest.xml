@@ -21,9 +21,7 @@
         </activity>
         <activity android:name=".ui.RegisterActivity"
                  android:theme="@style/Translucent" />
-        <activity android:name=".base.NewsDetailActivity"/>
         <activity android:name=".base.BaseActivity"/>
-        <activity android:name=".ui.ViewPicActivity"/>
         <!-- <activity android:name=".MainActivity"/>-->
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>

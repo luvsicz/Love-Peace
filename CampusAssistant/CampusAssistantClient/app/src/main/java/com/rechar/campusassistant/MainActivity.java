@@ -9,7 +9,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -20,26 +19,25 @@ import android.widget.LinearLayout;
 
 
 import com.rechar.campusassistant.ui.ActivitysFragment;
-import com.rechar.campusassistant.ui.CapWeb;
-import com.rechar.campusassistant.ui.GuideFragment;
 import com.rechar.campusassistant.ui.NewsFragment;
+import com.rechar.campusassistant.ui.GuideFragment;
 import com.rechar.campusassistant.widget.CanaroTextView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 
 
-
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity  {
 
     private static final long RIPPLE_DURATION = 250;
     private static final String TAG = "MainActivity";
-
     Toolbar toolbar;
     FrameLayout root;
     FrameLayout container_fragment;
     View contentHamburger;
     View contentNews;
-
     CanaroTextView title;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +65,9 @@ public class MainActivity extends AppCompatActivity{
         LinearLayout settings = guillotineMenu.findViewById(R.id.settings_group);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.container_fragment, new CapWeb());
+        transaction.replace(R.id.container_fragment, new NewsFragment());
         transaction.commit();
         root.addView(guillotineMenu);
-
         // 添加弹出的菜单
         //GuillotineBuilder的第一个参数为菜单的View,第二个参数为关闭菜单的View也就是菜单布局中的按钮,第三个参数为打开菜单的View也就是主页面中的按钮
         GuillotineAnimation animation = new GuillotineAnimation.GuillotineBuilder(guillotineMenu, guillotineMenu.findViewById(R.id.guillotine_hamburger), contentHamburger)
@@ -82,7 +79,7 @@ public class MainActivity extends AppCompatActivity{
                 title.setText(getString(R.string.news));
                FragmentManager managerProfile = getSupportFragmentManager();
                 FragmentTransaction transactionProfile = managerProfile.beginTransaction();
-              transactionProfile.replace(R.id.container_fragment, new CapWeb());
+              transactionProfile.replace(R.id.container_fragment, new NewsFragment());
               transactionProfile.commit();
         });
         feed.setOnClickListener((v)-> {
@@ -110,14 +107,12 @@ public class MainActivity extends AppCompatActivity{
                 FragmentTransaction transactionSettings = managerSettings.beginTransaction();
                 //   transactionSettings.replace(R.id.container_fragment,new () );
                 //    transactionSettings.commit();
-
         });
         animation.close();
     }
     @Override
     protected void onStart() {
         super.onStart();
-
         Log.e(TAG, "onStart: " );
     }
 
@@ -143,7 +138,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e(TAG, "onStop: " );
+        Log.e(TAG, "onStop: ");
     }
 
     @Override
@@ -152,12 +147,4 @@ public class MainActivity extends AppCompatActivity{
         Log.e(TAG, "onDestroy: " );
     }
 
-  /*public interface  KeyEvent
-    {
-        boolean dispatchKeyEvent(KeyEvent event)
-        {
-            return super.dispatchKeyEvent(event);
-        }
-    }
-*/
 }

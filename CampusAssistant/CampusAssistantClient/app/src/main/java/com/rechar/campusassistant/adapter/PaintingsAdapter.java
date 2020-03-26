@@ -40,7 +40,6 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
     @Override
     protected void onBindHolder(ViewHolder holder, int position) {
         final Painting item = getItem(position);
-
         holder.image.setTag(R.id.list_item_image, item);
         GlideHelper.loadPaintingImage(holder.image, item);
         holder.title.setText(item.getTitle());
@@ -49,7 +48,6 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
     @Override
     public void onClick(View view) {
         final Painting item = (Painting) view.getTag(R.id.list_item_image);
-    //    final Fragment activity = ContextHelper.asActivity(view.getContext());
         ActivitysFragment activitysFragment= new ActivitysFragment();
        activitysFragment .openDetails(view, item);
     }
@@ -57,7 +55,6 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
     static class ViewHolder extends ItemsAdapter.ViewHolder {
         final ImageView image;
         final TextView title;
-
         ViewHolder(ViewGroup parent) {
             super(Views.inflate(parent, R.layout.list_item));
             image = Views.find(itemView, R.id.list_item_image);
