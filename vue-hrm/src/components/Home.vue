@@ -8,27 +8,27 @@
         <el-dropdown @command="handleCommand">
   <span class="el-dropdown-link" style="display: flex;align-items: center">
     <span style="color: white; "> {{user.name}}</span>
-    <img :src="user.userface" style="width: 40px;height: 40px;border-radius: 40px" alt="用户头像"/>
+    <img :src="user.userface" alt="用户头像" style="width: 40px;height: 40px;border-radius: 40px"/>
 
   </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="usercenter">用户中心</el-dropdown-item>
-            <el-dropdown-item command="settings">设置</el-dropdown-item>
+            <el-dropdown-item command="usercenter">个人中心</el-dropdown-item>
             <el-dropdown-item command="logout">注销</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
     </el-header>
     <el-container>
-      <el-aside>
+      <el-aside width="250px">
         <el-menu
-          default-active="1"
-          @select="handleMenu"
+          @select="handleMenu" active-text-color="#ffd04b"
           background-color="#545c64"
+          default-active="0"
+          router
           text-color="#fff"
-          active-text-color="#ffd04b">
-          <el-submenu :index="index+''" v-for="(route,index) in this.routes"
-                      v-if="!route.hidden" :key='route.id'>
+          unique-opened>
+          <el-submenu :index="index+''" :key='route.id'
+                      v-for="(route,index) in this.routes" v-if="!route.hidden&&route.enabled">
             <template slot="title">
               <i :class="route.iconCls"></i>
               <span>{{route.name}}</span>
@@ -63,7 +63,7 @@
     name: "Home"
     , data() {
       return {
-        user: JSON.parse(window.sessionStorage.getItem('user'))
+        user: JSON.parse(window.sessionStorage.getItem('user')),
       }
     }, methods: {
       handleCommand(command) {
@@ -76,8 +76,14 @@
             this.getRequest('/logout');
             //清除用户信息
             window.sessionStorage.removeItem('user')
+            window.sessionStorage.removeItem('politicsstatus')
+            window.sessionStorage.removeItem('nations')
+            window.sessionStorage.removeItem('deps')
+            window.sessionStorage.removeItem('joblevels')
             //跳转到首页
             this.$router.replace('/')
+            //清理路由
+            this.$store.commit('initMenu', []);
             //弹出消息 消息由后台输出
             // this.$message({
             //   type: 'success',
@@ -90,19 +96,15 @@
             });
           });
         } else if (command === 'usercenter') {
-
-        } else if (command === 'settings') {
+          this.$router.push('/userinfo');
 
         }
       },
       handleMenu(index, indexPath) {
         this.$router.push((index))
 
-      }, handleOpen(key, keyPath) {
-        console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
-        console.log(key, keyPath);
       }
     }, computed: {
       routes() {

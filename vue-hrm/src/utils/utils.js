@@ -24,7 +24,8 @@ export const formatRoutes = (routes) => {
       name,
       meta,
       iconCls,
-      children
+      children,
+      enabled
     } = router;
     if (children && children instanceof Array) {
       children = formatRoutes(children);
@@ -35,11 +36,13 @@ export const formatRoutes = (routes) => {
       iconCls: iconCls,
       meta: meta,
       children: children,
+      enabled: enabled,
       component(resolve) {
         if (component.startsWith("Home")) {
+          console.log(component)
           require(['../components/' + component + '.vue'], resolve);
-        } else if (component.startsWith("Emp")) {
-          require(['../components/emp/' + component + '.vue'], resolve);
+        } else if (component.startsWith("Dep")) {
+          require(['../components/dep/' + component + '.vue'], resolve);
         } else if (component.startsWith("Per")) {
           require(['../components/per/' + component + '.vue'], resolve);
         } else if (component.startsWith("Sal")) {

@@ -2,23 +2,23 @@
   <!-- 页面渲染的模板-->
   <div style="display:flex;justify-content:center">
     <el-card style="width: 400px;margin-top: 150px">
-      <div slot="header" class="clearfix">
+      <div class="clearfix" slot="header">
         <span>登录</span>
       </div>
       <table style="width: 80%">
         <tr>
           <td>
-            <el-input v-model="loginForm.username" placeholder="请输入用户名"></el-input>
+            <el-input placeholder="请输入用户名" v-model="loginForm.username"></el-input>
           </td>
         </tr>
         <tr>
           <td>
-            <el-input v-model="loginForm.password" type="password" placeholder="请输入密码"></el-input>
+            <el-input placeholder="请输入密码" type="password" v-model="loginForm.password"></el-input>
           </td>
         </tr>
         <tr>
           <td>
-            <el-button @click="submitLogin" type="primary" style="width: 250px">登录</el-button>
+            <el-button @click="submitLogin" style="width: 250px" type="primary">登录</el-button>
           </td>
         </tr>
       </table>
@@ -67,6 +67,8 @@
           //存储到localstorage
           window.localStorage.setItem('user', JSON.stringify(resp.obj))
           //window.localStorage.getItem('key')
+          //更新当前HR信息
+          this.$store.commit('INIT_CURRENTHR', resp.obj);
 
         })
       }
