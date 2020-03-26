@@ -8,25 +8,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @ClassName PoliticsStatus.java
  * @author 冷嘉贤
  * @version 1.0.0
+ * @ClassName PoliticsStatus.java
  * @Description TODO
  * @createTime 2020年03月24日 15:50:00
  */
-@ApiModel(value="org-dev-hrm-model-PoliticsStatus")
+@ApiModel(value = "org-dev-hrm-model-PoliticsStatus")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PoliticsStatus implements Serializable {
-    @ApiModelProperty(value="")
-    private Integer id;
 
-    @ApiModelProperty(value="")
-    private String name;
-    public PoliticsStatus(String name) {
+  private static final long serialVersionUID = 1L;
+  @ApiModelProperty(value = "")
+  private Integer id;
+  @ApiModelProperty(value = "")
+  private String name;
 
-        this.name = name;
-    }
-    private static final long serialVersionUID = 1L;
+  public PoliticsStatus(String name) {
+
+    this.name = name;
+  }
 }

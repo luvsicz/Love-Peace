@@ -2,28 +2,32 @@ package org.dev.hrm.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.dev.hrm.model.JobLevel;
 
 /**
- * @ClassName JobLevelMapper.java
  * @author 冷嘉贤
  * @version 1.0.0
+ * @ClassName JobLevelMapper.java
  * @Description TODO
  * @createTime 2020年03月24日 15:56:00
  */
 @Mapper
 public interface JobLevelMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(JobLevel record);
+  int deleteByPrimaryKey(Integer id);
 
-    int insertSelective(JobLevel record);
+  int insert(JobLevel record);
 
-    JobLevel selectByPrimaryKey(Integer id);
+  int insertSelective(JobLevel record);
 
-    int updateByPrimaryKeySelective(JobLevel record);
+  JobLevel selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKey(JobLevel record);
+  int updateByPrimaryKeySelective(JobLevel record);
 
-    List<JobLevel> getAllJobLevels();
+  int updateByPrimaryKey(JobLevel record);
+
+  List<JobLevel> getAllJobLevels();
+
+  Integer deleteByPrimaryKeys(@Param("ids") Integer[] ids);
 }

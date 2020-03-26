@@ -1,4 +1,4 @@
-package org.dev.hrm.controller.emp;
+package org.dev.hrm.controller.per;
 
 import java.util.Date;
 import java.util.List;
@@ -28,15 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author 冷嘉贤
- * @version 1.0.0
- * @ClassName EmployeeController.java
- * @Description TODO
- * @createTime 2020年03月22日 17:35:00
- */
 @RestController
-@RequestMapping("/employee/")
+@RequestMapping("/per/emp")
 public class EmployeeController {
 
   @Autowired
@@ -56,7 +49,7 @@ public class EmployeeController {
   @GetMapping("/")
   public RespBean getEmployeeInfo(@RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size, Employee employee, Date[] beginDateScope) {
-    return RespBean.ok("加载成功", empService.getEmployeeByPage(page, size, employee, beginDateScope));
+    return RespBean.ok("", empService.getEmployeeByPage(page, size, employee, beginDateScope));
   }
 
   /**

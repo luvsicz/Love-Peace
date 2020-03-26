@@ -1,5 +1,6 @@
 package org.dev.hrm.service;
 
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import org.dev.hrm.mapper.PositionMapper;
@@ -45,6 +46,16 @@ public class PositionService {
 
   public List<Position> getAllPositions() {
     return positionMapper.getAllPositions();
+  }
+
+  public Integer addPosition(Position position) {
+    position.setEnabled(true);
+    position.setCreateDate(new Date());
+    return positionMapper.insertSelective(position);
+  }
+
+  public Integer deleteByPrimaryKeys(Integer[] ids) {
+    return positionMapper.deletePositionsByIds(ids);
   }
 }
 

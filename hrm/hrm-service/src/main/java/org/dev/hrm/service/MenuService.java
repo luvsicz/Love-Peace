@@ -3,12 +3,14 @@ package org.dev.hrm.service;
 import java.util.List;
 import javax.annotation.Resource;
 import org.dev.hrm.mapper.MenuMapper;
+import org.dev.hrm.mapper.MenuRoleMapper;
 import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.Menu;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 冷嘉贤
@@ -22,8 +24,9 @@ import org.springframework.stereotype.Service;
 public class MenuService {
 
   @Resource
+  MenuRoleMapper menuRoleMapper;
+  @Resource
   private MenuMapper menuMapper;
-
 
   public int deleteByPrimaryKey(Integer id) {
     return menuMapper.deleteByPrimaryKey(id);
@@ -59,7 +62,8 @@ public class MenuService {
    *
    * @return 菜单和角色信息
    */
-  @Cacheable(key = "#root.method.name")
+//  @Cacheable(key = "#root.method.name")
+  @Cacheable
   public List<Menu> getAllMenusWithRole() {
     return menuMapper.getAllMenusWithRole();
   }
@@ -69,4 +73,22 @@ public class MenuService {
         ((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
   }
 
+  public List<Menu> getAllMenus() {
+
+    return menuMapper.getAllMenus();
+  }
+
+  public List<Integer> getMenuIdByRoleId(Integer rid) {
+    return menuMapper.getMenuIdByRoleId(rid);
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public boolean updateMenuRole(Integer rid, Integer[] mids) {
+    menuRoleMapper.deleteByRoleId(rid);
+    if (mids == null || mids.length == 0) {
+      return true;
+    }
+    Integer result = menuRoleMapper.insertRecord(rid, mids);
+    return result == mids.length;
+  }
 }

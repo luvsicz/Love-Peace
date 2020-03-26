@@ -2,6 +2,7 @@ package org.dev.hrm.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.dev.hrm.model.Position;
 
 /**
@@ -27,4 +28,6 @@ public interface PositionMapper {
   int updateByPrimaryKey(Position record);
 
   List<Position> getAllPositions();
+
+  Integer deletePositionsByIds(@Param("ids") Integer[] ids);
 }

@@ -3,6 +3,8 @@ package org.dev.hrm.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +38,10 @@ public class Department implements Serializable {
   private Boolean enabled;
   @ApiModelProperty(value = "")
   private Boolean isParent;
+  @ApiModelProperty(value = "")
+  private Integer result;
+  @ApiModelProperty(value = "")
+  private List<Department> children = new ArrayList<>();
 
   public Department(String name) {
 

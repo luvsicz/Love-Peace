@@ -50,6 +50,16 @@ public class DepartmentService {
   }
 
   public List<Department> getAllDepartments() {
-    return departmentMapper.getAllDepartments();
+    return departmentMapper.getAllDepartmentsByParentId(-1);
   }
+
+  public void addDepartment(Department department) {
+    department.setEnabled(true);
+    departmentMapper.addDepartment(department);
+  }
+
+  public void delDepartment(Department department) {
+    departmentMapper.delDepartment(department);
+  }
+
 }

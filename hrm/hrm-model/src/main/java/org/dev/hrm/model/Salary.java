@@ -65,8 +65,8 @@ public class Salary implements Serializable {
    * 启用时间
    */
   @ApiModelProperty(value = "启用时间")
- @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date createdate;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+  private Date createDate;
   /**
    * 医疗基数
    */

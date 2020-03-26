@@ -11,6 +11,7 @@
     <result column="depPath" jdbcType="VARCHAR" property="depPath"/>
     <result column="enabled" jdbcType="BOOLEAN" property="enabled"/>
     <result column="isParent" jdbcType="BOOLEAN" property="isParent"/>
+    <result column="result" jdbcType="INTEGER" property="result"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -111,5 +112,23 @@
     select
     <include refid="Base_Column_List"/>
     from department
+  </select>
+  <!--调用存储过程，结果存储到result里面去-->
+  <select id="addDepartment" statementType="CALLABLE">
+    call
+    addDep(#{name,mode=IN,jdbcType=VARCHAR},#{parentId,mode=IN,jdbcType=INTEGER},#{enabled,mode=IN,jdbcType=BOOLEAN},#{result,mode=OUT,jdbcType=INTEGER},#{id,mode=OUT,jdbcType=INTEGER})
+  </select>
+  <select id="delDepartment" statementType="CALLABLE">
+    call deleteDep(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER})
+  </select>
+  <resultMap id="DepartmentWithChildren" type="org.dev.hrm.model.Department"
+    extends="BaseResultMap">
+    <collection property="children" ofType="org.dev.hrm.model.Department"
+      select="org.dev.hrm.mapper.DepartmentMapper.getAllDepartmentsByParentId" column="id"/>
+  </resultMap>
+  <select id="getAllDepartmentsByParentId" resultMap="DepartmentWithChildren">
+    select
+    <include refid="Base_Column_List"/>
+    from department where parentId=#{pid};
   </select>
 </mapper>

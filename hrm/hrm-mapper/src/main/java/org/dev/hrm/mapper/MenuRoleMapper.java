@@ -1,6 +1,7 @@
 package org.dev.hrm.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.dev.hrm.model.MenuRole;
 
 /**
@@ -27,4 +28,9 @@ public interface MenuRoleMapper {
   int updateByPrimaryKeySelective(MenuRole record);
 
   int updateByPrimaryKey(MenuRole record);
+
+  int deleteByRoleId(@Param("rid") Integer rid);
+
+  Integer insertRecord(@Param("rid") Integer rid, @Param("mids") Integer[] mids);
+
 }

@@ -43,8 +43,8 @@ public class Employee implements Serializable {
    * 出生日期
    */
   @ApiModelProperty(value = "出生日期")
- @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date birthday;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+  private Date birthday;
   /**
    * 身份证号
    */
@@ -124,8 +124,8 @@ public class Employee implements Serializable {
    * 入职日期
    */
   @ApiModelProperty(value = "入职日期")
- @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date beginDate;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+  private Date beginDate;
   /**
    * 在职状态
    */
@@ -145,26 +145,26 @@ public class Employee implements Serializable {
    * 转正日期
    */
   @ApiModelProperty(value = "转正日期")
- @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date conversionTime;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+  private Date conversionTime;
   /**
    * 离职日期
    */
   @ApiModelProperty(value = "离职日期")
- @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date notworkDate;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+  private Date notworkDate;
   /**
    * 合同起始日期
    */
   @ApiModelProperty(value = "合同起始日期")
- @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date beginContract;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+  private Date beginContract;
   /**
    * 合同终止日期
    */
   @ApiModelProperty(value = "合同终止日期")
- @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date endContract;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+  private Date endContract;
   /**
    * 工龄
    */

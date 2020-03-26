@@ -5,25 +5,26 @@ import org.apache.ibatis.annotations.Mapper;
 import org.dev.hrm.model.PoliticsStatus;
 
 /**
- * @ClassName PoliticsStatusMapper.java
  * @author 冷嘉贤
  * @version 1.0.0
+ * @ClassName PoliticsStatusMapper.java
  * @Description TODO
  * @createTime 2020年03月24日 15:50:00
  */
 @Mapper
 public interface PoliticsStatusMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(PoliticsStatus record);
+  int deleteByPrimaryKey(Integer id);
 
-    int insertSelective(PoliticsStatus record);
+  int insert(PoliticsStatus record);
 
-    PoliticsStatus selectByPrimaryKey(Integer id);
+  int insertSelective(PoliticsStatus record);
 
-    int updateByPrimaryKeySelective(PoliticsStatus record);
+  PoliticsStatus selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKey(PoliticsStatus record);
+  int updateByPrimaryKeySelective(PoliticsStatus record);
 
-    List<PoliticsStatus> getAllPoliticsStatus();
+  int updateByPrimaryKey(PoliticsStatus record);
+
+  List<PoliticsStatus> getAllPoliticsStatus();
 }

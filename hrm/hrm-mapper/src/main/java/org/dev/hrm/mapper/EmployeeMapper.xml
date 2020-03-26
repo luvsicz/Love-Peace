@@ -419,6 +419,9 @@
     <if test="emp.engageForm !=null and emp.engageForm!=''">
       and e.engageForm =#{emp.engageForm}
     </if>
+    <if test="emp.workState !=null and emp.workState!=''">
+      and e.workState =#{emp.workState}
+    </if>
     <if test="emp.posId !=null">
       and e.posId =#{emp.posId}
     </if>

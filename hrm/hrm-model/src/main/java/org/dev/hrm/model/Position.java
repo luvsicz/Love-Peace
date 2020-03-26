@@ -33,8 +33,8 @@ public class Position implements Serializable {
   private String name;
 
   @ApiModelProperty(value = "")
- @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
-    private Date createdate;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+  private Date createDate;
 
   @ApiModelProperty(value = "")
   private Boolean enabled;

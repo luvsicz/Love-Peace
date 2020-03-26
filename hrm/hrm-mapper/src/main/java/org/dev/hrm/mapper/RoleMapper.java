@@ -1,5 +1,6 @@
 package org.dev.hrm.mapper;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.dev.hrm.model.Role;
 
@@ -8,11 +9,10 @@ import org.dev.hrm.model.Role;
  * @version 1.0.0
  * @ClassName RoleMapper.java
  * @Description TODO
- * @createTime 2020年03月18日 15:49:00
+ * @createTime 2020年03月26日 21:59:00
  */
 @Mapper
 public interface RoleMapper {
-
 
   int deleteByPrimaryKey(Integer id);
 
@@ -20,11 +20,11 @@ public interface RoleMapper {
 
   int insertSelective(Role record);
 
-
   Role selectByPrimaryKey(Integer id);
-
 
   int updateByPrimaryKeySelective(Role record);
 
   int updateByPrimaryKey(Role record);
+
+  List<Role> getAllRoles();
 }

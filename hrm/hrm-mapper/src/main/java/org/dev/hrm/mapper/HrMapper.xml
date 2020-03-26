@@ -165,9 +165,9 @@
   <select id="getRoleById" resultType="org.dev.hrm.model.Role">
     select r.*
     from role r,
-         hr_role hrr
+    hr_role hrr
     where hrr.`rid` = r.`id`
-      and hrr.`hrid` = #{id}
+    and hrr.`hrid` = #{id}
   </select>
   <select id="getUserByUserName" resultMap="BaseResultMap">
     select

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 // 导入登录模块 并在下方设置路由
 import Login from '@/components/Login'
 import Home from "@/components/Home";
+import UserInfo from "../components/UserInfo";
 
 //Navigating to current location ("XXXXXX") is not allowed
 Vue.use(VueRouter);
@@ -24,7 +25,15 @@ export default new VueRouter(
         path: '/home',
         name: '主页',
         component: Home,
-        hidden: true
+        hidden: true,
+        children: [
+          {
+            path: '/userinfo',
+            name: '个人中心',
+            component: UserInfo,
+            hidden: true
+          }
+        ]
       }, {
         //其他未注册到路由的请求就跳转到Home页面
         path: '*',

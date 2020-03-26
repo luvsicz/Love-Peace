@@ -72,4 +72,13 @@
     rid = #{rid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <delete id="deleteByRoleId">
+    delete from menu_role where rid=#{rid}
+  </delete>
+  <insert id="insertRecord">
+    insert into menu_role (mid,rid) values
+    <foreach collection="mids" separator="," item="mid">
+      (#{mid},#{rid})
+    </foreach>
+  </insert>
 </mapper>

@@ -4,7 +4,7 @@
 <mapper namespace="org.dev.hrm.mapper.RoleMapper">
   <resultMap id="BaseResultMap" type="org.dev.hrm.model.Role">
     <!--@mbg.generated-->
-    <!--@Table role-->
+    <!--@Table hrm.role-->
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="nameZh" jdbcType="VARCHAR" property="nameZh"/>
@@ -17,23 +17,44 @@
     <!--@mbg.generated-->
     select
     <include refid="Base_Column_List"/>
-    from role
+    from hrm.role
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from role
+    delete from hrm.role
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Role"
     useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into role (`name`, nameZh)
+    insert into hrm.role (`name`, nameZh)
     values (#{name,jdbcType=VARCHAR}, #{nameZh,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.Role" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into hrm.role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="nameZh != null">
+        nameZh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nameZh != null">
+        #{nameZh,jdbcType=VARCHAR},
+      </if>
+    </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Role">
     <!--@mbg.generated-->
-    update role
+    update hrm.role
     <set>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
@@ -46,9 +67,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.Role">
     <!--@mbg.generated-->
-    update role
+    update hrm.role
     set `name` = #{name,jdbcType=VARCHAR},
     nameZh = #{nameZh,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getAllRoles" resultMap="BaseResultMap">
+    select<include refid="Base_Column_List"/>from role;
+  </select>
 </mapper>

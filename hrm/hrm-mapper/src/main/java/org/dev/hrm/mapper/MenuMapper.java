@@ -39,4 +39,8 @@ public interface MenuMapper {
    * @return MenuList
    */
   List<Menu> getMenusByHrId(@Param("hrId") Integer hrId);
+
+  List<Menu> getAllMenus();
+
+  List<Integer> getMenuIdByRoleId(@Param("rid") Integer rid);
 }

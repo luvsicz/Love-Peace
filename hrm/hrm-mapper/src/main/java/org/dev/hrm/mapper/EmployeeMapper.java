@@ -36,7 +36,7 @@ public interface EmployeeMapper {
 
   int deleteByPrimaryKeys(@Param("ids") String[] ids);
 
-  long getTotal(@Param("emp") Employee emp,@Param("beginDateScope") Date[] beginDateScope);
+  long getTotal(@Param("emp") Employee emp, @Param("beginDateScope") Date[] beginDateScope);
 
   Integer getMaxWorkerId();
 }

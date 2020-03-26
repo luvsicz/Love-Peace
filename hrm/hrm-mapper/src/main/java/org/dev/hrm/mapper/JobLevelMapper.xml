@@ -8,7 +8,7 @@
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="titleLevel" jdbcType="OTHER" property="titlelevel"/>
-    <result column="createDate" jdbcType="TIMESTAMP" property="createdate"/>
+    <result column="createDate" jdbcType="TIMESTAMP" property="createDate"/>
     <result column="enabled" jdbcType="BOOLEAN" property="enabled"/>
   </resultMap>
   <sql id="Base_Column_List">
@@ -33,7 +33,7 @@
     insert into joblevel (`name`, titleLevel, createDate,
     enabled)
     values (#{name,jdbcType=VARCHAR}, #{titlelevel,jdbcType=OTHER},
-    #{createdate,jdbcType=TIMESTAMP},
+    #{createDate,jdbcType=TIMESTAMP},
     #{enabled,jdbcType=BOOLEAN})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id"
@@ -47,7 +47,7 @@
       <if test="titlelevel != null">
         titleLevel,
       </if>
-      <if test="createdate != null">
+      <if test="createDate != null">
         createDate,
       </if>
       <if test="enabled != null">
@@ -61,8 +61,8 @@
       <if test="titlelevel != null">
         #{titlelevel,jdbcType=OTHER},
       </if>
-      <if test="createdate != null">
-        #{createdate,jdbcType=TIMESTAMP},
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="enabled != null">
         #{enabled,jdbcType=BOOLEAN},
@@ -79,8 +79,8 @@
       <if test="titlelevel != null">
         titleLevel = #{titlelevel,jdbcType=OTHER},
       </if>
-      <if test="createdate != null">
-        createDate = #{createdate,jdbcType=TIMESTAMP},
+      <if test="createDate != null">
+        createDate = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="enabled != null">
         enabled = #{enabled,jdbcType=BOOLEAN},
@@ -93,7 +93,7 @@
     update joblevel
     set `name` = #{name,jdbcType=VARCHAR},
     titleLevel = #{titlelevel,jdbcType=OTHER},
-    createDate = #{createdate,jdbcType=TIMESTAMP},
+    createDate = #{createDate,jdbcType=TIMESTAMP},
     enabled = #{enabled,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -101,4 +101,10 @@
     select
     <include refid="Base_Column_List"/>from joblevel
   </select>
+  <delete id="deleteByPrimaryKeys">
+    delete from joblevel where id in
+    <foreach collection="ids" item="id" close=")" open="(" separator=",">
+      #{id}
+    </foreach>
+  </delete>
 </mapper>
