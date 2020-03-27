@@ -1,6 +1,7 @@
 package org.dev.hrm.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.dev.hrm.model.HrRole;
 
 /**
@@ -27,4 +28,6 @@ public interface HrRoleMapper {
   int updateByPrimaryKeySelective(HrRole record);
 
   int updateByPrimaryKey(HrRole record);
+
+  int insertHrWithRoles(@Param("hrId") Integer hrid, @Param("rids") Integer[] rids);
 }

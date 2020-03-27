@@ -1,4 +1,4 @@
-package org.dev.hrm.controller.settings;
+package org.dev.hrm.controller.sys;
 
 import java.util.List;
 import org.dev.hrm.model.Menu;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/system/basic/permiss")
+@RequestMapping("/sys/permiss")
 public class PermissController {
 
   @Autowired
@@ -56,8 +56,15 @@ public class PermissController {
     return RespBean.error("添加失败!");
   }
 
+  /**
+   * (角色关联了用户或者菜单)会导致外键约束异常，删除失败！
+   *
+   * @param rid
+   * @return
+   */
   @DeleteMapping("/role/{rid}")
   public RespBean deleteRoleById(@PathVariable Integer rid) {
+    //遇到删除的角色有联到用户和资源抛出因为外键约束导致无法删除的异常，则返回提示信息
     if (roleService.deleteByPrimaryKey(rid) == 1) {
       return RespBean.ok("删除成功!");
     }

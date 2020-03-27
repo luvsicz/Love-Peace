@@ -27,7 +27,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements
   @Override
   public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
     String requestUrl = ((FilterInvocation) object).getRequestUrl();
-    //引入Redis缓存
+    //引入Redis缓存，先去Redis缓存中取
     List<Menu> menus = menuService.getAllMenusWithRole();
     for (Menu menu : menus) {
       if (antPathMatcher.match(menu.getUrl(), requestUrl)) {

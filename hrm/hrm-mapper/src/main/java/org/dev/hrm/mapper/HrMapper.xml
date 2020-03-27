@@ -180,4 +180,18 @@
     set password=#{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByNameLikeKeyWords" resultMap="HrWithRoles">
+    select hr.id, hr.name, hr.phone, hr.telephone, hr.address, hr.enabled, hr.username, hr.userface,
+    hr.remark,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnameZh from hr left join hr_role hrr on
+    hr.`id`=hrr.`hrid` left join role r on hrr.`rid`=r.`id`
+    where hr.`id`!=#{hrid}
+    <if test="name!=null">
+      and hr.name like concat('%',#{name},'%')
+    </if>
+    order by hr.id
+
+  </select>
+  <delete id="deleteByHrId">
+    delete from hr_role where hrid=#{hrid}
+  </delete>
 </mapper>

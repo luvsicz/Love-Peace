@@ -37,4 +37,19 @@ public interface HrMapper {
 
   Integer updatePassById(@Param("id") Integer id, @Param("password") String encryptedPass);
 
+  /**
+   * 查询出除了当前HR以外的HR
+   *
+   * @param name 关键字
+   * @return HR集合
+   */
+  List<Hr> selectByNameLikeKeyWords(@Param("hrid") Integer hrid, @Param("name") String name);
+
+  /**
+   * 删除指定HR的Role信息
+   *
+   * @param hrid hrid
+   * @return 影响的行数
+   */
+  Integer deleteByHrId(@Param("hrid") Integer hrid);
 }

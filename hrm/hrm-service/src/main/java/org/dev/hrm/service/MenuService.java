@@ -62,8 +62,8 @@ public class MenuService {
    *
    * @return 菜单和角色信息
    */
-//  @Cacheable(key = "#root.method.name")
-  @Cacheable
+  @Cacheable(key = "#root.method.name")
+//  @Cacheable
   public List<Menu> getAllMenusWithRole() {
     return menuMapper.getAllMenusWithRole();
   }
@@ -82,6 +82,13 @@ public class MenuService {
     return menuMapper.getMenuIdByRoleId(rid);
   }
 
+  /**
+   * 异常则RollBack
+   *
+   * @param rid  角色ID
+   * @param mids 菜单ID数组
+   * @return true/false
+   */
   @Transactional(rollbackFor = Exception.class)
   public boolean updateMenuRole(Integer rid, Integer[] mids) {
     menuRoleMapper.deleteByRoleId(rid);

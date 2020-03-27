@@ -1,13 +1,17 @@
 package org.dev.hrm.service;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.dev.hrm.mapper.HrMapper;
+import org.dev.hrm.mapper.HrRoleMapper;
 import org.dev.hrm.model.Hr;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 冷嘉贤
@@ -21,6 +25,7 @@ import org.springframework.stereotype.Service;
 public class HrService implements UserDetailsService {
 
   private HrMapper hrMapper;
+  private HrRoleMapper hrRoleMapper;
 
 
   public int deleteByPrimaryKey(Integer id) {
@@ -81,6 +86,19 @@ public class HrService implements UserDetailsService {
     }
     hr.setRoles(hrMapper.getRoleById(hr.getId()));
     return hr;
+  }
+
+  public List<Hr> selectByNameLikeKeyWords(String name) {
+    Hr currentHr = ((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+    return hrMapper.selectByNameLikeKeyWords(currentHr.getId(), name);
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public boolean updateHrRole(Integer hrid, Integer[] rids) {
+    //先清空hr的所有角色，再重新添加进去
+    hrMapper.deleteByHrId(hrid);
+    return hrRoleMapper.insertHrWithRoles(hrid, rids) == rids.length;
   }
 }
 

@@ -72,4 +72,10 @@
     rid = #{rid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <insert id="insertHrWithRoles">
+    insert into hr_role (hrid,rid) values
+    <foreach collection="rids" item="rid" separator=",">
+      (#{hrId},#{rid})
+    </foreach>
+  </insert>
 </mapper>
