@@ -667,6 +667,8 @@
 
       },
       search() {
+        //搜索时跳转回第一页
+        this.page = 1;
         this.initTable();
       },
       initTable(type) {
