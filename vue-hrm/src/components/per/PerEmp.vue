@@ -229,6 +229,7 @@
         :page-size="1"
         :total="total"
         @current-change="currentPageChanged"
+        :current-page.sync="page"
         @size-change="sizeChanged"
         layout="total, sizes, prev, pager, next, jumper">
       </el-pagination>
@@ -669,12 +670,14 @@
 
       },
       search() {
+        this.page=1;
         this.initTable();
       },
       initTable(type) {
         this.loading = true;
         let url = '/per/emp/?page=' + this.page + '&size=' + this.size;
         if (type && type == 'advanced') {
+          this.page=1;
           if (this.searchValue.politicId) {
             url += '&politicId=' + this.searchValue.politicId;
           }
