@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName DepManageController.java
- * @Description TODO
  * @createTime 2020年03月26日 19:15:00
  */
 @RestController

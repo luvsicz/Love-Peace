@@ -9,7 +9,6 @@ import org.dev.hrm.model.Menu;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName MenuMapper.java
- * @Description TODO
  * @createTime 2020年03月18日 15:49:00
  */
 @Mapper

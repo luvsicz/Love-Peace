@@ -10,7 +10,6 @@ import org.dev.hrm.model.Role;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName HrMapper.java
- * @Description TODO
  * @createTime 2020年03月18日 15:49:00
  */
 @Mapper

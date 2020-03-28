@@ -31,7 +31,6 @@ import org.springframework.web.multipart.MultipartFile;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName POIUtils.java
- * @Description TODO
  * @createTime 2020年03月23日 16:53:00
  */
 public class POIUtils {

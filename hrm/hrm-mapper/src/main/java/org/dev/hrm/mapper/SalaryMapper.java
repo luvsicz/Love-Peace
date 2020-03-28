@@ -7,7 +7,6 @@ import org.dev.hrm.model.Salary;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName SalaryMapper.java
- * @Description TODO
  * @createTime 2020年03月18日 15:49:00
  */
 @Mapper

@@ -8,7 +8,6 @@ import org.dev.hrm.model.Department;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName DepartmentMapper.java
- * @Description TODO
  * @createTime 2020年03月23日 19:57:00
  */
 @Mapper

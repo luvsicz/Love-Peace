@@ -9,7 +9,6 @@ import org.dev.hrm.model.JobLevel;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName JobLevelMapper.java
- * @Description TODO
  * @createTime 2020年03月24日 15:56:00
  */
 @Mapper

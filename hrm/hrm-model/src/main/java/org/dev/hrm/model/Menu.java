@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName Menu.java
- * @Description TODO
  * @createTime 2020年03月18日 15:49:00
  */
 @ApiModel(value = "org-dev-hrm-model-Menu")

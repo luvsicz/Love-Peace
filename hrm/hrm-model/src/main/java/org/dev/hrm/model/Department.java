@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName Department.java
- * @Description TODO
  * @createTime 2020年03月23日 19:57:00
  */
 @ApiModel(value = "org-dev-hrm-model-Department")

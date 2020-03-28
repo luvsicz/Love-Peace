@@ -8,7 +8,6 @@ import org.dev.hrm.model.Nation;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName NationMapper.java
- * @Description TODO
  * @createTime 2020年03月18日 15:49:00
  */
 @Mapper

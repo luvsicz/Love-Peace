@@ -8,7 +8,6 @@ import org.dev.hrm.model.PoliticsStatus;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName PoliticsStatusMapper.java
- * @Description TODO
  * @createTime 2020年03月24日 15:50:00
  */
 @Mapper
