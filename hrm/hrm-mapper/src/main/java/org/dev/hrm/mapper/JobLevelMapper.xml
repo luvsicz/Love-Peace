@@ -7,7 +7,7 @@
     <!--@Table joblevel-->
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="name" jdbcType="VARCHAR" property="name"/>
-    <result column="titleLevel" jdbcType="OTHER" property="titlelevel"/>
+    <result column="titleLevel" jdbcType="OTHER" property="titleLevel"/>
     <result column="createDate" jdbcType="TIMESTAMP" property="createDate"/>
     <result column="enabled" jdbcType="BOOLEAN" property="enabled"/>
   </resultMap>
@@ -32,7 +32,7 @@
     <!--@mbg.generated-->
     insert into joblevel (`name`, titleLevel, createDate,
     enabled)
-    values (#{name,jdbcType=VARCHAR}, #{titlelevel,jdbcType=OTHER},
+    values (#{name,jdbcType=VARCHAR}, #{titleLevel,jdbcType=OTHER},
     #{createDate,jdbcType=TIMESTAMP},
     #{enabled,jdbcType=BOOLEAN})
   </insert>
@@ -44,7 +44,7 @@
       <if test="name != null">
         `name`,
       </if>
-      <if test="titlelevel != null">
+      <if test="titleLevel != null">
         titleLevel,
       </if>
       <if test="createDate != null">
@@ -58,8 +58,8 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="titlelevel != null">
-        #{titlelevel,jdbcType=OTHER},
+      <if test="titleLevel != null">
+        #{titleLevel,jdbcType=OTHER},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
@@ -76,8 +76,8 @@
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="titlelevel != null">
-        titleLevel = #{titlelevel,jdbcType=OTHER},
+      <if test="titleLevel != null">
+        titleLevel = #{titleLevel,jdbcType=OTHER},
       </if>
       <if test="createDate != null">
         createDate = #{createDate,jdbcType=TIMESTAMP},
@@ -92,7 +92,7 @@
     <!--@mbg.generated-->
     update joblevel
     set `name` = #{name,jdbcType=VARCHAR},
-    titleLevel = #{titlelevel,jdbcType=OTHER},
+    titleLevel = #{titleLevel,jdbcType=OTHER},
     createDate = #{createDate,jdbcType=TIMESTAMP},
     enabled = #{enabled,jdbcType=BOOLEAN}
     where id = #{id,jdbcType=INTEGER}

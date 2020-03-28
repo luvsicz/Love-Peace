@@ -17,6 +17,7 @@
     <div style="margin-top: 10px">
       <el-table
         :data="jls"
+        stripe
         @selection-change="handleSelectionChange"
         border
         size="small"

@@ -1,5 +1,6 @@
 package org.dev.hrm.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -30,8 +31,9 @@ public class JobLevel implements Serializable {
   @ApiModelProperty(value = "职称名称")
   private String name;
   @ApiModelProperty(value = "")
-  private Object titlelevel;
+  private Object titleLevel;
   @ApiModelProperty(value = "")
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
   private Date createDate;
   @ApiModelProperty(value = "")
   private Boolean enabled;
