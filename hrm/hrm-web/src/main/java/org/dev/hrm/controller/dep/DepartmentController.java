@@ -27,10 +27,16 @@ public class DepartmentController {
   DepartmentService service;
 
   @GetMapping("/")
+  public List<Department> getAllDepartmentsByParentId() {
+    return service.getAllDepartmentsByParentId();
+  }
+
+  @GetMapping("/list")
   public List<Department> getAllDepartments() {
     return service.getAllDepartments();
   }
 
+  //TODO FIX添加部门偶尔出现BUG
   @PostMapping("/")
   public RespBean addDep(@RequestBody Department dep) {
     service.addDepartment(dep);

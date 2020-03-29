@@ -35,7 +35,6 @@ public class EmployeeController {
   @Autowired
   EmployeeService empService;
   @Autowired
-
   DepartmentService departmentService;
   @Autowired
   NationService nationService;
@@ -126,7 +125,7 @@ public class EmployeeController {
 
   @GetMapping("/deps")
   public List<Department> getAllDepartments() {
-    return departmentService.getAllDepartments();
+    return departmentService.getAllDepartmentsByParentId();
   }
 
 }

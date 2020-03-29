@@ -48,7 +48,7 @@ public class DepartmentService {
     return departmentMapper.updateByPrimaryKey(record);
   }
 
-  public List<Department> getAllDepartments() {
+  public List<Department> getAllDepartmentsByParentId() {
     return departmentMapper.getAllDepartmentsByParentId(-1);
   }
 
@@ -61,4 +61,7 @@ public class DepartmentService {
     departmentMapper.delDepartment(department);
   }
 
+  public List<Department> getAllDepartments() {
+    return departmentMapper.getAllDepartments();
+  }
 }

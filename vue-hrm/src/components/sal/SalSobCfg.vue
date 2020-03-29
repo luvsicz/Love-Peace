@@ -1,197 +1,167 @@
 <template>
-  <div style="margin-top: 10px">
-    <el-table
-      :data="emps"
-      border
-      size="mini"
-      stripe
-      style="width: 100%"
-      v-loading="tableLoading">
-      <el-table-column
-        align="left"
-        type="selection"
-        width="55">
-      </el-table-column>
-      <el-table-column
-        align="left"
-        fixed
-        label="姓名"
-        prop="name"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        align="left"
-        label="工号"
-        prop="workID"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        align="left"
-        label="电子邮件"
-        prop="email"
-        width="200">
-      </el-table-column>
-      <el-table-column
-        label="电话号码"
-        prop="phone"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        align="left"
-        label="所属部门"
-        prop="department.name"
-        width="120">
-      </el-table-column>
-      <el-table-column align="center" label="工资账套">
-        <template slot-scope="scope">
-          <el-tooltip placement="right">
-            <div slot="content">
-              <template v-if="scope.row.salary">
-                <div>
-                  <el-tag size="mini">基本工资</el-tag>
-                  ￥{{scope.row.salary.basicSalary}}
-                </div>
-                <div>
-                  <el-tag size="mini">奖金</el-tag>
-                  ￥{{scope.row.salary.bonus}}
-                </div>
-                <div>
-                  <el-tag size="mini">午餐补助</el-tag>
-                  ￥{{scope.row.salary.lunchSalary}}
-                </div>
-                <div>
-                  <el-tag size="mini">交通补助</el-tag>
-                  ￥{{scope.row.salary.trafficSalary}}
-                </div>
-                <div>
-                  <el-tag size="mini">养老金基数</el-tag>
-                  ￥{{scope.row.salary.pensionBase}}
-                </div>
-                <div>
-                  <el-tag size="mini">养老金比率</el-tag>
-                  {{scope.row.salary.pensionPer}}
-                </div>
-                <div>
-                  <el-tag size="mini">公积金基数</el-tag>
-                  ￥{{scope.row.salary.accumulationFundBase}}
-                </div>
-                <div>
-                  <el-tag size="mini">公积金比率</el-tag>
-                  {{scope.row.salary.accumulationFundPer}}
-                </div>
-                <div>
-                  <el-tag size="mini">医疗保险基数</el-tag>
-                  ￥{{scope.row.salary.medicalBase}}
-                </div>
-                <div>
-                  <el-tag size="mini">医疗保险比率</el-tag>
-                  {{scope.row.salary.medicalPer}}
-                </div>
-              </template>
+    <div style="margin-top: 10px">
+        <div>
+            <el-table :data="emps" border stripe size="mini">
+                <el-table-column type="selection" align="left" width="55"></el-table-column>
+                <el-table-column prop="name" label="姓名" fixed width="120" align="left"></el-table-column>
+                <el-table-column prop="workID" label="工号" width="120" align="left"></el-table-column>
+                <el-table-column prop="email" label="电子邮件" width="200" align="left"></el-table-column>
+                <el-table-column prop="phone" label="电话号码" width="120" align="left"></el-table-column>
+                <el-table-column prop="department.name" label="所属部门" width="120" align="left"></el-table-column>
+                <el-table-column label="所属部门" align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip placement="right" v-if="scope.row.salary">
+                            <div slot="content">
+                                <table>
+                                    <tr>
+                                        <td>基本工资</td>
+                                        <td>{{scope.row.salary.basicSalary}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>交通补助</td>
+                                        <td>{{scope.row.salary.trafficSalary}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>午餐补助</td>
+                                        <td>{{scope.row.salary.lunchSalary}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>奖金</td>
+                                        <td>{{scope.row.salary.bonus}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>养老金比率</td>
+                                        <td>{{scope.row.salary.pensionPer}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>养老金基数</td>
+                                        <td>{{scope.row.salary.pensionBase}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>医疗保险比率</td>
+                                        <td>{{scope.row.salary.medicalPer}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>医疗保险基数</td>
+                                        <td>{{scope.row.salary.medicalBase}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>公积金比率</td>
+                                        <td>{{scope.row.salary.accumulationFundPer}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>公积金基数</td>
+                                        <td>{{scope.row.salary.accumulationFundBase}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>启用时间</td>
+                                        <td>{{scope.row.salary.createDate}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <el-tag>{{scope.row.salary.name}}</el-tag>
+                        </el-tooltip>
+                        <el-tag v-else>暂未设置</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                        <el-popover
+                                placement="left"
+                                title="修改工资账套"
+                                @show="showPop(scope.row.salary)"
+                                @hide="hidePop(scope.row)"
+                                width="200"
+                                trigger="click">
+                            <div>
+                                <el-select v-model="currentSalary" placeholder="请选择" size="mini">
+                                    <el-option
+                                            v-for="item in salaries"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id">
+                                    </el-option>
+                                </el-select>
+                            </div>
+                            <el-button slot="reference" type="danger">修改工资账套</el-button>
+                        </el-popover>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div style="display: flex;justify-content: flex-end">
+                <el-pagination
+                        background
+                        @size-change="sizeChange"
+                        @current-change="currentChange"
+                        layout="sizes, prev, pager, next, jumper, ->, total, slot"
+                        :total="total">
+                </el-pagination>
             </div>
-            <el-tag size="mini">{{scope.row.salary?scope.row.salary.name:'暂未设置'}}</el-tag>
-          </el-tooltip>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="操作">
-        <template slot-scope="scope">
-          <el-popover
-            :key="scope.row.id"
-            @hide="updateSalaryCfg(scope.row.id)"
-            placement="right"
-            trigger="click"
-            width="200">
-            <el-select placeholder="请选择" size="mini" v-model="sid">
-              <el-option
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-                v-for="item in salaries">
-              </el-option>
-            </el-select>
-            <el-button
-              @click="showUpdateView(scope.row)"
-              size="mini"
-              slot="reference" type="danger">修改账套
-            </el-button>
-          </el-popover>
-        </template>
-      </el-table-column>
-    </el-table>
-    <div style="text-align: right;margin-top: 10px">
-      <el-pagination
-        :total="totalCount"
-        @current-change="currentChange"
-        background
-        layout="prev, pager, next">
-      </el-pagination>
+        </div>
     </div>
-  </div>
 </template>
+
 <script>
-  export default {
-    data() {
-      return {
-        emps: [],
-        salaries: [],
-        tableLoading: false,
-        totalCount: -1,
-        sid: '',
-        osid: '',
-        currentPage: 1
-      }
-    },
-    mounted: function () {
-      this.loadEmps();
-    },
-    methods: {
-      showUpdateView(data) {
-        this.loadSalaries();
-        if (data.salary) {
-          this.sid = data.salary.id;
-          this.osid = data.salary.id;
-        } else {
-          this.sid = '';
-          this.osid = '';
+    export default {
+        name: "SalSobCfg",
+        data() {
+            return {
+                emps: [],
+                total: 0,
+                currentPage: 1,
+                currentSize: 10,
+                currentSalary: null,
+                salaries: []
+            }
+        },
+        mounted() {
+            this.initEmps();
+            this.initSalaries();
+        },
+        methods: {
+            sizeChange(size) {
+                this.currentSize = size;
+                this.initEmps();
+            },
+            currentChange(page) {
+                this.currentPage = page;
+                this.initEmps();
+            },
+            hidePop(data) {
+                if (this.currentSalary) {
+                    this.putRequest('/sal/sobcfg/?eid=' + data.id + '&sid=' + this.currentSalary).then(resp => {
+                        if (resp) {
+                            this.initEmps()
+                        }
+                    });
+                }
+            },
+            showPop(data) {
+                if (data) {
+                    this.currentSalary = data.id;
+                } else {
+                    this.currentSalary = null;
+                }
+            },
+            initSalaries() {
+                this.getRequest("/sal/sobcfg/salaries").then(resp => {
+                    if (resp) {
+                        this.salaries = resp;
+                    }
+                })
+            },
+            initEmps() {
+                this.getRequest("/sal/sobcfg/?page=" + this.currentPage + '&size=' + this.currentSize).then(resp => {
+                    if (resp) {
+                        this.emps = resp.data;
+                        this.total = resp.total;
+                    }
+                })
+            }
         }
-      },
-      loadSalaries() {
-        var _this = this;
-        this.getRequest("/salary/sobcfg/salaries").then(resp => {
-          if (resp && resp.status == 200) {
-            _this.salaries = resp.data;
-          }
-        })
-      },
-      updateSalaryCfg(eid) {
-        var _this = this;
-        if (this.osid == this.sid) {
-          return;
-        }
-        this.putRequest("/salary/sobcfg/", {eid: eid, sid: this.sid}).then(resp => {
-          if (resp && resp.status == 200) {
-            var data = resp.data;
-            _this.$message({type: data.status, message: data.msg});
-            _this.loadEmps();
-          }
-        })
-      },
-      currentChange(currentPage) {
-        this.currentPage = currentPage;
-        this.loadEmps();
-      },
-      loadEmps() {
-        this.tableLoading = true;
-        var _this = this;
-        this.getRequest("/salary/sobcfg/per?page=" + this.currentPage + "&size=10").then(resp => {
-          _this.tableLoading = false;
-          if (resp && resp.status == 200) {
-            var data = resp.data;
-            _this.emps = data.emps;
-            _this.totalCount = data.count;
-          }
-        })
-      }
     }
-  }
 </script>
+
+<style scoped>
+
+</style>

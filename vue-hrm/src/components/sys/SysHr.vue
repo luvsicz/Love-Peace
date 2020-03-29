@@ -98,14 +98,17 @@
       doSearch() {
         this.initHrs();
       },
-      //FIX 删除最后两个角色的时候会有问题
+      //TODO FIX 删除最后两个角色的时候会有问题
       hidePop(hr) {
         let roles = [];
         Object.assign(roles, hr.roles);
         let flag = false;
+        //判断已有的角色和更改后的角色数量是否一致
         if (roles.length !== this.selectedRoles.length) {
+          //不一致
           flag = true;
         } else {
+
           for (let i = 0; i < roles.length; i++) {
             let role = roles[i];
             for (let j = 0; j < this.selectedRoles.length; j++) {
