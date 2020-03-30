@@ -31,25 +31,24 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
   private static final String TAG = "PaintingsAdapter";
   private List<Painting> paintingList = null;
   long time=0;
+  private boolean isGot=false;
   public PaintingsAdapter(Context context) {
   //  AsyncTask
     pint.start();
     try {
-      Thread.sleep(2000);
+      Thread.sleep(5000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
     setItemsList(paintingList);
     Log.e(TAG, "PaintingsAdapter: ");
   }
-
   @Override
   protected ViewHolder onCreateHolder(ViewGroup parent, int viewType) {
     final ViewHolder holder = new ViewHolder(parent);
     holder.image.setOnClickListener(this);
     return holder;
   }
-
   //这里获取
   @Override
   protected void onBindHolder(ViewHolder holder, int position) {
@@ -58,7 +57,6 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
     GlideHelper.loadPaintingImage(holder.image, item);
     holder.title.setText(item.getTitle());
   }
-
   @Override
   public void onClick(View view) {
     final Painting item = (Painting) view.getTag(R.id.list_item_image);
@@ -82,7 +80,7 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
     @Override
     public void run() {
       long start = System.currentTimeMillis();
-      long end;
+
       //
       OkHttpClient client = new OkHttpClient();
       Request request = new Request.Builder().url(CREATE_ACCOUNT_URL).build();
@@ -99,11 +97,9 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
           //end = System.currentTimeMillis();
           //time=end-start;
          // Log.e(TAG, "run: res"+(end-start));
-          /*for (Painting painting : paintingList) {
+          for (Painting painting : paintingList) {
             Log.e(TAG, "run: " + gson.toJson(painting));
-          }*/
-
-
+          }
         }
       } catch (IOException e) {
         e.printStackTrace();
