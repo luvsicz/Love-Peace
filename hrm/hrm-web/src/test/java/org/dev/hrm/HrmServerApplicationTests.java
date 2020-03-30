@@ -2,6 +2,8 @@ package org.dev.hrm;
 
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
+import org.dev.hrm.model.AccessLog;
+import org.dev.hrm.service.AccessLogService;
 import org.dev.hrm.service.EmployeeService;
 import org.dev.hrm.service.HrService;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +20,13 @@ class HrmServerApplicationTests {
   HrService hrService;
   @Autowired
   EmployeeService employeeService;
+  @Autowired
+  AccessLogService logService;
+
+  @Test
+  void loggerTest() {
+    logService.insertSelective(new AccessLog());
+  }
 
   /**
    * @throws IOException

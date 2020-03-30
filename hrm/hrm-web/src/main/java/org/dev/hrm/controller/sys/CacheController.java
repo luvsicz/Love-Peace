@@ -1,5 +1,6 @@
 package org.dev.hrm.controller.sys;
 
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.RespBean;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class CacheController {
    */
   @CacheEvict(value = "menuService")
   @RequestMapping("/menuWithRole")
+  @WebLogger
   public RespBean evictMenuCache() {
     return RespBean.ok("清理menuService缓存完成！");
   }
@@ -29,6 +31,7 @@ public class CacheController {
    */
   @CacheEvict(value = "menuService", allEntries = true)
   @RequestMapping("/all")
+  @WebLogger
   public RespBean evictAll() {
     return RespBean.ok("清理所有缓存完成！");
 

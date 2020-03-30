@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.sal;
 
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Employee;
 import org.dev.hrm.model.RespPageBean;
 import org.dev.hrm.service.EmployeeService;
@@ -37,6 +38,7 @@ public class SalaryTableController {
    * @return
    */
   @GetMapping("/")
+  @WebLogger
   public RespPageBean getEmployeeByPageWithSalaryByDepId(
       @RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size, Integer depId) {
@@ -47,6 +49,7 @@ public class SalaryTableController {
    * 到处指定部门的工资表
    */
   @GetMapping("/export")
+  @WebLogger
   public ResponseEntity<byte[]> exportData(@RequestParam Integer depId) {
     List<Employee> list = (List<Employee>) employeeService
         .getEmployeeByPageWithSalary(null, null, depId).getData();

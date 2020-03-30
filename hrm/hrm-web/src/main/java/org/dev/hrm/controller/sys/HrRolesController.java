@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.sys;
 
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.model.Role;
@@ -31,12 +32,14 @@ public class HrRolesController {
   RoleService roleService;
 
   @GetMapping("/")
+  @WebLogger
   public List<Hr> getHrs(String keywords) {
     //获取除了当前HR以外的HR信息
     return hrService.selectByNameLikeKeyWords(keywords);
   }
 
   @PutMapping("/")
+  @WebLogger
   public RespBean updateHr(@RequestBody Hr hr) {
     if (hrService.updateByPrimaryKeySelective(hr) == 1) {
       return RespBean.ok("更新成功!");
@@ -45,11 +48,13 @@ public class HrRolesController {
   }
 
   @GetMapping("/roles")
+  @WebLogger
   public List<Role> getAllRoles() {
     return roleService.getAllRoles();
   }
 
   @PutMapping("/role")
+  @WebLogger
   public RespBean updateHrRole(Integer hrid, Integer[] rids) {
     if (hrService.updateHrRole(hrid, rids)) {
       return RespBean.ok("更新成功!");
@@ -58,6 +63,7 @@ public class HrRolesController {
   }
 
   @DeleteMapping("/{id}")
+  @WebLogger
   public RespBean deleteHrById(@PathVariable Integer id) {
     if (hrService.deleteByPrimaryKey(id) == 1) {
       return RespBean.ok("删除成功!");

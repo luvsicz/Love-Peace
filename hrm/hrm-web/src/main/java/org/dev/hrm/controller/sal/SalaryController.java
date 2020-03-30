@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.sal;
 
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.model.Salary;
 import org.dev.hrm.service.SalaryService;
@@ -28,11 +29,13 @@ public class SalaryController {
   SalaryService salaryService;
 
   @GetMapping("/")
+  @WebLogger
   public List<Salary> getAllSalaries() {
     return salaryService.getAllSalaries();
   }
 
   @PostMapping("/")
+  @WebLogger
   public RespBean addSalary(@RequestBody Salary salary) {
     if (salaryService.insertSelective(salary) == 1) {
       return RespBean.ok("添加成功!");
@@ -41,6 +44,7 @@ public class SalaryController {
   }
 
   @DeleteMapping("/{id}")
+  @WebLogger
   public RespBean deleteSalaryById(@PathVariable Integer id) {
     if (salaryService.deleteByPrimaryKey(id) == 1) {
       return RespBean.ok("删除成功！");
@@ -49,6 +53,7 @@ public class SalaryController {
   }
 
   @PutMapping("/")
+  @WebLogger
   public RespBean updateSalaryById(@RequestBody Salary salary) {
     if (salaryService.updateByPrimaryKeySelective(salary) == 1) {
       return RespBean.ok("更新成功!");

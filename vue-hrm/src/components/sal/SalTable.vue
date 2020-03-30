@@ -133,8 +133,7 @@
         this.initTable();
       }
     }
-    ,
-    mounted: function () {
+    ,beforeMount() {
       //先从sessionStorage判断你是否存在部门信息，没获取到再请求
       if (!window.sessionStorage.getItem("depList")) {
         this.getRequest('/dep/list').then(resp => {
@@ -146,6 +145,9 @@
       }
       //存入sessionStorage
       this.deps = JSON.parse(window.sessionStorage.getItem("depList"));
+    },
+    mounted: function () {
+
       //加载第一个部门的工资表信息
       this.depId = this.deps[0].id;
       this.initTable();

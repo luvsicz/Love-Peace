@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.sal;
 
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.model.RespPageBean;
 import org.dev.hrm.model.Salary;
@@ -31,17 +32,20 @@ public class SobConfigController {
   SalaryService salaryService;
 
   @GetMapping("/")
+  @WebLogger
   public RespPageBean getEmployeeByPageWithSalary(@RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size) {
     return employeeService.getEmployeeByPageWithSalary(page, size,null);
   }
 
   @GetMapping("/salaries")
+  @WebLogger
   public List<Salary> getAllSalaries() {
     return salaryService.getAllSalaries();
   }
 
   @PutMapping("/")
+  @WebLogger
   public RespBean updateEmployeeSalaryById(Integer eid, Integer sid) {
     Integer result = employeeService.updateEmployeeSalaryById(eid, sid);
     if (result == 1 || result == 2) {

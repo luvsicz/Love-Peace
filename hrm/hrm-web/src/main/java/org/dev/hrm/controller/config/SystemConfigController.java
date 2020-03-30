@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.config;
 
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Menu;
 import org.dev.hrm.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class SystemConfigController {
   MenuService menuService;
 
   @GetMapping("/menu")
+  @WebLogger
   public List<Menu> getMenusByHrId() {
     return menuService.getMenusByHrId();
 

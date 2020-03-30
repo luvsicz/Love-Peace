@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <div style="margin-top: 10px">
-      <el-input placeholder="可通过名字模糊搜索搜索" size="mini" style="width: 300px" v-model="keyword"
-      />
+  <div style="margin-top: 10px">
+    <div style="display: flex; justify-content: space-between;">
+      <el-input placeholder="可通过名字模糊搜索搜索" size="mini" style="width: 300px" v-model="keyword"/>
       <el-button @click="search" icon="el-icon-search" size="mini" type="primary">搜索</el-button>
       <el-button @click="showAdvanceSearchView = !showAdvanceSearchView" size="mini" type="primary">
         <i :class="showAdvanceSearchView?'el-icon-arrow-up':'el-icon-arrow-down'"
@@ -19,8 +18,9 @@
       </el-button>
     </div>
     <transition name="slide-fade">
-      <div style="border: 1px solid #409eff;border-radius: 5px;box-sizing: border-box;padding: 5px;margin: 10px 0px;"
-           v-show="showAdvanceSearchView">
+      <div
+        style="border: 1px solid #409eff;border-radius: 5px;box-sizing: border-box;padding: 5px;margin: 10px 0px;"
+        v-show="showAdvanceSearchView">
         <el-row>
           <el-col :span="5">
             政治面貌:
@@ -354,7 +354,8 @@
                            default-expand-all></el-tree>
                   <div @click="showDepView"
                        slot="reference"
-                       style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box">{{inputDepName}}
+                       style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box">
+                    {{inputDepName}}
                   </div>
                 </el-popover>
               </el-form-item>
@@ -670,14 +671,14 @@
 
       },
       search() {
-        this.page=1;
+        this.page = 1;
         this.initTable();
       },
       initTable(type) {
         this.loading = true;
         let url = '/per/emp/?page=' + this.page + '&size=' + this.size;
         if (type && type == 'advanced') {
-          this.page=1;
+          this.page = 1;
           if (this.searchValue.politicId) {
             url += '&politicId=' + this.searchValue.politicId;
           }

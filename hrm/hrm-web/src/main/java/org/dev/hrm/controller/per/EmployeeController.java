@@ -2,6 +2,7 @@ package org.dev.hrm.controller.per;
 
 import java.util.Date;
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Department;
 import org.dev.hrm.model.Employee;
 import org.dev.hrm.model.JobLevel;
@@ -17,6 +18,7 @@ import org.dev.hrm.service.PoliticsStatusService;
 import org.dev.hrm.service.PositionService;
 import org.dev.hrm.util.POIUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +47,9 @@ public class EmployeeController {
   @Autowired
   PositionService positionService;
 
+
   @GetMapping("/")
+  @WebLogger
   public RespBean getEmployeeInfo(@RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size, Employee employee, Date[] beginDateScope) {
     return RespBean.ok("", empService.getEmployeeByPage(page, size, employee, beginDateScope));
@@ -58,6 +62,7 @@ public class EmployeeController {
    * @return
    */
   @PostMapping("/")
+  @WebLogger
   public RespBean addEmp(@RequestBody Employee employee) {
     if (empService.insert(employee) == 1) {
       return RespBean.ok("添加成功!");
@@ -66,6 +71,7 @@ public class EmployeeController {
   }
 
   @DeleteMapping("/{ids}")
+  @WebLogger
   public RespBean delEmpByPrimaryKey(@PathVariable String ids) {
     if (empService.deleteByPrimaryKeys(ids) > 0) {
       return RespBean.ok("删除成功");
@@ -82,6 +88,7 @@ public class EmployeeController {
    * @return
    */
   @PutMapping
+  @WebLogger
   public RespBean updateEmployee(@RequestBody Employee employee) {
     if (empService.updateByPrimaryKeySelective(employee) == 1) {
       return RespBean.ok("更新成功");
@@ -91,6 +98,7 @@ public class EmployeeController {
   }
 
   @GetMapping("/export")
+  @WebLogger
   public ResponseEntity<byte[]> exportData() {
     List<Employee> list = (List<Employee>) empService
         .getEmployeeByPage(null, null, new Employee(), null).getData();
@@ -98,32 +106,38 @@ public class EmployeeController {
   }
 
   @GetMapping("/nations")
+  @WebLogger
   public List<Nation> getAllNations() {
     return nationService.getAllNations();
   }
 
   @GetMapping("/politicsstatus")
+  @WebLogger
   public List<PoliticsStatus> getAllPoliticsstatus() {
     return politicsStatusService.getAllPoliticsStatus();
   }
 
   @GetMapping("/joblevels")
+  @WebLogger
   public List<JobLevel> getAllJobLevels() {
     return jobLevelService.getAllJobLevels();
   }
 
   @GetMapping("/positions")
+  @WebLogger
   public List<Position> getAllPositions() {
     return positionService.getAllPositions();
   }
 
   @GetMapping("/availableWorkId")
+  @WebLogger
   public RespBean availableWorkId() {
     return RespBean.build().setStatus(200)
         .setObj(String.format("%08d", empService.getMaxWorkerId() + 1));
   }
 
   @GetMapping("/deps")
+  @WebLogger
   public List<Department> getAllDepartments() {
     return departmentService.getAllDepartmentsByParentId();
   }

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -17,6 +18,8 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.dev.hrm.model.AccessLog;
+import org.dev.hrm.service.AccessLogService;
 import org.dev.hrm.util.IPUtils;
 import org.dev.hrm.util.JackSonUtils;
 import org.dev.hrm.util.UserAgentUtils;
@@ -35,6 +38,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Aspect
 @Component
 public class AspectLogger {
+
+  @Resource
+  AccessLogService service;
 
   /**
    * String 转Map
@@ -78,17 +84,17 @@ public class AspectLogger {
    */
   @Before("httpWebLog()")
   public void doBefore(JoinPoint joinPoint) {
+    AccessLog accessLog = new AccessLog();
     try {
       HttpServletRequest request = ((ServletRequestAttributes) Objects
           .requireNonNull(RequestContextHolder.getRequestAttributes()))
           .getRequest();
-
       //类名
       String className = joinPoint.getTarget().getClass().getName();
       //请求方法
       String method = joinPoint.getSignature().getName() + "()";
       //HTTP请求方法参数
-      String methodParam = JackSonUtils.bean2Json(joinPoint.getArgs(), true);
+      String methodParam = JackSonUtils.bean2Json(joinPoint.getArgs(), false);
       Map<String, String[]> params = request.getParameterMap();
       StringBuilder decode = new StringBuilder();
       //针对get请求
@@ -119,35 +125,52 @@ public class AspectLogger {
               "请求***************************************");
       sb.append("\n");
       sb.append("ClassName     :  ").append(className).append("\n");
+      accessLog.setClassName(className);
       sb.append("RequestMethod :  ").append(method).append("\n");
+      accessLog.setRequestMethod(method);
       sb.append("ContentType   :  ").append(("".equals(request.getContentType())
           || request.getContentType() == null) ? "FORM"
           : request.getContentType()).append("\n");
+      accessLog.setContentType(("".equals(request.getContentType())
+          || request.getContentType() == null) ? "FORM"
+          : request.getContentType());
       sb.append("RequestParams :  ")
           .append("".equals(decode.toString()) ? methodParam :
               methodParamMap)
           .append("\n");
+      accessLog
+          .setRequestParams("".equals(decode.toString()) ? JackSonUtils.bean2Json(methodParam) :
+              JackSonUtils.bean2Json(methodParamMap));
       sb.append("RequestType   :  ").append(request.getMethod()).append("\n");
-//            sb.append("Description   :  ").append(methodDescription).append
-//            ("\n");
+      accessLog.setRequestType(request.getMethod());
       sb.append("ServerAddr    :  ").append(request.getScheme()).append("://")
           .append(request.getServerName()).append(":")
           .append(request.getServerPort()).append("\n");
+      accessLog.setServerAddr(request.getScheme() + "://"
+          + request.getServerName() + ":"
+          + request.getServerPort());
       sb.append("RemoteAddr    :  ").append(IPUtils.getRemoteAddr(request))
           .append("\n");
+      accessLog.setRemoteAddr(IPUtils.getRemoteAddr(request));
       UserAgent userAgent = UserAgentUtils.getUserAgent(request);
       sb.append("DeviceName    :  ")
           .append(userAgent.getOperatingSystem().getName()).append("\n");
+      accessLog.setDeviceName(userAgent.getOperatingSystem().getName());
       sb.append("BrowserName   :  ").append(userAgent.getBrowser().getName())
           .append("\n");
+      accessLog.setBrowserName(userAgent.getBrowser().getName());
       sb.append("UserAgent     :  ").append(request.getHeader("User-Agent"))
           .append("\n");
+      accessLog.setUserAgent(request.getHeader("User-Agent"));
       sb.append("RequestUri    :  ").append(request.getRequestURI())
           .append("\n");
+      accessLog.setRequestUri(request.getRequestURI());
       sb.append("******************************");
       sb.append(df.format(new Date()));
+      accessLog.setRequestTime(new Date());
       sb.append("***********************************");
       sb.append("\n");
+      service.insertSelective(accessLog);
       log.info(sb.toString());
     } catch (Exception e) {
       e.printStackTrace();
@@ -167,7 +190,7 @@ public class AspectLogger {
     // 处理完请求，返回内容
     sb.append("\n");
     sb.append("Result        :  ").append(JackSonUtils.bean2Json(ret));
-    log.info(sb.toString());
+//    log.info(sb.toString());
   }
 
 
@@ -198,7 +221,7 @@ public class AspectLogger {
       StringBuilder params = new StringBuilder();
       if (joinPoint.getArgs() != null && joinPoint.getArgs().length > 0) {
         for (int i = 0; i < joinPoint.getArgs().length; i++) {
-          params.append(JackSonUtils.bean2Json(joinPoint.getArgs()[i]))
+          params.append(JackSonUtils.bean2Json(joinPoint.getArgs()[i], false))
               .append(";");
         }
       }
@@ -217,7 +240,7 @@ public class AspectLogger {
       sb.append("ExceptionName    :  ").append(ex.getClass().getName())
           .append("\n");
       sb.append("ExceptionMessage :  ").append(ex.getMessage()).append("\n");
-      log.info(sb.toString());
+//      log.info(sb.toString());
     } catch (Exception e1) {
       e1.printStackTrace();
     }

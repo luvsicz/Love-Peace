@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.per;
 
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Position;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.PositionService;
@@ -22,11 +23,13 @@ public class PositionController {
   PositionService positionService;
 
   @GetMapping("/")
+  @WebLogger
   public List<Position> getAllPositions() {
     return positionService.getAllPositions();
   }
 
   @PostMapping("/")
+  @WebLogger
   public RespBean addPosition(@RequestBody Position position) {
     if (positionService.addPosition(position) == 1) {
       return RespBean.ok("添加成功!");
@@ -35,6 +38,7 @@ public class PositionController {
   }
 
   @PutMapping("/")
+  @WebLogger
   public RespBean updatePositions(@RequestBody Position position) {
     if (positionService.updateByPrimaryKeySelective(position) == 1) {
       return RespBean.ok("更新成功!");
@@ -43,6 +47,7 @@ public class PositionController {
   }
 
   @DeleteMapping("/{id}")
+  @WebLogger
   public RespBean deletePositionById(@PathVariable Integer id) {
     if (positionService.deleteByPrimaryKey(id) == 1) {
       return RespBean.ok("删除成功!");
@@ -51,6 +56,7 @@ public class PositionController {
   }
 
   @DeleteMapping("/")
+  @WebLogger
   public RespBean deletePositionsByIds(Integer[] ids) {
     if (positionService.deleteByPrimaryKeys(ids) == ids.length) {
       return RespBean.ok("删除成功!");

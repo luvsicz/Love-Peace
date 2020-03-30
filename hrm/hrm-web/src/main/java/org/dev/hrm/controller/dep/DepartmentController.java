@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.dep;
 
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Department;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.DepartmentService;
@@ -27,17 +28,20 @@ public class DepartmentController {
   DepartmentService service;
 
   @GetMapping("/")
+  @WebLogger
   public List<Department> getAllDepartmentsByParentId() {
     return service.getAllDepartmentsByParentId();
   }
 
   @GetMapping("/list")
+  @WebLogger
   public List<Department> getAllDepartments() {
     return service.getAllDepartments();
   }
 
   //TODO FIX添加部门偶尔出现BUG
   @PostMapping("/")
+  @WebLogger
   public RespBean addDep(@RequestBody Department dep) {
     service.addDepartment(dep);
     if (dep.getResult() == 1) {
@@ -47,6 +51,7 @@ public class DepartmentController {
   }
 
   @DeleteMapping("/{id}")
+  @WebLogger
   public RespBean deleteDepById(@PathVariable Integer id) {
     Department dep = new Department();
     dep.setId(id);

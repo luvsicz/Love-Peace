@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.per;
 
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.JobLevel;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.JobLevelService;
@@ -22,11 +23,13 @@ public class JobLevelController {
   JobLevelService jobLevelService;
 
   @GetMapping("/")
+  @WebLogger
   public List<JobLevel> getAllJobLevels() {
     return jobLevelService.getAllJobLevels();
   }
 
   @PostMapping("/")
+  @WebLogger
   public RespBean addJobLevel(@RequestBody JobLevel jobLevel) {
     if (jobLevelService.insertSelective(jobLevel) == 1) {
       return RespBean.ok("添加成功!");
@@ -35,6 +38,7 @@ public class JobLevelController {
   }
 
   @PutMapping("/")
+  @WebLogger
   public RespBean updateJobLevelById(@RequestBody JobLevel jobLevel) {
     if (jobLevelService.updateByPrimaryKeySelective(jobLevel) == 1) {
       return RespBean.ok("更新成功!");
@@ -43,6 +47,7 @@ public class JobLevelController {
   }
 
   @DeleteMapping("/{id}")
+  @WebLogger
   public RespBean deleteJobLevelById(@PathVariable Integer id) {
     if (jobLevelService.deleteByPrimaryKey(id) == 1) {
       return RespBean.ok("删除成功!");
@@ -51,6 +56,7 @@ public class JobLevelController {
   }
 
   @DeleteMapping("/")
+  @WebLogger
   public RespBean deleteJobLevelsByIds(Integer[] ids) {
     if (jobLevelService.deleteByPrimaryKeys(ids) == ids.length) {
       return RespBean.ok("删除成功!");

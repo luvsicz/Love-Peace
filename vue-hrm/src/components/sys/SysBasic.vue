@@ -1,7 +1,5 @@
 <template>
-  <div>
-    基本信息
-  </div>
+  <h1>基本信息</h1>
 </template>
 
 <script>

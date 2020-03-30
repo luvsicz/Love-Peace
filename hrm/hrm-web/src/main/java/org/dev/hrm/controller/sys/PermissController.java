@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.sys;
 
 import java.util.List;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Menu;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.model.Role;
@@ -26,21 +27,25 @@ public class PermissController {
   MenuService menuService;
 
   @GetMapping("/")
+  @WebLogger
   public List<Role> getAllRoles() {
     return roleService.getAllRoles();
   }
 
   @GetMapping("/menus")
+  @WebLogger
   public List<Menu> getAllMenus() {
     return menuService.getAllMenus();
   }
 
   @GetMapping("/mids/{rid}")
+  @WebLogger
   public List<Integer> getMidsByRid(@PathVariable Integer rid) {
     return menuService.getMenuIdByRoleId(rid);
   }
 
   @PutMapping("/")
+  @WebLogger
   public RespBean updateMenuRole(Integer rid, Integer[] mids) {
     if (menuService.updateMenuRole(rid, mids)) {
       return RespBean.ok("更新成功!");
@@ -49,6 +54,7 @@ public class PermissController {
   }
 
   @PostMapping("/role")
+  @WebLogger
   public RespBean addRole(@RequestBody Role role) {
     if (roleService.addRole(role) == 1) {
       return RespBean.ok("添加成功!");
@@ -63,6 +69,7 @@ public class PermissController {
    * @return
    */
   @DeleteMapping("/role/{rid}")
+  @WebLogger
   public RespBean deleteRoleById(@PathVariable Integer rid) {
     //遇到删除的角色有联到用户和资源抛出因为外键约束导致无法删除的异常，则返回提示信息
     if (roleService.deleteByPrimaryKey(rid) == 1) {

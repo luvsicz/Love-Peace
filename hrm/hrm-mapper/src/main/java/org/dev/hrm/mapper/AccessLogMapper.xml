@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dev.hrm.mapper.AccessLogMapper">
+  <resultMap id="BaseResultMap" type="org.dev.hrm.model.AccessLog">
+    <!--@mbg.generated-->
+    <!--@Table hrm.accessLog-->
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="className" jdbcType="VARCHAR" property="className"/>
+    <result column="requestMethod" jdbcType="VARCHAR" property="requestMethod"/>
+    <result column="contentType" jdbcType="VARCHAR" property="contentType"/>
+    <result column="requestParams" jdbcType="LONGVARCHAR" property="requestParams"/>
+    <result column="requestType" jdbcType="VARCHAR" property="requestType"/>
+    <result column="serverAddr" jdbcType="VARCHAR" property="serverAddr"/>
+    <result column="remoteAddr" jdbcType="VARCHAR" property="remoteAddr"/>
+    <result column="deviceName" jdbcType="VARCHAR" property="deviceName"/>
+    <result column="browserName" jdbcType="VARCHAR" property="browserName"/>
+    <result column="userAgent" jdbcType="VARCHAR" property="userAgent"/>
+    <result column="requestUri" jdbcType="VARCHAR" property="requestUri"/>
+    <result column="requestTime" jdbcType="DATE" property="requestTime"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, className, requestMethod, contentType, requestParams, requestType, serverAddr,
+    remoteAddr, deviceName, browserName, userAgent, requestUri, requestTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from hrm.accessLog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from hrm.accessLog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.AccessLog"
+    useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into hrm.accessLog (className, requestMethod, contentType,
+    requestParams, requestType, serverAddr,
+    remoteAddr, deviceName, browserName,
+    userAgent, requestUri, requestTime
+    )
+    values (#{className,jdbcType=VARCHAR}, #{requestMethod,jdbcType=VARCHAR},
+    #{contentType,jdbcType=VARCHAR},
+    #{requestParams,jdbcType=LONGVARCHAR}, #{requestType,jdbcType=VARCHAR},
+    #{serverAddr,jdbcType=VARCHAR},
+    #{remoteAddr,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{browserName,jdbcType=VARCHAR},
+    #{userAgent,jdbcType=VARCHAR}, #{requestUri,jdbcType=VARCHAR}, #{requestTime,jdbcType=DATE}
+    )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.AccessLog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into hrm.accessLog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="className != null">
+        className,
+      </if>
+      <if test="requestMethod != null">
+        requestMethod,
+      </if>
+      <if test="contentType != null">
+        contentType,
+      </if>
+      <if test="requestParams != null">
+        requestParams,
+      </if>
+      <if test="requestType != null">
+        requestType,
+      </if>
+      <if test="serverAddr != null">
+        serverAddr,
+      </if>
+      <if test="remoteAddr != null">
+        remoteAddr,
+      </if>
+      <if test="deviceName != null">
+        deviceName,
+      </if>
+      <if test="browserName != null">
+        browserName,
+      </if>
+      <if test="userAgent != null">
+        userAgent,
+      </if>
+      <if test="requestUri != null">
+        requestUri,
+      </if>
+      <if test="requestTime != null">
+        requestTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="className != null">
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="requestMethod != null">
+        #{requestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="requestParams != null">
+        #{requestParams,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="requestType != null">
+        #{requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="serverAddr != null">
+        #{serverAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null">
+        #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="browserName != null">
+        #{browserName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUri != null">
+        #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null">
+        #{requestTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.AccessLog">
+    <!--@mbg.generated-->
+    update hrm.accessLog
+    <set>
+      <if test="className != null">
+        className = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="requestMethod != null">
+        requestMethod = #{requestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null">
+        contentType = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="requestParams != null">
+        requestParams = #{requestParams,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="requestType != null">
+        requestType = #{requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="serverAddr != null">
+        serverAddr = #{serverAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null">
+        remoteAddr = #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        deviceName = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="browserName != null">
+        browserName = #{browserName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        userAgent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUri != null">
+        requestUri = #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null">
+        requestTime = #{requestTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.AccessLog">
+    <!--@mbg.generated-->
+    update hrm.accessLog
+    set className = #{className,jdbcType=VARCHAR},
+    requestMethod = #{requestMethod,jdbcType=VARCHAR},
+    contentType = #{contentType,jdbcType=VARCHAR},
+    requestParams = #{requestParams,jdbcType=LONGVARCHAR},
+    requestType = #{requestType,jdbcType=VARCHAR},
+    serverAddr = #{serverAddr,jdbcType=VARCHAR},
+    remoteAddr = #{remoteAddr,jdbcType=VARCHAR},
+    deviceName = #{deviceName,jdbcType=VARCHAR},
+    browserName = #{browserName,jdbcType=VARCHAR},
+    userAgent = #{userAgent,jdbcType=VARCHAR},
+    requestUri = #{requestUri,jdbcType=VARCHAR},
+    requestTime = #{requestTime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getTotal" resultType="long">
+    select count(*) from accessLog
+    <where>
+      <if test="accessLog!=null ">
+        <if test="accessLog.className != null">
+          className = #{accessLog.className,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.requestMethod != null">
+          requestMethod = #{accessLog.requestMethod,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.contentType != null">
+          contentType = #{accessLog.contentType,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.requestParams != null">
+          requestParams = #{accessLog.requestParams,jdbcType=LONGVARCHAR},
+        </if>
+        <if test="accessLog.requestType != null">
+          requestType = #{accessLog.requestType,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.serverAddr != null">
+          serverAddr = #{accessLog.serverAddr,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.remoteAddr != null">
+          remoteAddr = #{accessLog.remoteAddr,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.deviceName != null">
+          deviceName = #{accessLog.deviceName,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.browserName != null">
+          browserName = #{accessLog.browserName,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.userAgent != null">
+          userAgent = #{accessLog.userAgent,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.requestUri != null">
+          requestUri = #{accessLog.requestUri,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.requestTime !=null">
+          and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
+        </if>
+      </if>
+    </where>
+  </select>
+  <select id="getAccessLogByPage" resultType="org.dev.hrm.model.AccessLog">
+    select
+    <include refid="Base_Column_List"/>
+    from accessLog
+    <where>
+      <if test="accessLog!=null ">
+        <if test="accessLog.className != null">
+          className = #{accessLog.className,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.requestMethod != null">
+          requestMethod = #{accessLog.requestMethod,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.contentType != null">
+          contentType = #{accessLog.contentType,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.requestParams != null">
+          requestParams = #{accessLog.requestParams,jdbcType=LONGVARCHAR},
+        </if>
+        <if test="accessLog.requestType != null">
+          requestType = #{accessLog.requestType,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.serverAddr != null">
+          serverAddr = #{accessLog.serverAddr,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.remoteAddr != null">
+          remoteAddr = #{accessLog.remoteAddr,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.deviceName != null">
+          deviceName = #{accessLog.deviceName,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.browserName != null">
+          browserName = #{accessLog.browserName,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.userAgent != null">
+          userAgent = #{accessLog.userAgent,jdbcType=VARCHAR},
+        </if>
+        <if test="accessLog.requestUri != null">
+          requestUri = #{accessLog.requestUri,jdbcType=VARCHAR},
+        </if>
+      </if>
+      <if test="beginDateScope !=null">
+        and requestTime between #{beginDateScope[0]} and #{beginDateScope[1]}
+      </if>
+    </where>
+  </select>
+</mapper>

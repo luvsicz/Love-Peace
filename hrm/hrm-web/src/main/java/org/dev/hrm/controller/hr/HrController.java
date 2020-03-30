@@ -1,6 +1,7 @@
 package org.dev.hrm.controller.hr;
 
 import java.util.Map;
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.HrService;
@@ -28,11 +29,13 @@ public class HrController {
   HrService hrService;
 
   @GetMapping("/info")
+  @WebLogger
   public Hr getCurrentHr(Authentication authentication) {
     return ((Hr) authentication.getPrincipal());
   }
 
   @PutMapping("/info")
+  @WebLogger
   public RespBean updateHr(@RequestBody Hr hr, Authentication authentication) {
     if (hrService.updateByPrimaryKeySelective(hr) == 1) {
       //如果更新成功则把参数hr更新到Authentication
@@ -45,6 +48,7 @@ public class HrController {
   }
 
   @PutMapping("/password")
+  @WebLogger
   public RespBean updateHrPasswd(@RequestBody Map<String, Object> info) {
     String oldpass = (String) info.get("oldpass");
     String pass = (String) info.get("pass");
