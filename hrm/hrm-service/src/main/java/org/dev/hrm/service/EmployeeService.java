@@ -62,7 +62,7 @@ public class EmployeeService {
       page = (page - 1) * size;
     }
     List<Employee> data = employeeMapper.getEmployeeByPage(page, size, emp, beginDateScope);
-    long total = employeeMapper.getTotal(emp, beginDateScope);
+    long total = employeeMapper.getTotal(emp, beginDateScope, null);
     RespPageBean pageBean = new RespPageBean();
     pageBean.setTotal(total);
     pageBean.setData(data);
@@ -73,14 +73,14 @@ public class EmployeeService {
     return employeeMapper.getMaxWorkerId();
   }
 
-  public RespPageBean getEmployeeByPageWithSalary(Integer page, Integer size) {
+  public RespPageBean getEmployeeByPageWithSalary(Integer page, Integer size,Integer depId) {
     if (page != null && size != null) {
       page = (page - 1) * size;
     }
-    List<Employee> list = employeeMapper.getEmployeeByPageWithSalary(page, size);
+    List<Employee> list = employeeMapper.getEmployeeByPageWithSalary(page, size,depId);
     RespPageBean respPageBean = new RespPageBean();
     respPageBean.setData(list);
-    respPageBean.setTotal(employeeMapper.getTotal(null, null));
+    respPageBean.setTotal(employeeMapper.getTotal(null, null, depId));
     return respPageBean;
   }
 

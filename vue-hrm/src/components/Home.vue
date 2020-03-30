@@ -80,6 +80,7 @@
             window.sessionStorage.removeItem('nations')
             window.sessionStorage.removeItem('deps')
             window.sessionStorage.removeItem('joblevels')
+            window.sessionStorage.removeItem('depList')
             //跳转到首页
             this.$router.replace('/')
             //清理路由

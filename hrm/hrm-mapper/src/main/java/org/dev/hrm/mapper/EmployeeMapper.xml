@@ -440,7 +440,7 @@
     </foreach>)
   </delete>
   <select id="getTotal" resultType="java.lang.Long">
-    select count(*) from employee e
+    select count(*) from employee e join department d on e.departmentId=d.id
     <where>
       <if test="emp!=null">
         <if test="emp.name !=null and emp.name!=''">
@@ -465,10 +465,14 @@
           and e.posId =#{emp.posId}
         </if>
       </if>
+      <if test="depId!=null">
+        and d.id =#{depId}
+      </if>
       <if test="beginDateScope !=null">
         and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
       </if>
     </where>
+
   </select>
   <select id="getMaxWorkerId" resultType="java.lang.Integer">
     select max(workID)
@@ -506,6 +510,11 @@
     LEFT JOIN
     empsalary es ON e.`id`=es.`eid` LEFT JOIN salary s ON es.`sid`=s.`id` LEFT JOIN department d ON
     e.`departmentId`=d.`id`
+    <where>
+      <if test="depId!=null">
+        and d.id =#{depId}
+      </if>
+    </where>
     order by e.id
     <if test="page !=null and size !=null">
       limit #{page},#{size}
@@ -515,5 +524,4 @@
     REPLACE INTO empsalary (eid, sid)
     VALUES (#{eid}, #{sid})
   </insert>
-
 </mapper>

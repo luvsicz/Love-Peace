@@ -33,7 +33,7 @@ public class SobConfigController {
   @GetMapping("/")
   public RespPageBean getEmployeeByPageWithSalary(@RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size) {
-    return employeeService.getEmployeeByPageWithSalary(page, size);
+    return employeeService.getEmployeeByPageWithSalary(page, size,null);
   }
 
   @GetMapping("/salaries")
