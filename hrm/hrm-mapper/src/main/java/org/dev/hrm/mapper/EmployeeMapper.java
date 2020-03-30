@@ -35,12 +35,13 @@ public interface EmployeeMapper {
 
   int deleteByPrimaryKeys(@Param("ids") String[] ids);
 
-  long getTotal(@Param("emp") Employee emp, @Param("beginDateScope") Date[] beginDateScope);
+  long getTotal(@Param("emp") Employee emp, @Param("beginDateScope") Date[] beginDateScope,
+      @Param("depId") Integer depId);
 
   Integer getMaxWorkerId();
 
   List<Employee> getEmployeeByPageWithSalary(@Param("page") Integer page,
-      @Param("size") Integer size);
+      @Param("size") Integer size, @Param("depId") Integer depId);
 
   Integer updateEmployeeSalaryById(@Param("eid") Integer eid, @Param("sid") Integer sid);
 
