@@ -19,6 +19,8 @@ public class NewsFragment extends Fragment {
   private static final String TAG = "NewsFragment";
   private WebView webView;
 
+
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

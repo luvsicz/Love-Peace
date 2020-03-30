@@ -1,33 +1,55 @@
 package com.rechar.campusassistant.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.fragment.app.Fragment;
 
 import com.alexvasilkov.android.commons.adapters.ItemsAdapter;
-import com.alexvasilkov.android.commons.ui.ContextHelper;
 import com.alexvasilkov.android.commons.ui.Views;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rechar.campusassistant.R;
-import com.rechar.campusassistant.bean.Painting;
+import com.rechar.campusassistant.model.Painting;
 import com.rechar.campusassistant.ui.ActivitysFragment;
 import com.rechar.campusassistant.util.GlideHelper;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.ViewHolder>
-        implements View.OnClickListener {
-
+/**
+ *
+ * 主界面adapter,获取列表封面/title
+ * TOUCH监听进入另一个view(内部)
+ *
+ * 可接收
+ */
+public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.ViewHolder> implements View.OnClickListener {
+    private String CREATE_ACCOUNT_URL = "https://" + ip + "/WantedServlet";
+    private static String ip = "liurechar.utools.club";
     private static final String TAG="PaintingsAdapter";
-    public PaintingsAdapter(Context context) {
-        setItemsList(Arrays.asList(Painting.getAllPaintings(context.getResources())));
+
+    private PaintingsAdapter paintingsAdapter;
+
+    private List<Painting> paintingList=null;
+   /* public PaintingsAdapter(Context context) {
+      // setItemsList(Arrays.asList(Painting.getAllPaintings(context.getResources())));
+        pint.start();
+        Log.e(TAG, "PaintingsAdapter: " );
+        setItemsList(paintingList);
+    }
+*/
+
+    public PaintingsAdapter(Context context, List<Painting> paintingList) {
+        this.paintingList = paintingList;
     }
 
     @Override
@@ -37,6 +59,7 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
         return holder;
     }
 
+    //这里获取
     @Override
     protected void onBindHolder(ViewHolder holder, int position) {
         final Painting item = getItem(position);
@@ -61,5 +84,38 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
             title = Views.find(itemView, R.id.list_item_title);
         }
     }
+    public Thread pint = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder().url(CREATE_ACCOUNT_URL).build();
+            Log.e(TAG, "onCreateView: 2");
+            try {
+                Log.e(TAG, "onCreateView: 1");
+                Response response = client.newCall(request).execute();
+                Log.e(TAG, "onCreateView: 3");
+                if (response.isSuccessful()) {
+                    Log.e(TAG, "onCreateView: 4");
+                    String str = null;
+                    if (response.body() != null) {
+                        str = response.body().string();
+                        Log.e(TAG, "onCreateView:----  " + str);
+                    }
+
+
+                    Gson gson = new Gson();
+                   paintingList = gson.fromJson(str, new TypeToken<List<Painting>>() {}.getType());
+
+                    for (Painting painting : paintingList) {
+                        Log.e(TAG, "run: " + gson.toJson(painting));
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    });
+
 
 }
