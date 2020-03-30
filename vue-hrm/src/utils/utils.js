@@ -39,7 +39,6 @@ export const formatRoutes = (routes) => {
       enabled: enabled,
       component(resolve) {
         if (component.startsWith("Home")) {
-          console.log(component)
           require(['../components/' + component + '.vue'], resolve);
         } else if (component.startsWith("Dep")) {
           require(['../components/dep/' + component + '.vue'], resolve);
