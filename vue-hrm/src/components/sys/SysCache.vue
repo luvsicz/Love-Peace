@@ -14,11 +14,18 @@
       active-color="#13ce66"
       inactive-color="#ff4949">
     </el-switch>
+    <span>访问日志清理</span>
+    <el-switch
+      v-model="accessLog"
+      @change="clean('accessLog',accessLog)"
+      active-color="#13ce66"
+      inactive-color="#ff4949">
+    </el-switch>
   </div>
 </template>
 
 <script>
-  import {getRequest} from "../../utils/api";
+  import {deleteRequest, getRequest} from "../../utils/api";
 
   export default {
     name: "SysCache",
@@ -26,7 +33,8 @@
       return {
         //按钮默认值 关闭状态
         menuCache: false,
-        flushAll: false
+        flushAll: false,
+        accessLog: false
       }
     },
     methods: {
@@ -38,6 +46,9 @@
           }
           if ('all' === type) {
             getRequest('/system/evictCache/all')
+          }
+          if ('accessLog' === type) {
+            deleteRequest('/sys/access/')
           }
         }
 

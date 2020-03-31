@@ -6,6 +6,7 @@ import org.dev.hrm.model.AccessLog;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.AccessLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,8 +27,16 @@ public class AccessLogController {
 
   @GetMapping("/")
   @WebLogger
-  public RespBean getAccessLogByPage(@RequestParam(defaultValue = "1") Integer page,
-      @RequestParam(defaultValue = "10") Integer size, AccessLog accessLog, Date[] beginDateScope) {
-    return RespBean.ok("", service.getAccessLogByPage(page, size, accessLog, beginDateScope));
+  public RespBean getAccessLogByPage(
+      @RequestParam(defaultValue = "1") Integer page,
+      @RequestParam(defaultValue = "10") Integer size, AccessLog accessLog,
+      Date[] beginDateScope) {
+    return RespBean.ok("",
+        service.getAccessLogByPage(page, size, accessLog, beginDateScope));
+  }
+
+  @DeleteMapping
+  public RespBean deleteAccessLog() {
+    return RespBean.ok("清理AccessLog成功", service.truncateAll());
   }
 }

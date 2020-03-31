@@ -3,6 +3,7 @@ package org.dev.hrm.aspect;
 import eu.bitwalker.useragentutils.UserAgent;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -139,8 +140,10 @@ public class AspectLogger {
               methodParamMap)
           .append("\n");
       accessLog
-          .setRequestParams("".equals(decode.toString()) ? JackSonUtils.bean2Json(methodParam) :
-              JackSonUtils.bean2Json(methodParamMap));
+          .setRequestParams(
+              "".equals(decode.toString()) ? JackSonUtils.bean2Json(methodParam)
+                  :
+                      JackSonUtils.bean2Json(methodParamMap));
       sb.append("RequestType   :  ").append(request.getMethod()).append("\n");
       accessLog.setRequestType(request.getMethod());
       sb.append("ServerAddr    :  ").append(request.getScheme()).append("://")
@@ -167,11 +170,12 @@ public class AspectLogger {
       accessLog.setRequestUri(request.getRequestURI());
       sb.append("******************************");
       sb.append(df.format(new Date()));
-      accessLog.setRequestTime(new Date());
+//      Timestamp.valueOf(df.format(new Date());
+      accessLog.setRequestTime(new Timestamp(System.currentTimeMillis()));
       sb.append("***********************************");
       sb.append("\n");
       service.insertSelective(accessLog);
-      log.info(sb.toString());
+//      log.info(sb.toString());
     } catch (Exception e) {
       e.printStackTrace();
     }

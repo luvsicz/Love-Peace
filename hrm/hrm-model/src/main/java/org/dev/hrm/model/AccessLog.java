@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -86,6 +87,6 @@ public class AccessLog implements Serializable {
    * 发起请求的时间
    */
   @ApiModelProperty(value = "发起请求的时间")
-  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
-  private Date requestTime;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
+  private Timestamp requestTime;
 }

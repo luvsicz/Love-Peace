@@ -19,8 +19,6 @@ public class NewsFragment extends Fragment {
   private static final String TAG = "NewsFragment";
   private WebView webView;
 
-
-
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -30,13 +28,12 @@ public class NewsFragment extends Fragment {
     webSetting();
     return view;
   }
-
   private void webSetting() {
     webView.getSettings().setJavaScriptEnabled(true);
     webView.getSettings().setAllowFileAccess(true);
     webView.getSettings().setSupportZoom(true);
     webView.getSettings().setBuiltInZoomControls(true);
-    webView.loadUrl("http://baidu.com");
+    webView.loadUrl("http://www.ctgu.edu.cn");
     webView.setWebViewClient(new WebViewClient() {
       @Override
       public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -47,7 +44,6 @@ public class NewsFragment extends Fragment {
     });
     webView.canGoBack();
     webView.setOnKeyListener(new View.OnKeyListener() {
-
       public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK
             && event.getAction() == MotionEvent.ACTION_UP
@@ -64,13 +60,11 @@ public class NewsFragment extends Fragment {
   public void onDestroyView() {
     Log.e(TAG, "onDestroyView: ");
     if (webView != null) {
-      //rootView is the inflated view of the fragment/activity
       ((ViewGroup) webView.getParent()).removeAllViews();
       webView.removeAllViews();
       super.onDestroyView();
     }
   }
-
   //销毁Webview
   @Override
   public void onDestroy() {

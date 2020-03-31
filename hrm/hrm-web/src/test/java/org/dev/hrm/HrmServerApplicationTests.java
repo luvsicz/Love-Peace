@@ -1,8 +1,6 @@
 package org.dev.hrm;
 
-import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
-import org.dev.hrm.model.AccessLog;
 import org.dev.hrm.service.AccessLogService;
 import org.dev.hrm.service.EmployeeService;
 import org.dev.hrm.service.HrService;
@@ -25,15 +23,9 @@ class HrmServerApplicationTests {
 
   @Test
   void loggerTest() {
-    logService.insertSelective(new AccessLog());
+    logService.getAccessLogByPage(1, 10, null, null);
   }
 
-  /**
-   * @throws IOException
-   */
-  @Test
-  void contextLoads() throws IOException {
-  }
 
   @Test
   @DisplayName("HR查询测试")

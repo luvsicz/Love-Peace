@@ -5,8 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,22 +21,10 @@ import com.alexvasilkov.android.commons.ui.Views;
 import com.alexvasilkov.foldablelayout.UnfoldableView;
 import com.alexvasilkov.foldablelayout.shading.GlanceFoldShading;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.rechar.campusassistant.R;
 import com.rechar.campusassistant.adapter.PaintingsAdapter;
 import com.rechar.campusassistant.model.Painting;
 import com.rechar.campusassistant.util.GlideHelper;
-import com.rechar.campusassistant.util.HttpImageGetter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.List;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * @author Bamboo
@@ -59,8 +45,6 @@ public class ActivitysFragment extends Fragment {
   public String CREATE_ACCOUNT_URL = "https://" + ip + "/WantedServlet";
   private static String ip = "liurechar.utools.club";
   private static ObjectMapper mapper = new ObjectMapper();
-  ImageView imageView;
-  private  List<Painting> paintingList;
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -68,9 +52,9 @@ public class ActivitysFragment extends Fragment {
     View view = inflater.inflate(R.layout.activitys_fragment, container, false);
     Log.e(TAG, "onCreateView: ");
     listView = view.findViewById(R.id.list_view);
-    paintingsAdapter = new PaintingsAdapter(aActivity,paintingList);
+    paintingsAdapter = new PaintingsAdapter(aActivity);
+
     listView.setAdapter(paintingsAdapter);
-    imageView=view.findViewById(R.id.details_image);
     listTouchInterceptor = view.findViewById(R.id.touch_interceptor_view);
     listTouchInterceptor.setClickable(false);
     detailsLayout = view.findViewById(R.id.details_layout);
@@ -132,60 +116,11 @@ public class ActivitysFragment extends Fragment {
     aActivity = (Activity) context;
   }
 
-
   @Override
   public void onStart() {
     super.onStart();
     Log.e(TAG, "onStart: ");
-    pint.start();
-  }
 
-  private Thread pint = new Thread(new Runnable() {
-    @Override
-    public void run() {
-      OkHttpClient client = new OkHttpClient();
-      Request request = new Request.Builder().url(CREATE_ACCOUNT_URL).build();
-      Log.e(TAG, "onCreateView: 2");
-      try {
-        Log.e(TAG, "onCreateView: 1");
-        Response response = client.newCall(request).execute();
-        Log.e(TAG, "onCreateView: 3");
-        if (response.isSuccessful()) {
-          Log.e(TAG, "onCreateView: 4");
-          String str = null;
-          if (response.body() != null) {
-            str = response.body().string();
-            Log.e(TAG, "onCreateView:----  " + str);
-          }
-          Gson gson = new Gson();
-
-          List<Painting> paintingLists = gson.fromJson(str, new TypeToken<List<Painting>>() {}.getType());
-          Log.e(TAG, "run: -------------" );
-          paintingList=paintingLists;
-
-
-         /* for (Painting painting : paintingList) {
-            String url=painting.getUrl();
-            Log.e(TAG, "run: " + gson.toJson(painting));
-            Drawable img=HttpImageGetter.getDrawable(url);
-            showResponse(img);
-          }*/
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-    }
-  });
-
-  private void showResponse(final Drawable response) {
-    getActivity().runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        // 在这里进行UI操作，将结果显示到界面上
-        imageView.setImageDrawable(response);
-      }
-    });
   }
 
 

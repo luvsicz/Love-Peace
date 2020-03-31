@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.dev.hrm.model.AccessLog;
-import org.dev.hrm.model.Employee;
 
 /**
  * @author 冷嘉贤
@@ -28,9 +27,13 @@ public interface AccessLogMapper {
 
   int updateByPrimaryKey(AccessLog record);
 
-  List<Employee> getAccessLogByPage(@Param("page") Integer page, @Param("size") Integer size,
-      @Param("accessLog") AccessLog accessLog, @Param("beginDateScope") Date[] beginDateScope);
+  List<AccessLog> getAccessLogByPage(@Param("page") Integer page,
+      @Param("size") Integer size,
+      @Param("accessLog") AccessLog accessLog,
+      @Param("beginDateScope") Date[] beginDateScope);
 
   long getTotal(@Param("accessLog") AccessLog accessLog,
       @Param("beginDateScope") Date[] beginDateScope);
+
+  int truncateAll();
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.dev.hrm.mapper.AccessLogMapper;
 import org.dev.hrm.model.AccessLog;
-import org.dev.hrm.model.Employee;
 import org.dev.hrm.model.RespPageBean;
 import org.springframework.stereotype.Service;
 
@@ -51,16 +50,23 @@ public class AccessLogService {
     return accessLogMapper.updateByPrimaryKey(record);
   }
 
-  public RespPageBean getAccessLogByPage(Integer page, Integer size, AccessLog accessLog,
+  public RespPageBean getAccessLogByPage(Integer page, Integer size,
+      AccessLog accessLog,
       Date[] beginDateScope) {
     if (page != null && size != null) {
       page = (page - 1) * size;
     }
-    List<Employee> data = accessLogMapper.getAccessLogByPage(page, size, accessLog, beginDateScope);
+    List<AccessLog> data = accessLogMapper
+        .getAccessLogByPage(page, size, accessLog,
+            beginDateScope);
     long total = accessLogMapper.getTotal(accessLog, beginDateScope);
     RespPageBean pageBean = new RespPageBean();
     pageBean.setTotal(total);
     pageBean.setData(data);
     return pageBean;
+  }
+
+  public int truncateAll() {
+    return accessLogMapper.truncateAll();
   }
 }

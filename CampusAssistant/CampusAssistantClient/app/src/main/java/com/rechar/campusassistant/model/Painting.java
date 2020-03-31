@@ -1,12 +1,6 @@
 package com.rechar.campusassistant.model;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-import com.google.gson.Gson;
-import com.rechar.campusassistant.util.HttpImageGetter;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * {
@@ -52,43 +46,4 @@ public class Painting implements Serializable {
     this.url = url;
   }
 
-  public static Painting getAllPaintings(List<Painting> painting) {
-
-    Painting p;
-    String title = null;
-    String content = null;
-    String url = null;
-    int id = 0;
-    Gson gson = new Gson();
-
-    for (Painting paintings : painting) {
-      Log.e(TAG, "run: " + gson.toJson(painting));
-      id = paintings.getId();
-      title = paintings.getTitle();
-      content = paintings.getContent();
-      url = paintings.getUrl();
-      Drawable img= HttpImageGetter.getDrawable(url);
-    }
-
-    p = new Painting(id, title, content, url);
-
-    return p;
-
-      /*  String[] titles =painting.get;
-      String[] content = res.getStringArray(R.array.paintings_years);//暂放，从服务端获取
-      //  String[] locations = res.getStringArray(R.array.paintings_locations);
-        TypedArray images = res.obtainTypedArray(R.array.paintings_images);
-
-        int size = titles.length;
-        Painting[] paintings = new Painting[size];
-/////获取
-        for (int i = 0; i < size; i++) {
-            final int imageId = images.getResourceId(i, -1);
-            paintings[i] = new Painting(imageId, titles[i],content[i]);
-        }
-
-        images.recycle();
-
-       // return paintings;*/
-  }
 }

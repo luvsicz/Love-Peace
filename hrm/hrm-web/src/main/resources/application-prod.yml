@@ -22,5 +22,5 @@ spring:
     password: pa22w0rd
     host: 182.92.71.212
 debug: false
-mybatis:
-  config-location: classpath:/mybatis-config.xml
+#mybatis:
+#  config-location: classpath:/mybatis-config.xml

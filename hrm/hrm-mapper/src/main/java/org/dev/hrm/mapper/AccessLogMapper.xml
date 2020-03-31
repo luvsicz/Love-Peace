@@ -17,7 +17,7 @@
     <result column="browserName" jdbcType="VARCHAR" property="browserName"/>
     <result column="userAgent" jdbcType="VARCHAR" property="userAgent"/>
     <result column="requestUri" jdbcType="VARCHAR" property="requestUri"/>
-    <result column="requestTime" jdbcType="DATE" property="requestTime"/>
+    <result column="requestTime" jdbcType="TIMESTAMP" property="requestTime"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -49,7 +49,7 @@
     #{requestParams,jdbcType=LONGVARCHAR}, #{requestType,jdbcType=VARCHAR},
     #{serverAddr,jdbcType=VARCHAR},
     #{remoteAddr,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{browserName,jdbcType=VARCHAR},
-    #{userAgent,jdbcType=VARCHAR}, #{requestUri,jdbcType=VARCHAR}, #{requestTime,jdbcType=DATE}
+    #{userAgent,jdbcType=VARCHAR}, #{requestUri,jdbcType=VARCHAR}, #{requestTime,jdbcType=TIMESTAMP}
     )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id"
@@ -129,7 +129,7 @@
         #{requestUri,jdbcType=VARCHAR},
       </if>
       <if test="requestTime != null">
-        #{requestTime,jdbcType=DATE},
+        #{requestTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -171,7 +171,7 @@
         requestUri = #{requestUri,jdbcType=VARCHAR},
       </if>
       <if test="requestTime != null">
-        requestTime = #{requestTime,jdbcType=DATE},
+        requestTime = #{requestTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -190,7 +190,7 @@
     browserName = #{browserName,jdbcType=VARCHAR},
     userAgent = #{userAgent,jdbcType=VARCHAR},
     requestUri = #{requestUri,jdbcType=VARCHAR},
-    requestTime = #{requestTime,jdbcType=DATE}
+    requestTime = #{requestTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getTotal" resultType="long">
@@ -228,7 +228,7 @@
           userAgent = #{accessLog.userAgent,jdbcType=VARCHAR},
         </if>
         <if test="accessLog.requestUri != null">
-          requestUri = #{accessLog.requestUri,jdbcType=VARCHAR},
+          requestUri like concat('%',#{accessLog.requestUri},'%')
         </if>
         <if test="accessLog.requestTime !=null">
           and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
@@ -273,12 +273,18 @@
           userAgent = #{accessLog.userAgent,jdbcType=VARCHAR},
         </if>
         <if test="accessLog.requestUri != null">
-          requestUri = #{accessLog.requestUri,jdbcType=VARCHAR},
+          requestUri like concat('%',#{accessLog.requestUri},'%')
+        </if>
+        <if test="beginDateScope !=null">
+          and requestTime between #{beginDateScope[0]} and #{beginDateScope[1]}
         </if>
       </if>
-      <if test="beginDateScope !=null">
-        and requestTime between #{beginDateScope[0]} and #{beginDateScope[1]}
-      </if>
     </where>
+    <if test="page !=null and size !=null">
+      limit #{page},#{size}
+    </if>
   </select>
+  <delete id="truncateAll">
+    truncate accessLog;
+  </delete>
 </mapper>

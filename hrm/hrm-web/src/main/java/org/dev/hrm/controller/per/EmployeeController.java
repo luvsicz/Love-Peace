@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/per/emp")
 public class EmployeeController {
-
   @Autowired
   EmployeeService empService;
   @Autowired
@@ -98,7 +97,6 @@ public class EmployeeController {
   }
 
   @GetMapping("/export")
-  @WebLogger
   public ResponseEntity<byte[]> exportData() {
     List<Employee> list = (List<Employee>) empService
         .getEmployeeByPage(null, null, new Employee(), null).getData();

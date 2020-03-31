@@ -1,7 +1,8 @@
 <template>
   <div style="margin-top: 10px">
     <div style="display: flex; justify-content: space-between;">
-      <el-input placeholder="可通过名字模糊搜索搜索" size="mini" style="width: 300px" v-model="keyword"/>
+      <el-input @keydown.enter.native="search" placeholder="可通过名字模糊搜索" size="mini"
+                style="width: 300px" v-model="keyword"/>
       <el-button @click="search" icon="el-icon-search" size="mini" type="primary">搜索</el-button>
       <el-button @click="showAdvanceSearchView = !showAdvanceSearchView" size="mini" type="primary">
         <i :class="showAdvanceSearchView?'el-icon-arrow-up':'el-icon-arrow-down'"
@@ -667,7 +668,7 @@
       },
       exportXls() {
         //从父窗口打开而不是小窗口打开 进行下载
-        window.open('/employee/export', '_parent');
+        window.open('/per/emp/export', '_parent');
 
       },
       search() {
@@ -677,7 +678,7 @@
       initTable(type) {
         this.loading = true;
         let url = '/per/emp/?page=' + this.page + '&size=' + this.size;
-        if (type && type == 'advanced') {
+        if (type && type === 'advanced') {
           this.page = 1;
           if (this.searchValue.politicId) {
             url += '&politicId=' + this.searchValue.politicId;
@@ -759,9 +760,6 @@
       },
       showDepView() {
         this.popVisible = !this.popVisible
-      },
-      showDepView2() {
-        this.popVisible2 = !this.popVisible2
       },
       showAddEmpView() {
         this.emptyEmp();
