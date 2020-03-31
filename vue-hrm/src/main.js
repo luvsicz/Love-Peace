@@ -10,7 +10,7 @@ import {
   postKeyValueRequest,
   postRequest,
   putRequest
-} from '@/utils/api'
+} from './utils/api'
 import {initMenu} from "./utils/utils";
 
 Vue.config.productionTip = false;
@@ -46,6 +46,5 @@ new Vue({
   router,
   store,
   component: {App},
-  template: '<App/>',
   render: h => h(App)
 }).$mount('#app');
