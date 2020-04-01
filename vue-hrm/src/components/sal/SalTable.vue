@@ -99,7 +99,7 @@
     data() {
       return {
         loading: true,
-        depId: 0,
+        depId: '',
         deps: [],
         depSalary: [],
         page: 1,
@@ -109,15 +109,19 @@
     },
     methods: {
       initTable() {
-        this.loading = true;
         let url = '/sal/table/?page=' + this.page + '&size=' + this.size + '&depId=' + this.depId;
-        this.getRequest(url).then(resp => {
-          if (resp) {
-            this.total = resp.total;
-            this.depSalary = resp.data;
-            this.loading = false;
-          }
-        })
+        if (this.depId !== '') {
+          this.loading = true;
+          this.getRequest(url).then(resp => {
+            if (resp) {
+              this.total = resp.total;
+              this.depSalary = resp.data;
+              this.loading = false;
+            }
+          })
+        } else {
+          this.loading = false;
+        }
       },
       exportXls() {
         //从父窗口打开而不是小窗口打开 进行下载
@@ -145,9 +149,6 @@
       }
       //存入sessionStorage
       this.deps = JSON.parse(window.sessionStorage.getItem("depList"));
-      //TODO FIX deps为初始化导致下面的语句赋值出错
-      //加载第一个部门的工资表信息
-      this.depId = this.deps[0].id;
       this.initTable();
     }
   }
