@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import Login from '@/components/Login'
 import Home from "@/components/Home";
 import UserInfo from "../components/UserInfo";
+import SysNotice from "../components/sys/SysNotice";
+import MyNotice from "../components/MyNotice";
 
 //Navigating to current location ("XXXXXX") is not allowed
 Vue.use(VueRouter);
@@ -31,6 +33,11 @@ export default new VueRouter(
             path: '/userinfo',
             name: '个人中心',
             component: UserInfo,
+            hidden: true
+          },{
+            path: '/MyNotice',
+            name: '我的通知',
+            component: MyNotice,
             hidden: true
           }
         ]

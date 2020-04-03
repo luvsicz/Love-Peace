@@ -93,6 +93,10 @@ public class HrService implements UserDetailsService {
 
     return hrMapper.selectByNameLikeKeyWords(currentHr.getId(), name);
   }
+  public List<Hr> selectOtherHrs() {
+    Hr currentHr = ((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    return hrMapper.selectOtherHrs(currentHr.getId());
+  }
 
   @Transactional(rollbackFor = Exception.class)
   public boolean updateHrRole(Integer hrid, Integer[] rids) {

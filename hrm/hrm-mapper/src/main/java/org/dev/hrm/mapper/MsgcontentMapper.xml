@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dev.hrm.mapper.MsgContentMapper">
+  <resultMap id="BaseResultMap" type="org.dev.hrm.model.MsgContent">
+    <!--@mbg.generated-->
+    <!--@Table hrm.msgcontent-->
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="title" jdbcType="VARCHAR" property="title"/>
+    <result column="message" jdbcType="VARCHAR" property="message"/>
+    <result column="createDate" jdbcType="TIMESTAMP" property="createDate"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, title, message, createDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from hrm.msgcontent
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from hrm.msgcontent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.MsgContent"
+    useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into hrm.msgcontent (title, message, createDate
+    )
+    values (#{title,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+    )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.MsgContent" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into hrm.msgcontent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+      <if test="createDate != null">
+        createDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.MsgContent">
+    <!--@mbg.generated-->
+    update hrm.msgcontent
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        createDate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.MsgContent">
+    <!--@mbg.generated-->
+    update hrm.msgcontent
+    set title = #{title,jdbcType=VARCHAR},
+    message = #{message,jdbcType=VARCHAR},
+    createDate = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getTotal" resultType="long">
+    select count(*)
+    from msgcontent m join sysmsg s on m.id=s.mid
+    <where>
+      <if test="hrId !=null">
+        s.hrid=#{hrId}
+      </if>
+    </where>
+  </select>
+  <select id="getAllMsg" resultMap="BaseResultMap">
+    SELECT
+    s.hrid,
+    m.id,
+    m.title,
+    m.message,
+    m.createDate
+    FROM
+    msgcontent AS m
+    JOIN
+    sysmsg AS s
+    ON
+    m.id = s.mid
+    <where>
+      <if test="hrId !=null">
+        s.hrid=#{hrId}
+      </if>
+    </where>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getAllNotices" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from msgcontent
+  </select>
+  <select id="getNoticesNum" resultType="long">
+    select count(*) from msgcontent;
+  </select>
+</mapper>

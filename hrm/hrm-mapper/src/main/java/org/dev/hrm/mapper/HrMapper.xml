@@ -194,4 +194,9 @@
   <delete id="deleteByHrId">
     delete from hr_role where hrid=#{hrid}
   </delete>
+  <select id="selectOtherHrs" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from hr where id!=#{hrid};
+  </select>
 </mapper>

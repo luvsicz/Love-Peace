@@ -59,11 +59,14 @@
 </template>
 
 <script>
+  import {Notification} from "element-ui";
+
   export default {
     name: "Home"
     , data() {
       return {
         user: JSON.parse(window.sessionStorage.getItem('user')),
+        notices: []
       }
     }, methods: {
       handleCommand(command) {
@@ -106,11 +109,40 @@
 
       },
       handleClose(key, keyPath) {
+      },
+      gotoNotice() {
+        this.$router.push('/MyNotice')
+      },
+      initNotifications() {
+        //初始化当前HR的未读通知，有则弹出通知
+        this.getRequest('/system/config/notice/').then(resp => {
+          if (resp && resp.obj.data) {
+            this.notices = resp.obj.data
+            this.notices.some(notice => {
+              //0是未读1是已读
+              if (notice.state === 0 && this.$router.currentRoute.path !== '/MyNotice') {
+                //发送通知
+                Notification.info({
+                  //弹出通知
+                  title: '有未读通知，请点击前往查看!',
+                  message: '点击去查看通知',
+                  position: 'bottom-right',
+                  onClick: this.gotoNotice,
+                  duration: 0
+                })
+                //发送完通知就跳出循环
+                return true;
+              }
+            })
+          }
+        })
       }
     }, computed: {
       routes() {
         return this.$store.state.routes;
       }
+    }, mounted() {
+      this.initNotifications();
     }
   }
 </script>

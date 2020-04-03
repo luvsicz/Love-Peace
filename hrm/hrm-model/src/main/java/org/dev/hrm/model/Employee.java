@@ -176,4 +176,7 @@ public class Employee implements Serializable {
   private Position position;
   private Salary salary;
 
+  public Employee(String name) {
+    this.name=name;
+  }
 }

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dev.hrm.mapper.SysmsgMapper">
+  <resultMap id="BaseResultMap" type="org.dev.hrm.model.Sysmsg">
+    <!--@mbg.generated-->
+    <!--@Table hrm.sysmsg-->
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="mid" jdbcType="INTEGER" property="mid"/>
+    <result column="type" jdbcType="INTEGER" property="type"/>
+    <result column="hrid" jdbcType="INTEGER" property="hrid"/>
+    <result column="state" jdbcType="INTEGER" property="state"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, mid, `type`, hrid, `state`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from hrm.sysmsg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from hrm.sysmsg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Sysmsg"
+    useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into hrm.sysmsg (mid, `type`, hrid,
+    `state`)
+    values (#{mid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{hrid,jdbcType=INTEGER},
+    #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.Sysmsg" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into hrm.sysmsg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="hrid != null">
+        hrid,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mid != null">
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="hrid != null">
+        #{hrid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Sysmsg">
+    <!--@mbg.generated-->
+    update hrm.sysmsg
+    <set>
+      <if test="mid != null">
+        mid = #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="hrid != null">
+        hrid = #{hrid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.Sysmsg">
+    <!--@mbg.generated-->
+    update hrm.sysmsg
+    set mid = #{mid,jdbcType=INTEGER},
+    `type` = #{type,jdbcType=INTEGER},
+    hrid = #{hrid,jdbcType=INTEGER},
+    `state` = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertHrsMsg">
+    insert into hrm.sysmsg (mid, hrid)
+    values
+    <foreach collection="hrList" item="hr" separator=",">
+      (#{id},#{hr.id})
+    </foreach>
+  </insert>
+  <select id="getAllNotices" resultMap="BaseResultMap">
+    SELECT
+    s.id,
+    s.mid,
+    s.hrid,
+    s.state,
+    s.type,
+    m.message,
+    m.createDate,
+    m.title
+    FROM
+    sysmsg AS s
+    join
+    msgcontent AS m
+    ON
+    s.mid = m.id
+    <where>
+      <if test="hrId !=null">
+        s.hrid=#{hrId}
+      </if>
+    </where>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getTotal" resultType="long">
+    select count(*)
+    from sysmsg
+    <where>
+      <if test="hrId !=null">
+        hrid=#{hrId}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteMyNotifications">
+    delete
+    from sysmsg
+    where hrid = #{id}
+      and mid = #{mid}
+  </delete>
+  <update id="updateByPrimaryKeysSelective">
+    update sysmsg
+    set state = 1
+    where id in(
+    <foreach collection="ids" item="id" separator=",">
+      #{id}
+    </foreach>)
+    and hrid=#{hrId}
+  </update>
+</mapper>

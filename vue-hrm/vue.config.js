@@ -1,9 +1,9 @@
 let proxyObj = {};
 const CompressionPlugin = require("compression-webpack-plugin");
-proxyObj['/ws'] = {
-  ws: true,
-  target: "ws://localhost:80"
-};
+// proxyObj['/im'] = {
+//   ws: true,
+//   target: "ws://localhost"
+// };
 proxyObj['/'] = {
   ws: false,
   target: 'http://localhost:80',

@@ -1,11 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex'
+import '../utils/stomp'
+import '../utils/socks'
+import {Notification} from 'element-ui';
 
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     routes: [],
-    currentHr: JSON.parse(window.sessionStorage.getItem("user")),
+    currentSession: null,
+    stomp: null,
+    currentHr: JSON.parse(window.sessionStorage.getItem("user"))
 
   },
   //修改routes的方法
@@ -16,5 +21,38 @@ export default new Vuex.Store({
     INIT_CURRENTHR(state, hr) {
       state.currentHr = hr;
     }
+  },
+  actions: {
+    connect(context) {
+      context.state.stomp = Stomp.over(new SockJS('/im/ep'));
+      context.state.stomp.connect({}, success => {
+        context.state.stomp.subscribe('/notice', msg => {
+          //收到消息的处理
+          let receiveMsg = JSON.parse(msg.body);
+          //已登录才出发通知弹出
+          if (this.state.currentHr) {
+            Notification.info({
+              //弹出通知
+              title: '【系统管理员】发来一条消息',
+              message: receiveMsg.message > 10 ? receiveMsg.message.substr(0,
+                10)
+                : receiveMsg.message,
+              position: 'bottom-right',
+              duration: 0
+            })
+          }
+        })
+        context.state.stomp.subscribe('/keepAlive', msg => {
+          //收到消息的处理
+          let receiveMsg = JSON.parse(msg.body);
+          //已登录才出发通知弹出
+          console.log("websocket保活" + receiveMsg)
+        })
+      }, error => {
+        console.log("websocket初始化失败")
+
+      })
+    }
   }
+
 });

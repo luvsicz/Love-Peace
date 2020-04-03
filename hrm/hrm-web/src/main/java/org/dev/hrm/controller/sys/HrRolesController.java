@@ -40,6 +40,7 @@ public class HrRolesController {
 
   @PutMapping("/")
   @WebLogger
+  //TODO FIX 权限问题
   public RespBean updateHr(@RequestBody Hr hr) {
     if (hrService.updateByPrimaryKeySelective(hr) == 1) {
       return RespBean.ok("更新成功!");

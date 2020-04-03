@@ -51,6 +51,8 @@
           if (resp) {
             window.sessionStorage.setItem("user", JSON.stringify(resp.obj));
             let path = this.$route.query.redirect;
+            //更新当前HR信息
+            this.$store.commit('INIT_CURRENTHR', resp.obj);
             this.$router.replace((path === '/' || path === undefined) ? '/home' : path);
           }
         })
@@ -61,15 +63,15 @@
           //push 跳转 用户可以回退 避免这样的操作就用replace
           //如果用户需要跳转
           let redirect = this.$router.params.redirect;
-          //存在跳转则跳转 否则去首页
-          this.$router.push(redirect ? redirect : '/home')
+
           // this.$router.replace('/home')
           //存储到localstorage
           window.localStorage.setItem('user', JSON.stringify(resp.obj))
           //window.localStorage.getItem('key')
           //更新当前HR信息
           this.$store.commit('INIT_CURRENTHR', resp.obj);
-
+          //存在跳转则跳转 否则去首页
+          this.$router.push(redirect ? redirect : '/home')
         })
       }
 

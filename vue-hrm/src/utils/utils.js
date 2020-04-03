@@ -12,6 +12,7 @@ export const initMenu = (router, store) => {
       router.addRoutes(fmtedRoutes);
       //更新到某个方法内
       store.commit('initMenu', fmtedRoutes)
+      store.dispatch('connect');
     }
   })
 };

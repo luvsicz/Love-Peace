@@ -56,23 +56,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   public void configure(WebSecurity web) throws Exception {
     //不拦截的请求
-    web.ignoring().antMatchers("/login", "/css/**", "/js/**", "/index.html", "/img/**", "/fonts/**",
-        "/favicon.ico", "/verifyCode");
+    web.ignoring()
+        .antMatchers("/css/**", "/js/**", "/index.html", "/img/**", "/fonts/**",
+            "/favicon.ico", "/verifyCode");
+
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.addFilterBefore(verificationCodeFilter, UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(verificationCodeFilter,
+        UsernamePasswordAuthenticationFilter.class);
     http.authorizeRequests()
 //                .anyRequest().authenticated()
-        .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-          @Override
-          public <O extends FilterSecurityInterceptor> O postProcess(O object) {
-            object.setAccessDecisionManager(customUrlDecisionManager);
-            object.setSecurityMetadataSource(customFilterInvocationSecurityMetadataSource);
-            return object;
-          }
-        })
+        .withObjectPostProcessor(
+            new ObjectPostProcessor<FilterSecurityInterceptor>() {
+              @Override
+              public <O extends FilterSecurityInterceptor> O postProcess(
+                  O object) {
+                object.setAccessDecisionManager(customUrlDecisionManager);
+                object.setSecurityMetadataSource(
+                    customFilterInvocationSecurityMetadataSource);
+                return object;
+              }
+            })
         .and()
         .formLogin()
         .usernameParameter("username")
@@ -116,7 +122,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .logoutSuccessHandler((req, resp, authentication) -> {
           resp.setContentType("application/json;charset=utf-8");
           PrintWriter out = resp.getWriter();
-          out.write(new ObjectMapper().writeValueAsString(RespBean.ok("注销成功!")));
+          out.write(
+              new ObjectMapper().writeValueAsString(RespBean.ok("注销成功!")));
           out.flush();
           out.close();
         })
@@ -127,7 +134,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authenticationEntryPoint(new AuthenticationEntryPoint() {
           @Override
           public void commence(HttpServletRequest req, HttpServletResponse resp,
-              AuthenticationException authException) throws IOException, ServletException {
+              AuthenticationException authException)
+              throws IOException, ServletException {
             resp.setContentType("application/json;charset=utf-8");
             resp.setStatus(401);
             PrintWriter out = resp.getWriter();

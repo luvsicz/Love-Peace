@@ -51,4 +51,6 @@ public interface HrMapper {
    * @return 影响的行数
    */
   Integer deleteByHrId(@Param("hrid") Integer hrid);
+
+  List<Hr> selectOtherHrs(@Param("hrid") Integer id);
 }

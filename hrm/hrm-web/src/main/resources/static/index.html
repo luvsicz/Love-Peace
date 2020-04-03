@@ -23,7 +23,7 @@
 <script type="application/javascript">
 
   // 定义一个sock连接（并没有进行连接），url和服务端定义的stomp终端是一致的
-  var _sockJS = new SockJS("/ws/ep");
+  var _sockJS = new SockJS("/im/ep");
 
   // 创建一个客户端对象
   var _stompClient = Stomp.over(_sockJS);
@@ -38,12 +38,15 @@
   });
 
   // 订阅消息对象，用于关闭订阅
-  var _subscribeQueue, _subscribeTopic;
+  var _subscribeQueue, _subscribeTopic,_subsub;
 
   // 参数依次为 订阅地址，收到消息做什么，header
   function doSubscribeQueue() {
     // 广播消息
     _subscribeTopic = _stompClient.subscribe("/notice", function (data) {
+      printLog("收到 广播消息 ：" + data.body);
+    }, {});
+    _subsub = _stompClient.subscribe("/keepAlive", function (data) {
       printLog("收到 广播消息 ：" + data.body);
     }, {});
     printLog("已订阅 广播消息");
@@ -70,10 +73,12 @@
 
   // 向服务器发送消息（服务器将广播给所有客户端）
   function topicSend() {
-    var message = $("#input_topic_send").val();
+    let msgObj = {};
+    msgObj.title = '标题';
+    msgObj.message = $("#input_topic_send").val() ? $("#input_topic_send").val() : '测试消息';
     // 参数依次为 发送地址，header，消息
-    _stompClient.send("/ws/nf", {}, message);
-    printLog("发送 广播消息 " + message);
+    _stompClient.send("/im/send", {}, JSON.stringify(msgObj));
+    printLog("发送 广播消息 " + JSON.stringify(msgObj));
   }
 
   function printLog(log) {
