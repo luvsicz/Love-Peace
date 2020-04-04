@@ -71,7 +71,7 @@ public class Hr implements UserDetails {
 
   @Override
   @JsonIgnore
-  //Type definition error: [simple type, class org.springframework.security.core.GrantedAuthority];不错
+  //Type definition error: [simple type, class org.springframework.security.core.GrantedAuthority];
   public Collection<? extends GrantedAuthority> getAuthorities() {
     List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
     for (Role role : roles) {

@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 10px">
     <el-collapse v-model="activeNames" accordion>
-      <el-collapse-item :index="index" v-for="(notice,index) in notices" :title="notice.title"
+      <el-collapse-item v-bind:key="index" v-for="(notice,index) in notices" :title="notice.title"
                         :name="notice.id">
         <div>{{notice.message}}</div>
         <div>

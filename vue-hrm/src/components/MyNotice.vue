@@ -2,7 +2,7 @@
   <div style="margin-top: 10px">
     <!--触发已读-->
     <el-collapse v-model="activeNames" @change="handleChange" accordion>
-      <el-collapse-item :index="index" v-for="(notice,index) in notices" :name="notice.id">
+      <el-collapse-item v-bind:key="index" v-for="(notice,index) in notices" :name="notice.id">
         <template slot="title">
           <el-tag v-if="notice.state===0">未读</el-tag>
           <el-tag v-if="notice.state===1" type="success">已读</el-tag>
