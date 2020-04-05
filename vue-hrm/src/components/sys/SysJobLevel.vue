@@ -120,7 +120,7 @@
 
 <script>
   export default {
-    name: "PerJobLevel",
+    name: "SysJobLevel",
     data() {
       return {
         dialogVisible: false,
@@ -159,7 +159,7 @@
           this.multipleSelection.forEach(item => {
             ids += 'ids=' + item.id + '&';
           })
-          this.deleteRequest("/per/joblevel/" + ids).then(resp => {
+          this.deleteRequest("/sys/joblevel/" + ids).then(resp => {
             if (resp) {
               this.initJls();
             }
@@ -172,7 +172,7 @@
         });
       },
       doUpdate() {
-        this.putRequest("/per/joblevel/", this.updateJl).then(resp => {
+        this.putRequest("/sys/joblevel/", this.updateJl).then(resp => {
           if (resp) {
             this.initJls();
             this.dialogVisible = false;
@@ -192,7 +192,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.deleteRequest("/per/joblevel/" + data.id).then(resp => {
+          this.deleteRequest("/sys/joblevel/" + data.id).then(resp => {
             if (resp) {
               this.initJls();
             }
@@ -207,7 +207,7 @@
       addJobLevel() {
         if (this.jl.name && this.jl.titleLevel) {
 
-          this.postRequest("/per/joblevel/", this.jl).then(resp => {
+          this.postRequest("/sys/joblevel/", this.jl).then(resp => {
             if (resp) {
               this.initJls();
             }
@@ -218,7 +218,7 @@
       },
       initJls() {
         this.loading = true;
-        this.getRequest("/per/joblevel/").then(resp => {
+        this.getRequest("/sys/joblevel/").then(resp => {
           this.loading = false;
           if (resp) {
             this.jls = resp;

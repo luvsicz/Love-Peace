@@ -18,7 +18,6 @@ import org.dev.hrm.service.PoliticsStatusService;
 import org.dev.hrm.service.PositionService;
 import org.dev.hrm.util.POIUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Description;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/per/emp")
 public class EmployeeController {
+
   @Autowired
   EmployeeService empService;
   @Autowired
@@ -49,9 +49,12 @@ public class EmployeeController {
 
   @GetMapping("/")
   @WebLogger
-  public RespBean getEmployeeInfo(@RequestParam(defaultValue = "1") Integer page,
-      @RequestParam(defaultValue = "10") Integer size, Employee employee, Date[] beginDateScope) {
-    return RespBean.ok("", empService.getEmployeeByPage(page, size, employee, beginDateScope));
+  public RespBean getEmployeeInfo(
+      @RequestParam(defaultValue = "1") Integer page,
+      @RequestParam(defaultValue = "10") Integer size, Employee employee,
+      Date[] beginDateScope) {
+    return RespBean.ok("",
+        empService.getEmployeeByPage(page, size, employee, beginDateScope));
   }
 
   /**
@@ -77,7 +80,6 @@ public class EmployeeController {
     } else {
       return RespBean.error("删除失败");
     }
-
   }
 
   /**

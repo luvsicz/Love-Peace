@@ -1,6 +1,5 @@
 package org.dev.hrm.controller.sys;
 
-import lombok.extern.slf4j.Slf4j;
 import org.dev.hrm.model.MsgContent;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.MsgContentService;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
  * 3.用户打开系统通知页面后，未读通知会有蓝字标记，打开该通知后，该通知就变为已读通知 4.通知的发送则是先由前端发起请求，向数据库中添加一条记录，添加成功后，再发送一条群发通知的请求
  * @createTime 2020年04月01日 15:08:00
  */
-@Slf4j
 @RequestMapping("/sys/nf")
 @RestController
 @EnableScheduling

@@ -29,7 +29,8 @@ public class CustomUrlDecisionManager implements AccessDecisionManager {
           return;
         }
       }
-      Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+      Collection<? extends GrantedAuthority> authorities
+          = authentication.getAuthorities();
       for (GrantedAuthority authority : authorities) {
         if (authority.getAuthority().equals(needRole)) {
           return;

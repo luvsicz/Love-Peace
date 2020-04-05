@@ -25,6 +25,7 @@
       v-loading="loading">
       <el-table-column
         type="index"
+        label="序号"
         width="50">
       </el-table-column>
       <el-table-column
@@ -73,6 +74,10 @@
         <el-table-column
           label="公积金比率"
           prop="salary.accumulationFundPer"
+          width="120"/>
+        <el-table-column
+          label="配置账套名称"
+          prop="salary.name"
           width="120"/>
         <el-table-column
           label="应发工资"

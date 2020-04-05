@@ -62,7 +62,6 @@ public class MenuService {
    * @return 菜单和角色信息
    */
   @Cacheable(key = "#root.method.name")
-//  @Cacheable
   public List<Menu> getAllMenusWithRole() {
     return menuMapper.getAllMenusWithRole();
   }

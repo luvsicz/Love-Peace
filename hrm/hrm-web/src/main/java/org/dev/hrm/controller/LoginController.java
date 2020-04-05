@@ -1,8 +1,12 @@
 package org.dev.hrm.controller;
 
 import org.dev.hrm.annotation.WebLogger;
+import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.RespBean;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.dev.hrm.service.HrService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,10 +19,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-  @GetMapping("/login")
+  @Autowired
+  HrService hrService;
+
+  @PostMapping("/hr/reg")
   @WebLogger
-  public RespBean login() {
-    return RespBean.ok("登陆成功");
+  public RespBean hrReg(String username, String password) {
+    //先判断用户名是否存在
+    if (hrService.loadUserByUsername(username) != null) {
+      return RespBean.error("用户名已存在，换一个吧！");
+    }
+    //密码加密然后插入HR表
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    String encode = encoder.encode(password);
+    Hr regHr = new Hr();
+    regHr.setUsername(username);
+    regHr.setPassword(password);
+    return hrService.insertSelective(regHr) == 1 ? RespBean.ok("注册成功，请登录！") :
+        RespBean.error("注册失败，请联系管理员!");
   }
 
 

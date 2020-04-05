@@ -92,7 +92,7 @@
 
 <script>
   export default {
-    name: "PerPosition",
+    name: "SysPosition",
     data() {
       return {
         pos: {
@@ -122,7 +122,7 @@
           this.multipleSelection.forEach(item => {
             ids += 'ids=' + item.id + '&';
           })
-          this.deleteRequest("/per/pos/" + ids).then(resp => {
+          this.deleteRequest("/sys/pos/" + ids).then(resp => {
             if (resp) {
               this.initPositions();
             }
@@ -139,7 +139,7 @@
       },
       addPosition() {
         if (this.pos.name) {
-          this.postRequest("/per/pos/", this.pos).then(resp => {
+          this.postRequest("/sys/pos/", this.pos).then(resp => {
             if (resp) {
               this.initPositions();
               this.pos.name = '';
@@ -154,7 +154,7 @@
         this.dialogVisible = true;
       },
       doUpdate() {
-        this.putRequest("/per/pos/", this.updatePos).then(resp => {
+        this.putRequest("/sys/pos/", this.updatePos).then(resp => {
           if (resp) {
             this.initPositions();
             this.updatePos.name = '';
@@ -168,7 +168,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.deleteRequest("/per/pos/" + data.id).then(resp => {
+          this.deleteRequest("/sys/pos/" + data.id).then(resp => {
             if (resp) {
               this.initPositions();
             }
@@ -182,7 +182,7 @@
       },
       initPositions() {
         this.loading = true;
-        this.getRequest("/per/pos/").then(resp => {
+        this.getRequest("/sys/pos/").then(resp => {
           this.loading = false;
           if (resp) {
             this.positions = resp;

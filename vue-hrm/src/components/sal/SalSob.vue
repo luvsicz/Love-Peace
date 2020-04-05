@@ -7,7 +7,6 @@
     </div>
     <div style="margin-top: 10px">
       <el-table :data="salaries" border stripe v-loading="loading">
-        <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column width="120" prop="name" label="账套名称"></el-table-column>
         <el-table-column width="70" prop="basicSalary" label="基本工资"></el-table-column>
         <el-table-column width="70" prop="trafficSalary" label="交通补助"></el-table-column>
@@ -26,7 +25,7 @@
           <el-table-column width="70" prop="accumulationFundPer" label="比率"></el-table-column>
           <el-table-column width="70" prop="accumulationFundBase" label="基数"></el-table-column>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button @click="showEditSalaryView(scope.row)">编辑</el-button>
             <el-button type="danger" @click="deleteSalary(scope.row)">删除</el-button>

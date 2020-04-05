@@ -7,7 +7,7 @@ import UserInfo from "../components/UserInfo";
 import SysNotice from "../components/sys/SysNotice";
 import MyNotice from "../components/MyNotice";
 
-//Navigating to current location ("XXXXXX") is not allowed
+//FIX Navigating to current location ("XXXXXX") is not allowed
 Vue.use(VueRouter);
 const routerPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {

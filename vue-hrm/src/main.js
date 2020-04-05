@@ -37,7 +37,6 @@ router.beforeEach((to, from, next) => {
       // next('/');
       // next({path: '/', query: {redirect: to.path}})
       next('/?redirect=' + to.path);
-
     }
   }
 });

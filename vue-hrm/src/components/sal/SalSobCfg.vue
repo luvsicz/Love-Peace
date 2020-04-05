@@ -3,15 +3,13 @@
     <div>
       <el-table :data="emps" border stripe size="mini"
                 v-loading="loading">
-        >
-        <el-table-column type="selection" align="left" width="55"></el-table-column>
         <el-table-column prop="name" label="姓名" fixed width="120" align="left"></el-table-column>
         <el-table-column prop="workID" label="工号" width="120" align="left"></el-table-column>
         <el-table-column prop="email" label="电子邮件" width="200" align="left"></el-table-column>
         <el-table-column prop="phone" label="电话号码" width="120" align="left"></el-table-column>
         <el-table-column prop="department.name" label="所属部门" width="120"
                          align="left"></el-table-column>
-        <el-table-column label="所属部门" align="center">
+        <el-table-column label="配置账套名称" align="center">
           <template slot-scope="scope">
             <el-tooltip placement="right" v-if="scope.row.salary">
               <div slot="content">
@@ -86,7 +84,7 @@
                   </el-option>
                 </el-select>
               </div>
-              <el-button slot="reference" type="danger">修改工资账套</el-button>
+              <el-button size="mini" slot="reference" type="danger">修改工资账套</el-button>
             </el-popover>
           </template>
         </el-table-column>

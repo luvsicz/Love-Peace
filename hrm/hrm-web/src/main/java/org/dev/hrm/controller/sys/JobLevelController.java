@@ -1,4 +1,4 @@
-package org.dev.hrm.controller.per;
+package org.dev.hrm.controller.sys;
 
 import java.util.List;
 import org.dev.hrm.annotation.WebLogger;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/per/joblevel")
+@RequestMapping("/sys/joblevel")
 public class JobLevelController {
 
   @Autowired

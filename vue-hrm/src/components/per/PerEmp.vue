@@ -111,7 +111,7 @@
           </el-col>
           <el-col :offset="4" :span="5">
             <el-button size="mini">取消</el-button>
-            <el-button @click="initTable('advanced')" icon="el-icon-search" size="mini"
+            <el-button @click="initTable()" icon="el-icon-search" size="mini"
                        type="primary">搜索
             </el-button>
           </el-col>
@@ -629,11 +629,6 @@
           });
         });
       },
-      searvhViewHandleNodeClick(data) {
-        this.inputDepName = data.name;
-        this.searchValue.departmentId = data.id;
-        this.popVisible2 = !this.popVisible2
-      },
       handleNodeClick(data) {
         this.inputDepName = data.name;
         this.emp.departmentId = data.id;
@@ -675,11 +670,9 @@
         this.page = 1;
         this.initTable();
       },
-      initTable(type) {
+      initTable() {
         this.loading = true;
         let url = '/per/emp/?page=' + this.page + '&size=' + this.size;
-        if (type && type === 'advanced') {
-          this.page = 1;
           if (this.searchValue.politicId) {
             url += '&politicId=' + this.searchValue.politicId;
           }
@@ -704,14 +697,15 @@
           if (this.searchValue.workState) {
             url += '&workState=' + this.searchValue.workState;
           }
-        } else {
           url += "&name=" + this.keyword;
-        }
         getRequest(url).then(resp => {
           if (resp && resp.status === 200) {
             this.loading = false;
             this.total = resp.obj.total;
             this.tableData = resp.obj.data;
+            if (this.total<this.currentPage*this.size){
+              this.page=1
+            }
           }
 
         })
