@@ -67,7 +67,8 @@ public class HrService implements UserDetailsService {
     return hrMapper.updateByPrimaryKey(record);
   }
 
-  public boolean updateHrPassById(String oldPass, String newPass, Integer hrId) {
+  public boolean updateHrPassById(String oldPass, String newPass,
+      Integer hrId) {
     Hr hr = hrMapper.selectByPrimaryKey(hrId);
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     if (encoder.matches(oldPass, hr.getPassword())) {
@@ -79,7 +80,8 @@ public class HrService implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String username)
+      throws UsernameNotFoundException {
     Hr hr = hrMapper.getUserByUserName(username);
     if (null == hr) {
       throw new UsernameNotFoundException("用户名不存在!");
@@ -89,12 +91,15 @@ public class HrService implements UserDetailsService {
   }
 
   public List<Hr> selectByNameLikeKeyWords(String name) {
-    Hr currentHr = ((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    Hr currentHr = ((Hr) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal());
 
     return hrMapper.selectByNameLikeKeyWords(currentHr.getId(), name);
   }
+
   public List<Hr> selectOtherHrs() {
-    Hr currentHr = ((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    Hr currentHr = ((Hr) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal());
     return hrMapper.selectOtherHrs(currentHr.getId());
   }
 

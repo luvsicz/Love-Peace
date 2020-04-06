@@ -8,6 +8,7 @@ import org.dev.hrm.model.Role;
 import org.dev.hrm.service.MenuService;
 import org.dev.hrm.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +47,7 @@ public class PermissController {
 
   @PutMapping("/")
   @WebLogger
+  @CacheEvict(value = "menuService", allEntries = true)
   public RespBean updateMenuRole(Integer rid, Integer[] mids) {
     if (menuService.updateMenuRole(rid, mids)) {
       return RespBean.ok("更新成功!");
@@ -55,6 +57,7 @@ public class PermissController {
 
   @PostMapping("/role")
   @WebLogger
+  @CacheEvict(value = "menuService", allEntries = true)
   public RespBean addRole(@RequestBody Role role) {
     if (roleService.addRole(role) == 1) {
       return RespBean.ok("添加成功!");
@@ -70,6 +73,7 @@ public class PermissController {
    */
   @DeleteMapping("/role/{rid}")
   @WebLogger
+  @CacheEvict(value = "menuService", allEntries = true)
   public RespBean deleteRoleById(@PathVariable Integer rid) {
     //遇到删除的角色有联到用户和资源抛出因为外键约束导致无法删除的异常，则返回提示信息
     if (roleService.deleteByPrimaryKey(rid) == 1) {

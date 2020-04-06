@@ -63,6 +63,7 @@ public class HrRolesController {
 
   @PutMapping("/role")
   @WebLogger
+  @CacheEvict(value = "menuService", allEntries = true)
   public RespBean updateHrRole(Integer hrid, Integer[] rids) {
     if (hrService.updateHrRole(hrid, rids)) {
       return RespBean.ok("更新成功!");
@@ -72,6 +73,7 @@ public class HrRolesController {
 
   @DeleteMapping("/{id}")
   @WebLogger
+  @CacheEvict(value = "menuService", allEntries = true)
   public RespBean deleteHrById(@PathVariable Integer id) {
     if (hrService.deleteByPrimaryKey(id) == 1) {
       return RespBean.ok("删除成功!");
