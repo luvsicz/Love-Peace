@@ -68,9 +68,6 @@
       <if test="address != null">
         address,
       </if>
-      <if test="enabled != null">
-        enabled,
-      </if>
       <if test="username != null">
         username,
       </if>
@@ -96,9 +93,6 @@
       </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="enabled != null">
-        #{enabled,jdbcType=BOOLEAN},
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},

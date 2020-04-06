@@ -21,6 +21,21 @@ spring:
     port: 6379
     password: pa22w0rd
     host: 182.92.71.212
+  mail:
+    default-encoding: UTF-8
+    host: smtp.mxhichina.com
+    password: 1610940520qQ
+    port: 25
+    properties:
+      mail:
+        debug: false
+        stmp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+    protocol: smtp
+    username: notice@0101.design
+
 debug: false
+# JavaMailSender 邮件发送的配置
 #mybatis:
 #  config-location: classpath:/mybatis-config.xml

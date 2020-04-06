@@ -1,8 +1,7 @@
 package org.dev.hrm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @ClassName Hr.java
  * @createTime 2020年03月18日 15:49:00
  */
-@ApiModel(value = "org-dev-hrm-model-Hr")
+
 @AllArgsConstructor
 @NoArgsConstructor
 //@Data使用data 会导致Mybatis调用getter setter方法的时候 抛异常，找不到使用 enable属性的哪个方法。
@@ -28,45 +27,45 @@ public class Hr implements UserDetails {
   /**
    * hrID
    */
-  @ApiModelProperty(value = "hrID")
+
   private Integer id;
   /**
    * 姓名
    */
-  @ApiModelProperty(value = "姓名")
+
   private String name;
   /**
    * 手机号码
    */
-  @ApiModelProperty(value = "手机号码")
+
   private String phone;
   /**
    * 住宅电话
    */
-  @ApiModelProperty(value = "住宅电话")
+
   private String telephone;
   /**
    * 联系地址
    */
-  @ApiModelProperty(value = "联系地址")
+
   private String address;
-  @ApiModelProperty(value = "")
+
   private Boolean enabled;
   /**
    * 用户名
    */
-  @ApiModelProperty(value = "用户名")
+
   private String username;
   /**
    * 密码
    */
-  @ApiModelProperty(value = "密码")
+
   private String password;
-  @ApiModelProperty(value = "")
+
   private String userface;
-  @ApiModelProperty(value = "")
+
   private String remark;
-  @ApiModelProperty(value = "")
+
   private List<Role> roles;
 
   @Override

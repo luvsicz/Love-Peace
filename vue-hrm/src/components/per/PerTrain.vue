@@ -30,7 +30,7 @@
           </el-table-column>
           <el-table-column
             prop="remark"
-            label="备注">
+            label="培训地点">
           </el-table-column>
           <el-table-column label="操作" align="center">
             <el-table-column label="编辑" align="center">
@@ -112,10 +112,10 @@
 
               <el-col :span="6">
                 <div>
-                  <el-form-item label="备注:" prop="remark">
+                  <el-form-item label="培训地点:" prop="remark">
                     <el-input prefix-icon="el-icon-edit" v-model="train.remark" size="mini"
                               style="width: 150px"
-                              placeholder="请输入备注"></el-input>
+                              placeholder="请输入培训地点"></el-input>
                   </el-form-item>
                 </div>
               </el-col>

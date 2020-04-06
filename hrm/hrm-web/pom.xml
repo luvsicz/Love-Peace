@@ -54,6 +54,11 @@
       <artifactId>spring-security-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- 邮件发送 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
     <!--热部署-->
     <dependency>
       <artifactId>spring-boot-devtools</artifactId>
