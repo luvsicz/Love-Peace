@@ -8,12 +8,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @ClassName EmployeeRemove.java
  * @author 冷嘉贤
  * @version 1.0.0
- * @createTime 2020年04月02日 20:16:00
+ * @ClassName EmployeeRemove.java
+ * @createTime 2020年04月04日 15:14:00
  */
-@ApiModel(value="org-dev-hrm-model-EmployeeRemove")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -52,5 +52,5 @@ public class EmployeeRemove implements Serializable {
 
   private String remark;
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 }
