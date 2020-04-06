@@ -1,6 +1,10 @@
 package org.dev.hrm.config;
 
 import java.util.Collection;
+import org.dev.hrm.model.Hr;
+import org.dev.hrm.model.Oplog;
+import org.dev.hrm.service.OplogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -8,6 +12,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,16 +21,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomUrlDecisionManager implements AccessDecisionManager {
 
+  @Autowired
+  OplogService oplogService;
+
   @Override
   public void decide(Authentication authentication, Object object,
       Collection<ConfigAttribute> configAttributes)
       throws AccessDeniedException, InsufficientAuthenticationException {
+    //判断用户是否具有指定URL的访问权限
     for (ConfigAttribute configAttribute : configAttributes) {
       String needRole = configAttribute.getAttribute();
       if ("ROLE_LOGIN".equals(needRole)) {
         if (authentication instanceof AnonymousAuthenticationToken) {
           throw new AccessDeniedException("尚未登录，请登录!");
         } else {
+          //已经登录
           return;
         }
       }
@@ -33,6 +43,18 @@ public class CustomUrlDecisionManager implements AccessDecisionManager {
           = authentication.getAuthorities();
       for (GrantedAuthority authority : authorities) {
         if (authority.getAuthority().equals(needRole)) {
+          //通过校验 则记录日志s
+          String reqMethod =
+              ((FilterInvocation) object).getHttpRequest().getMethod();
+          Hr currentHr = (Hr) authentication.getPrincipal();
+          String requestURI =
+              ((FilterInvocation) object).getHttpRequest().getRequestURI();
+          Oplog oplog = new Oplog();
+          oplog.setHrid(currentHr.getId());
+          oplog.setOperate(reqMethod);
+          oplog.setOperate(reqMethod);
+          oplog.setUri(requestURI);
+          oplogService.insertSelective(oplog);
           return;
         }
       }

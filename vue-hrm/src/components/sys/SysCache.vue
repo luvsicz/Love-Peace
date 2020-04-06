@@ -21,6 +21,13 @@
       active-color="#13ce66"
       inactive-color="#ff4949">
     </el-switch>
+    <span>HR操作日志清理</span>
+    <el-switch
+      v-model="oplog"
+      @change="clean('oplog',oplog)"
+      active-color="#13ce66"
+      inactive-color="#ff4949">
+    </el-switch>
   </div>
 </template>
 
@@ -34,7 +41,8 @@
         //按钮默认值 关闭状态
         menuCache: false,
         flushAll: false,
-        accessLog: false
+        accessLog: false,
+        oplog: false
       }
     },
     methods: {
@@ -49,6 +57,9 @@
           }
           if ('accessLog' === type) {
             deleteRequest('/sys/access/')
+          }
+          if ('oplog' === type) {
+            deleteRequest('/sys/log/')
           }
         }
 

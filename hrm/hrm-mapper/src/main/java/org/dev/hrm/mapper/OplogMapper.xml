@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dev.hrm.mapper.OplogMapper">
+  <resultMap id="BaseResultMap" type="org.dev.hrm.model.Oplog">
+    <!--@mbg.generated-->
+    <!--@Table oplog-->
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="opDate" jdbcType="TIMESTAMP" property="opDate"/>
+    <result column="operate" jdbcType="VARCHAR" property="operate"/>
+    <result column="hrid" jdbcType="INTEGER" property="hrid"/>
+    <result column="uri" jdbcType="VARCHAR" property="uri"/>
+  </resultMap>
+  <resultMap id="BaseResultMapWithHrName" type="org.dev.hrm.model.Oplog">
+    <!--@mbg.generated-->
+    <!--@Table oplog-->
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="opDate" jdbcType="TIMESTAMP" property="opDate"/>
+    <result column="operate" jdbcType="VARCHAR" property="operate"/>
+    <result column="hrid" jdbcType="INTEGER" property="hrid"/>
+    <result column="uri" jdbcType="VARCHAR" property="uri"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, opDate, operate, hrid, uri
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from oplog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from oplog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.Oplog"
+    useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into oplog (opDate, operate, hrid,
+    uri)
+    values (#{opDate,jdbcType=TIMESTAMP}, #{operate,jdbcType=VARCHAR}, #{hrid,jdbcType=INTEGER},
+    #{uri,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.Oplog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into oplog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="opDate != null">
+        opDate,
+      </if>
+      <if test="operate != null">
+        operate,
+      </if>
+      <if test="hrid != null">
+        hrid,
+      </if>
+      <if test="uri != null">
+        uri,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="opDate != null">
+        #{opDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operate != null">
+        #{operate,jdbcType=VARCHAR},
+      </if>
+      <if test="hrid != null">
+        #{hrid,jdbcType=INTEGER},
+      </if>
+      <if test="uri != null">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.Oplog">
+    <!--@mbg.generated-->
+    update oplog
+    <set>
+      <if test="opDate != null">
+        opDate = #{opDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operate != null">
+        operate = #{operate,jdbcType=VARCHAR},
+      </if>
+      <if test="hrid != null">
+        hrid = #{hrid,jdbcType=INTEGER},
+      </if>
+      <if test="uri != null">
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.Oplog">
+    <!--@mbg.generated-->
+    update oplog
+    set opDate = #{opDate,jdbcType=TIMESTAMP},
+    operate = #{operate,jdbcType=VARCHAR},
+    hrid = #{hrid,jdbcType=INTEGER},
+    uri = #{uri,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getTotal" resultType="long">
+    select count(*)
+    from oplog
+    <where>
+      <if test="oplog!=null">
+        <if test="oplog.uri!=null">
+          uri like concat('%',#{oplog.uri},'%')
+        </if>
+      </if>
+    </where>
+  </select>
+  <select id="getOpLogByPage" resultMap="BaseResultMapWithHrName">
+    SELECT
+    oplog.id,
+    oplog.opDate,
+    oplog.operate,
+    oplog.hrid,
+    oplog.uri,
+    hr.`name`
+    FROM
+    oplog
+    INNER JOIN
+    hr
+    ON
+    oplog.hrid = hr.id
+    <where>
+      <if test="oplog!=null">
+        <if test="oplog.uri!=null">
+          uri like concat('%',#{oplog.uri},'%')
+        </if>
+      </if>
+    </where>
+    <if test="page !=null and size !=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <delete id="deleteAll">
+    delete
+    from oplog;
+  </delete>
+</mapper>
