@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -39,7 +38,7 @@ public class SystemConfigController {
    * @return
    */
   @GetMapping("/notice")
-  @ResponseBody
+  @WebLogger
   public RespBean getNotices(
       @RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size) {
@@ -54,7 +53,7 @@ public class SystemConfigController {
    * @return
    */
   @PutMapping("/notice/{ids}")
-  @ResponseBody
+  @WebLogger
   public RespBean updateNotificationsState(@PathVariable String ids) {
     sysmsgService.updateByPrimaryKeysSelective(ids);
     return RespBean.ok("");

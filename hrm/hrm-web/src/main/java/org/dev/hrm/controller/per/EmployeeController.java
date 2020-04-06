@@ -99,6 +99,7 @@ public class EmployeeController {
   }
 
   @GetMapping("/export")
+  @WebLogger
   public ResponseEntity<byte[]> exportData() {
     List<Employee> list = (List<Employee>) empService
         .getEmployeeByPage(null, null, new Employee(), null).getData();

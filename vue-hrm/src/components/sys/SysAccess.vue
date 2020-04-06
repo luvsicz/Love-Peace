@@ -40,12 +40,27 @@
         </template>
       </el-table-column>
       <el-table-column
+        label="操作用户"
+        prop="name">
+      </el-table-column>
+      <el-table-column
         label="客户端地址"
         prop="remoteAddr">
       </el-table-column>
       <el-table-column
         label="请求类型"
-        prop="requestType">
+        width="180">
+        <template slot-scope="scope">
+          <el-popover trigger="hover" placement="top">
+            <p v-if="scope.row.requestType==='GET'">GET是查询操作</p>
+            <p v-if="scope.row.requestType==='POST'">POST是新增数据</p>
+            <p v-if="scope.row.requestType==='DELETE'">DELETE是删除操作</p>
+            <p v-if="scope.row.requestType==='PUT'">PUT是更新操作</p>
+            <div slot="reference" class="name-wrapper">
+              <el-tag size="medium">{{ scope.row.requestType }}</el-tag>
+            </div>
+          </el-popover>
+        </template>
       </el-table-column>
       <el-table-column
         label="访问的URI"

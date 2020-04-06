@@ -4,15 +4,19 @@
       <div style="display: flex;align-items: center">
         HRM System
       </div>
-      <div style="display: flex;align-items: center">
+      <div style="display: flex;align-items: center;margin-right: 17px;
+    margin-top: 9px;">
         <el-dropdown @command="handleCommand">
   <span class="el-dropdown-link" style="display: flex;align-items: center">
-    <span style="color: white; "> {{user.name}}</span>
-    <img :src="user.userface" alt="用户头像" style="width: 40px;height: 40px;border-radius: 40px"/>
+    <span style="color: white;margin: 15px "> {{user.name}}</span>
+    <el-badge :value="haveNews?'news':''" class="item">
+    <img :src="user.userface" alt="用户头像" style="width: 40px;height: 40px;border-radius: 40px;"/>
+      </el-badge>
 
   </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="usercenter">个人中心</el-dropdown-item>
+            <el-dropdown-item command="notice">我的通知</el-dropdown-item>
             <el-dropdown-item command="logout">注销</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -65,7 +69,8 @@
     , data() {
       return {
         user: JSON.parse(window.sessionStorage.getItem('user')),
-        notices: []
+        notices: [],
+        haveNews: false
       }
     }, methods: {
       handleCommand(command) {
@@ -101,6 +106,9 @@
         } else if (command === 'usercenter') {
           this.$router.push('/userinfo');
 
+        } else if (command === 'notice') {
+          this.$router.push('/MyNotice');
+
         }
       },
       handleMenu(index, indexPath) {
@@ -129,6 +137,7 @@
                   onClick: this.gotoNotice,
                   duration: 0
                 })
+                this.haveNews = true;
                 //发送完通知就跳出循环
                 return true;
               }

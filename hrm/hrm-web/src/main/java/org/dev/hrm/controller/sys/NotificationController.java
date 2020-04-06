@@ -1,5 +1,6 @@
 package org.dev.hrm.controller.sys;
 
+import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.MsgContent;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.MsgContentService;
@@ -15,9 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,20 +42,6 @@ public class NotificationController {
   private SimpMessagingTemplate simpMessageSendingOperations;//消息发送模板
 
   /**
-   * 添加通知，然后推送给除自己以外所有已登录的HR
-   *
-   * @param msgContent 消息实体
-   * @return 通用返回
-   */
-  @PostMapping("/")
-  public RespBean addNotification2AllHrs(@RequestBody MsgContent msgContent) {
-    if (msgContentService.sendMsg(msgContent, null)) {
-      return RespBean.ok("通知发布成功");
-    }
-    return RespBean.error("通知发布失败");
-  }
-
-  /**
    * 获取数据库中的通知
    *
    * @param page
@@ -64,6 +49,7 @@ public class NotificationController {
    * @return
    */
   @GetMapping("/")
+  @WebLogger
   public RespBean getAllNotices(
       @RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size) {
@@ -72,6 +58,7 @@ public class NotificationController {
   }
 
   @DeleteMapping("/")
+  @WebLogger
   public RespBean deleteMyNotice(@RequestParam Integer mid) {
     return msgContentService.deleteByPrimaryKey(mid) == 1 ? RespBean.ok(
         "删除成功") :
@@ -79,6 +66,7 @@ public class NotificationController {
   }
 
   @PutMapping("/{ids}")
+  @WebLogger
   public RespBean updateNotificationsState(@PathVariable String ids) {
     sysmsgService.updateByPrimaryKeysSelective(ids);
     return RespBean.ok("");

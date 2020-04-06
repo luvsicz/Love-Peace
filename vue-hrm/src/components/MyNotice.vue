@@ -1,5 +1,6 @@
 <template>
   <div style="margin-top: 10px">
+    <span v-if="notices.length===0">暂无通知</span>
     <!--触发已读-->
     <el-collapse v-model="activeNames" @change="handleChange" accordion>
       <el-collapse-item v-bind:key="index" v-for="(notice,index) in notices" :name="notice.id">

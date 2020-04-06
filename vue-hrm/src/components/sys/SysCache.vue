@@ -14,17 +14,10 @@
       active-color="#13ce66"
       inactive-color="#ff4949">
     </el-switch>
-    <span>访问日志清理</span>
+    <span>操作日志清理</span>
     <el-switch
       v-model="accessLog"
       @change="clean('accessLog',accessLog)"
-      active-color="#13ce66"
-      inactive-color="#ff4949">
-    </el-switch>
-    <span>HR操作日志清理</span>
-    <el-switch
-      v-model="oplog"
-      @change="clean('oplog',oplog)"
       active-color="#13ce66"
       inactive-color="#ff4949">
     </el-switch>
@@ -41,8 +34,7 @@
         //按钮默认值 关闭状态
         menuCache: false,
         flushAll: false,
-        accessLog: false,
-        oplog: false
+        accessLog: false
       }
     },
     methods: {
@@ -57,9 +49,6 @@
           }
           if ('accessLog' === type) {
             deleteRequest('/sys/access/')
-          }
-          if ('oplog' === type) {
-            deleteRequest('/sys/log/')
           }
         }
 

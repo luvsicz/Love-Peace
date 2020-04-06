@@ -20,6 +20,9 @@ export default new Vuex.Store({
     },
     INIT_CURRENTHR(state, hr) {
       state.currentHr = hr;
+    },
+    gotoNotice() {
+      this.$router.push('/MyNotice')
     }
   },
   actions: {
@@ -38,6 +41,7 @@ export default new Vuex.Store({
                 10)
                 : receiveMsg.message,
               position: 'bottom-right',
+              onClick: this.gotoNotice,
               duration: 0
             })
           }

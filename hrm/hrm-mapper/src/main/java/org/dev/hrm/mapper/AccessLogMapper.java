@@ -1,16 +1,13 @@
 package org.dev.hrm.mapper;
 
-import java.util.Date;
-import java.util.List;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.dev.hrm.model.AccessLog;
+import java.util.Date;import java.util.List;import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;import org.dev.hrm.model.AccessLog;
 
 /**
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName AccessLogMapper.java
- * @createTime 2020年03月30日 21:33:00
+ * @createTime 2020年04月06日 15:49:00
  */
 @Mapper
 public interface AccessLogMapper {

@@ -26,7 +26,6 @@ public class AccessLogController {
   AccessLogService service;
 
   @GetMapping("/")
-  @WebLogger
   public RespBean getAccessLogByPage(
       @RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size, AccessLog accessLog,
@@ -36,6 +35,7 @@ public class AccessLogController {
   }
 
   @DeleteMapping
+  @WebLogger
   public RespBean deleteAccessLog() {
     return RespBean.ok("清理AccessLog成功", service.truncateAll());
   }

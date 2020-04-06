@@ -8,6 +8,7 @@ import org.dev.hrm.model.Role;
 import org.dev.hrm.service.HrService;
 import org.dev.hrm.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,9 +39,15 @@ public class HrRolesController {
     return hrService.selectByNameLikeKeyWords(keywords);
   }
 
+  /**
+   * 更新完成后清理所有缓存
+   *
+   * @param hr
+   * @return
+   */
   @PutMapping("/")
   @WebLogger
-  //TODO FIX 权限问题
+  @CacheEvict(value = "menuService", allEntries = true)
   public RespBean updateHr(@RequestBody Hr hr) {
     if (hrService.updateByPrimaryKeySelective(hr) == 1) {
       return RespBean.ok("更新成功!");

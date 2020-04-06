@@ -20,10 +20,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.dev.hrm.model.AccessLog;
+import org.dev.hrm.model.Hr;
 import org.dev.hrm.service.AccessLogService;
 import org.dev.hrm.util.IPUtils;
 import org.dev.hrm.util.JackSonUtils;
 import org.dev.hrm.util.UserAgentUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -90,6 +92,9 @@ public class AspectLogger {
       HttpServletRequest request = ((ServletRequestAttributes) Objects
           .requireNonNull(RequestContextHolder.getRequestAttributes()))
           .getRequest();
+      SecurityContextHolder.getContext().getAuthentication();
+      Hr currentHr = (Hr) SecurityContextHolder.getContext().getAuthentication()
+          .getPrincipal();
       //类名
       String className = joinPoint.getTarget().getClass().getName();
       //请求方法
@@ -174,6 +179,7 @@ public class AspectLogger {
       accessLog.setRequestTime(new Timestamp(System.currentTimeMillis()));
       sb.append("***********************************");
       sb.append("\n");
+      accessLog.setHrid(currentHr.getId());
       service.insertSelective(accessLog);
 //      log.info(sb.toString());
     } catch (Exception e) {

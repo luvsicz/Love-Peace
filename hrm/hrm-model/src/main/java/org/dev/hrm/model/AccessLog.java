@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName AccessLog.java
- * @createTime 2020年03月30日 21:33:00
+ * @createTime 2020年04月06日 15:49:00
  */
 @ApiModel(value = "org-dev-hrm-model-AccessLog")
 @Data
@@ -89,4 +88,12 @@ public class AccessLog implements Serializable {
   @ApiModelProperty(value = "发起请求的时间")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
   private Timestamp requestTime;
+  /**
+   * hrID
+   */
+  @ApiModelProperty(value = "hrID")
+  private Integer hrid;
+  @ApiModelProperty(value = "hrName")
+
+  private String name;
 }

@@ -70,3 +70,4 @@ public class AccessLogService {
     return accessLogMapper.truncateAll();
   }
 }
+
