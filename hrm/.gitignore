@@ -29,3 +29,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/hrm-web/src/main/resources/static/
