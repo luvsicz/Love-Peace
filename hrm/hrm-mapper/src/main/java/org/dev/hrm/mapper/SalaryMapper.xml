@@ -207,7 +207,7 @@
   </update>
   <select id="getAllSalaries" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List"></include>
+    <include refid="Base_Column_List"/>
     FROM salary;
   </select>
   <select id="getDepsSalaryTable" resultType="org.dev.hrm.model.RespPageBean">

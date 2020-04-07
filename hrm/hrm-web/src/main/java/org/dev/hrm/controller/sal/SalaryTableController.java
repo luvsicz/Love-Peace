@@ -42,7 +42,7 @@ public class SalaryTableController {
   public RespPageBean getEmployeeByPageWithSalaryByDepId(
       @RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size, Integer depId) {
-    return employeeService.getEmployeeByPageWithSalary(page, size, depId);
+    return employeeService.getEmployeeByPageWithSalary(page, size, depId,null);
   }
 
   /**
@@ -52,7 +52,7 @@ public class SalaryTableController {
   @WebLogger
   public ResponseEntity<byte[]> exportData(@RequestParam Integer depId) {
     List<Employee> list = (List<Employee>) employeeService
-        .getEmployeeByPageWithSalary(null, null, depId).getData();
+        .getEmployeeByPageWithSalary(null, null, depId,null).getData();
     return POIUtils.depSalary2Excel(list);
   }
 }

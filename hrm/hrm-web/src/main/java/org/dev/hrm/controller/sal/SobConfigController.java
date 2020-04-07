@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName SobConfigController.java
-
  * @createTime 2020年03月29日 15:16:00
  */
 
@@ -33,9 +32,11 @@ public class SobConfigController {
 
   @GetMapping("/")
   @WebLogger
-  public RespPageBean getEmployeeByPageWithSalary(@RequestParam(defaultValue = "1") Integer page,
-      @RequestParam(defaultValue = "10") Integer size) {
-    return employeeService.getEmployeeByPageWithSalary(page, size,null);
+  public RespPageBean getEmployeeByPageWithSalary(
+      @RequestParam(defaultValue = "1") Integer page,
+      @RequestParam(defaultValue = "10") Integer size, String keyword) {
+    return employeeService
+        .getEmployeeByPageWithSalary(page, size, null, keyword);
   }
 
   @GetMapping("/salaries")

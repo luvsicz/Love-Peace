@@ -30,19 +30,24 @@ public interface EmployeeMapper {
 
   int updateByPrimaryKey(Employee record);
 
-  List<Employee> getEmployeeByPage(@Param("page") Integer page, @Param("size") Integer size,
-      @Param("emp") Employee emp, @Param("beginDateScope") Date[] beginDateScope);
+  List<Employee> getEmployeeByPage(@Param("page") Integer page,
+      @Param("size") Integer size,
+      @Param("emp") Employee emp,
+      @Param("beginDateScope") Date[] beginDateScope);
 
   int deleteByPrimaryKeys(@Param("ids") String[] ids);
 
-  long getTotal(@Param("emp") Employee emp, @Param("beginDateScope") Date[] beginDateScope,
+  long getTotal(@Param("emp") Employee emp,
+      @Param("beginDateScope") Date[] beginDateScope,
       @Param("depId") Integer depId);
 
   Integer getMaxWorkerId();
 
   List<Employee> getEmployeeByPageWithSalary(@Param("page") Integer page,
-      @Param("size") Integer size, @Param("depId") Integer depId);
+      @Param("size") Integer size, @Param("depId") Integer depId, @Param(
+      "name") String name);
 
-  Integer updateEmployeeSalaryById(@Param("eid") Integer eid, @Param("sid") Integer sid);
+  Integer updateEmployeeSalaryById(@Param("eid") Integer eid,
+      @Param("sid") Integer sid);
 
 }

@@ -1,5 +1,10 @@
 <template>
   <div style="margin-top: 10px">
+    <div style="display: flex; justify-content: flex-start;">
+      <el-input @keydown.enter.native="search" placeholder="可通过名字模糊搜索" size="mini"
+                style="width: 300px" v-model="keyword"/>
+      <el-button @click="search" icon="el-icon-search" size="mini" type="primary">搜索</el-button>
+    </div>
     <div>
       <el-table :data="emps" border stripe size="mini"
                 v-loading="loading">
@@ -113,7 +118,8 @@
         currentSize: 10,
         currentSalary: null,
         salaries: [],
-        loading: true
+        loading: true,
+        keyword: ''
       }
     },
     mounted() {
@@ -121,6 +127,10 @@
       this.initSalaries();
     },
     methods: {
+      search() {
+        this.page = 1;
+        this.initEmps();
+      },
       sizeChange(size) {
         this.currentSize = size;
         this.initEmps();
@@ -155,7 +165,7 @@
         })
       },
       initEmps() {
-        this.getRequest("/sal/sobcfg/?page=" + this.currentPage + '&size=' + this.currentSize).then(
+        this.getRequest("/sal/sobcfg/?page=" + this.currentPage + '&size=' + this.currentSize+'&keyword='+this.keyword).then(
           resp => {
             if (resp) {
               this.emps = resp.data;

@@ -514,6 +514,9 @@
       <if test="depId!=null">
         and d.id =#{depId}
       </if>
+      <if test="name != null and name != ''">
+        and e.name like concat('%',#{name},'%')
+      </if>
     </where>
     order by e.id
     <if test="page !=null and size !=null">
