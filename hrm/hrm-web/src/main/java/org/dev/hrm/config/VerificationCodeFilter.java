@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.dev.hrm.model.RespBean;
+import org.dev.hrm.util.RequestUtils;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,17 +27,20 @@ public class VerificationCodeFilter extends GenericFilter {
       throws IOException, ServletException {
     HttpServletRequest req = (HttpServletRequest) servletRequest;
     HttpServletResponse resp = (HttpServletResponse) servletResponse;
-    if ("POST".equals(req.getMethod()) && "/doLogin"
-        .equals(req.getServletPath())) {
+    //请求路径为/doLogin或者/reg并且Method为POST的请求就拦截，校验验证码
+    if ("POST".equals(req.getMethod())
+        && ("/doLogin".equals(req.getServletPath())
+        || "/reg".equals(req.getServletPath()))) {
       //登录请求
-      String code = req.getParameter("code");
+      String code = null == req.getParameter("code") ?
+          RequestUtils.getFormDateParameter(req, "code")
+          : req.getParameter("code");
       String verifyCode = (String) req.getSession()
           .getAttribute("verify_code");
       if (code == null || verifyCode == null || "".equals(code) || !verifyCode
           .toLowerCase()
           .equals(code.toLowerCase())) {
         //验证码不正确
-        filterChain.doFilter(req, resp);
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter out = resp.getWriter();
         out.write(
@@ -50,4 +54,5 @@ public class VerificationCodeFilter extends GenericFilter {
       filterChain.doFilter(req, resp);
     }
   }
+
 }

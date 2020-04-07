@@ -45,12 +45,36 @@
         loginForm: {
           username: 'admin',
           password: '123',
-          code: ''
+          code: '1234'
         },
         checked: true,
         rules: {
-          username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
-          password: [{required: true, message: '请输入密码', trigger: 'blur'}],
+          username: [{
+            required: true,
+            message: '请输入用户名',
+            trigger: 'blur'
+          }, {
+            min: 3,
+            max: 32,
+            message: '长度在 3 到 32 个字符'
+          }, {
+            pattern:/^[a-zA-Z][a-zA-Z0-9_]*$/,
+            message: '以字母开头，长度在3-32之间， 只能包含字符和数字'
+          }
+            //{ pattern:/^[a-zA-Z]w{1,4}$/, message: '以字母开头，长度在2-5之间， 只能包含字符、数字和下划线'}
+          ],
+          password: [{
+            required: true,
+            message: '请输入密码',
+            trigger: 'blur'
+          }, {
+            min: 3,
+            max: 30,
+            message: '长度在 3 到 30 个字符'
+          }, {
+            pattern: /^(\w){3,20}$/,
+            message: '只能输入3-20个字母、数字、下划线'
+          }],
           code: [{required: true, message: '请输入验证码', trigger: 'blur'}]
         }
       }
@@ -66,7 +90,8 @@
             if (type === 'login') {
               this.postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
                 this.loading = false;
-                if (resp) {
+                if (resp && resp.status === 200) {
+                  //登录成功
                   window.sessionStorage.setItem("user", JSON.stringify(resp.obj));
                   let path = this.$route.query.redirect;
                   //更新当前HR信息
@@ -77,10 +102,14 @@
                 }
               })
             } else {
-              this.postRequest('/reg', this.loginForm).then(resp => {
+              this.postKeyValueRequest('/reg', this.loginForm).then(resp => {
                 this.loading = false;
-                if (resp) {
-                  this.$router.replace('/');
+                if (resp && resp.status === 200) {
+                  //注册成功
+                  //更新验证码 登录
+                  this.vcUrl = '/verifyCode?time=' + new Date();
+                  //重载页面
+                  // this.$router.go(0);
                 } else {
                   this.vcUrl = '/verifyCode?time=' + new Date();
                 }

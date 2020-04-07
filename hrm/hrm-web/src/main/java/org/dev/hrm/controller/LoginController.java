@@ -2,9 +2,11 @@ package org.dev.hrm.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang3.StringUtils;
 import org.dev.hrm.config.VerificationCodeConfig;
 import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.RespBean;
@@ -14,7 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -42,23 +44,28 @@ public class LoginController {
   }
 
   @PostMapping("/reg")
-  public RespBean hrReg(@RequestBody Hr hr) {
-    //先判断用户名是否存在
+  public RespBean hrReg(@RequestParam Map<String, Object> map) {
+    String username = ((String) map.get("username"));
+    String password = (String) map.get("password");
+    //参数合法校验
+    if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+      return RespBean.error("参数不合法!");
+    }
     try {
-      if (hrService.loadUserByUsername(hr.getUsername()) != null) {
+      //先判断用户名是否存在
+      if (hrService.loadUserByUsername(username) != null) {
         return RespBean.error("用户名已存在，换一个吧！");
       }
     } catch (UsernameNotFoundException exception) {
       //密码加密然后插入HR表
       BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-      String encode = encoder.encode(hr.getPassword());
+      String encode = encoder.encode(password);
       Hr regHr = new Hr();
-      regHr.setUsername(hr.getUsername());
+      regHr.setUsername(username);
       regHr.setPassword(encode);
       return hrService.insertSelective(regHr) == 1 ? RespBean.ok("注册成功，请登录！") :
           RespBean.error("注册失败，请联系管理员!");
     }
-
     return RespBean.error("注册失败，请联系管理员!");
   }
 

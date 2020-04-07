@@ -97,6 +97,7 @@
             //   type: 'success',
             //   message: '注销成功!'
             // });
+            //断开WS连接
           }).catch(() => {
             this.$message({
               type: 'info',

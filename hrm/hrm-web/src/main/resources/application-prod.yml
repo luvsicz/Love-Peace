@@ -1,6 +1,6 @@
 server:
   forward-headers-strategy: framework
-  port: 80
+  port: 8080
 spring:
   cache:
     cache-names: menuService
