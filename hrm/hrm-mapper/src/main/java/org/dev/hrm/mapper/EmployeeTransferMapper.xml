@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dev.hrm.mapper.EmployeeTransferMapper">
+  <resultMap id="BaseResultMap" type="org.dev.hrm.model.EmployeeTransfer">
+    <!--@mbg.generated-->
+    <!--@Table employeetransfer-->
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="eid" jdbcType="INTEGER" property="eid"/>
+    <result column="afterDepId" jdbcType="INTEGER" property="afterDepId"/>
+    <result column="afterJobId" jdbcType="INTEGER" property="afterJobId"/>
+    <result column="removeDate" jdbcType="TIMESTAMP" property="removeDate"/>
+    <result column="reason" jdbcType="VARCHAR" property="reason"/>
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    <result column="afterLevelId" jdbcType="INTEGER" property="afterLevelId"/>
+  </resultMap>
+  <resultMap id="DepartmemtAndJobLevelAndPosition" type="org.dev.hrm.model.EmployeeTransfer"
+    extends="BaseResultMap">
+    <!--@mbg.generated-->
+    <!--@Table employeetransfer-->
+    <association property="department" javaType="org.dev.hrm.model.Department">
+      <id column="did" property="id"/>
+      <result column="dname" property="name"/>
+    </association>
+    <association property="employee" javaType="org.dev.hrm.model.Employee">
+      <id column="eid" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <association property="jobLevel" javaType="org.dev.hrm.model.JobLevel">
+      <id column="jid" property="id"/>
+      <result column="jname" property="name"/>
+    </association>
+    <association property="position" javaType="org.dev.hrm.model.Position">
+      <id column="pid" property="id"/>
+      <result column="pname" property="name"/>
+    </association>
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, eid, afterDepId, afterJobId, removeDate, reason, remark, afterLevelId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from employeetransfer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from employeetransfer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.EmployeeTransfer" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into employeetransfer (eid, afterDepId, afterJobId,
+    removeDate, reason, remark,
+    afterLevelId)
+    values (#{eid,jdbcType=INTEGER}, #{afterDepId,jdbcType=INTEGER}, #{afterJobId,jdbcType=INTEGER},
+    #{removeDate,jdbcType=TIMESTAMP}, #{reason,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+    #{afterLevelId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.EmployeeTransfer" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into employeetransfer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eid != null">
+        eid,
+      </if>
+      <if test="afterDepId != null">
+        afterDepId,
+      </if>
+      <if test="afterJobId != null">
+        afterJobId,
+      </if>
+      <if test="removeDate != null">
+        removeDate,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="afterLevelId != null">
+        afterLevelId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eid != null">
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="afterDepId != null">
+        #{afterDepId,jdbcType=INTEGER},
+      </if>
+      <if test="afterJobId != null">
+        #{afterJobId,jdbcType=INTEGER},
+      </if>
+      <if test="removeDate != null">
+        #{removeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="afterLevelId != null">
+        #{afterLevelId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.EmployeeTransfer">
+    <!--@mbg.generated-->
+    update employeetransfer
+    <set>
+      <if test="eid != null">
+        eid = #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="afterDepId != null">
+        afterDepId = #{afterDepId,jdbcType=INTEGER},
+      </if>
+      <if test="afterJobId != null">
+        afterJobId = #{afterJobId,jdbcType=INTEGER},
+      </if>
+      <if test="removeDate != null">
+        removeDate = #{removeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="afterLevelId != null">
+        afterLevelId = #{afterLevelId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.EmployeeTransfer">
+    <!--@mbg.generated-->
+    update employeetransfer
+    set eid = #{eid,jdbcType=INTEGER},
+    afterDepId = #{afterDepId,jdbcType=INTEGER},
+    afterJobId = #{afterJobId,jdbcType=INTEGER},
+    removeDate = #{removeDate,jdbcType=TIMESTAMP},
+    reason = #{reason,jdbcType=VARCHAR},
+    remark = #{remark,jdbcType=VARCHAR},
+    afterLevelId = #{afterLevelId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getEmployeeTransInfoByPage" resultMap="DepartmemtAndJobLevelAndPosition">
+    SELECT
+    employeetransfer.removeDate,
+    department.`name` AS dname,
+    employeetransfer.remark,
+    employeetransfer.reason,
+    position.`name` AS pname,
+    joblevel.`name` AS jname,
+    employeetransfer.id,
+    employeetransfer.eid AS eid,
+    employee.`name`
+    FROM
+    employeetransfer
+    INNER JOIN
+    department
+    ON
+    employeetransfer.afterDepId = department.id
+    INNER JOIN
+    position
+    ON
+    employeetransfer.afterJobId = position.id
+    INNER JOIN
+    joblevel
+    ON
+    employeetransfer.afterLevelId = joblevel.id
+    INNER JOIN
+    employee
+    ON
+    employeetransfer.eid = employee.id
+    <where>
+      <if test="emp!=null">
+        <if test="emp.name!=null and emp.name != ''">
+          employee.`name` like concat('%',#{emp.name},'%')
+        </if>
+      </if>
+    </where>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getTotal" resultType="long">
+    SELECT
+    COUNT(*)
+    FROM
+    employee
+    INNER JOIN
+    employeetransfer
+    ON
+    employee.id = employeetransfer.eid
+    <where>
+      <if test="emp!=null ">
+        <if test="emp.name != null and emp.name != ''">
+          employee.`name`like concat('%',#{emp.name},'%')
+        </if>
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKeys">
+    delete  from employeetransfer
+    where id in(
+    <foreach collection="ids" item="id" separator=",">
+      #{id}
+    </foreach>)
+  </delete>
+</mapper>

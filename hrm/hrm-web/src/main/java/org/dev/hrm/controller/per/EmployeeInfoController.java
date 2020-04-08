@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/per/emp")
-public class EmployeeController {
+public class EmployeeInfoController {
 
   @Autowired
   EmployeeService empService;

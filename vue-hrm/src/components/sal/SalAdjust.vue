@@ -42,7 +42,7 @@
                         </el-table-column>
                         <el-table-column
                             label="调薪日期">
-                            <template slot-scope="scope">{{ scope.row.asDate | formatDate}}</template>
+                            <template slot-scope="scope">{{ scope.row.asDate}}</template>
                         </el-table-column>
                         <el-table-column
                             width="200"

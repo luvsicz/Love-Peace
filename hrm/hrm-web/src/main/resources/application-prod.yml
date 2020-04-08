@@ -36,6 +36,6 @@ spring:
     username: notice@0101.design
 
 debug: false
-# JavaMailSender 邮件发送的配置
 #mybatis:
-#  config-location: classpath:/mybatis-config.xml
+mybatis:
+  config-location: classpath:/mybatis-config.xml

@@ -39,7 +39,7 @@ public class RequestUtils {
       node = mapper.readTree(sb.toString());
       result = node.get(paramName).toString().replaceAll("\"", "");
       return result;
-    } catch (IOException e) {
+    } catch (IOException | NullPointerException e) {
       //获取参数失败
       return null;
     }
