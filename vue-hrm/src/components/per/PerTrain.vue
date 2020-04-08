@@ -76,10 +76,21 @@
             <el-row>
               <el-col :span="7">
                 <div>
-                  <el-form-item label="员工号:" prop="eid" v-if="dialogTitle !== '编辑培训信息'">
-                    <el-input v-model="train.eid" style="width: 200px" size="mini"
-                              placeholder="输入员工号">
-                    </el-input>
+                  <el-form-item label="员工姓名:" prop="eid" v-if="dialogTitle !== '编辑培训信息'">
+                    <el-tooltip class="item" effect="light" content="输入员工名字进行模糊搜索" placement="top">
+                      <el-select v-model="train.eid" style="width: 200px" size="mini"
+                                 placeholder="请输入员工姓名搜索"
+                                 :remote-method="remoteMethod"
+                                 filterable
+                                 remote>
+                        <el-option
+                          v-for="item in emps"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.id">
+                        </el-option>
+                      </el-select>
+                    </el-tooltip>
                   </el-form-item>
                 </div>
               </el-col>
@@ -162,6 +173,13 @@
       };
     },
     methods: {
+      remoteMethod(query) {
+        this.getRequest('/per/emp/?size=100&name=' + query).then(resp => {
+          if (resp.status === 200) {
+            this.emps = resp.obj.data;
+          }
+        })
+      },
       currentChange(currentChange) {
         this.currentPage = currentChange;
         this.initData();

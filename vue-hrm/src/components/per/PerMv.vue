@@ -115,12 +115,23 @@
             width="77%">
             <!--第一行-->
             <el-row>
-              <el-col :span="3" v-if="this.dialogTitle==='新增调动'">
+              <el-col :span="6" v-if="this.dialogTitle==='新增调动'">
                 <div>
-                  <el-form-item label="员工号:" prop="eid">
-                    <el-input v-model="move.eid" style="width: 200px" size="mini"
-                              placeholder="输入员工号">
-                    </el-input>
+                  <el-form-item label="姓名:" prop="eid">
+                    <el-tooltip class="item" effect="light" content="输入员工名字进行模糊搜索" placement="top">
+                      <el-select v-model="move.eid" style="width: 200px" size="mini"
+                                 placeholder="请输入员工姓名搜索"
+                                 :remote-method="remoteMethod"
+                                 filterable
+                                 remote>
+                        <el-option
+                          v-for="item in emps"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.id">
+                        </el-option>
+                      </el-select>
+                    </el-tooltip>
                   </el-form-item>
                 </div>
               </el-col>
@@ -208,8 +219,6 @@
               </el-col>
 
             </el-row>
-
-
             <span slot="footer" class="dialog-footer">
     <el-button size="mini" @click="cancelEidt">取 消</el-button>
     <el-button size="mini" type="primary" @click="addTransfer('addEmpForm')">确 定</el-button>
@@ -234,10 +243,6 @@
         size: 10,
         moves: [],
         emps: [],
-        emp: {
-          id: '',
-          name: ''
-        },
         position: [],
         jobLevels: [],
         multipleSelection: [],
@@ -279,6 +284,13 @@
         //搜索则设置当前页为第一页
         this.currentPage = 1;
         this.loadTransferInfo();
+      },
+      remoteMethod(query) {
+        this.getRequest('/per/emp/?size=100&name=' + query).then(resp => {
+          if (resp.status === 200) {
+            this.emps = resp.obj.data;
+          }
+        })
       },
       currentChange(currentChange) {
         this.currentPage = currentChange;
