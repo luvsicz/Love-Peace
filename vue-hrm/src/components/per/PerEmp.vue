@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 10px">
-    <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; justify-content: center;">
       <el-input @keydown.enter.native="search" placeholder="可通过名字模糊搜索" size="mini"
                 style="width: 300px" v-model="keyword"/>
       <el-button @click="search" icon="el-icon-search" size="mini" type="primary">搜索</el-button>
@@ -10,7 +10,7 @@
         高级搜索
       </el-button>
     </div>
-    <div>
+    <div style="display: flex; justify-content: flex-end;">
       <el-button @click="exportXls" icon="el-icon-download" size="mini" style="margin-right: 0px"
                  type="primary">导出
       </el-button>
@@ -156,7 +156,7 @@
       <el-table-column
         label="毕业院校"
         prop="school"
-        width="120">
+        width="200">
       </el-table-column>
       <el-table-column
         label="学历"
@@ -171,7 +171,7 @@
       <el-table-column
         label="职位"
         prop="position.name"
-        width="100">
+        width="130">
       </el-table-column>
       <el-table-column
         label="职称"
@@ -186,12 +186,12 @@
       <el-table-column
         label="邮箱"
         prop="email"
-        width="160">
+        width="200">
       </el-table-column>
       <el-table-column
         label="家庭住址"
         prop="address"
-        width="200">
+        width="220">
       </el-table-column>
       <el-table-column
         label="在职状态"
@@ -673,38 +673,38 @@
       initTable() {
         this.loading = true;
         let url = '/per/emp/?page=' + this.page + '&size=' + this.size;
-          if (this.searchValue.politicId) {
-            url += '&politicId=' + this.searchValue.politicId;
-          }
-          if (this.searchValue.nationId) {
-            url += '&nationId=' + this.searchValue.nationId;
-          }
-          if (this.searchValue.jobLevelId) {
-            url += '&jobLevelId=' + this.searchValue.jobLevelId;
-          }
-          if (this.searchValue.posId) {
-            url += '&posId=' + this.searchValue.posId;
-          }
-          if (this.searchValue.engageForm) {
-            url += '&engageForm=' + this.searchValue.engageForm;
-          }
-          if (this.searchValue.departmentId) {
-            url += '&departmentId=' + this.searchValue.departmentId;
-          }
-          if (this.searchValue.beginDateScope) {
-            url += '&beginDateScope=' + this.searchValue.beginDateScope;
-          }
-          if (this.searchValue.workState) {
-            url += '&workState=' + this.searchValue.workState;
-          }
-          url += "&name=" + this.keyword;
+        if (this.searchValue.politicId) {
+          url += '&politicId=' + this.searchValue.politicId;
+        }
+        if (this.searchValue.nationId) {
+          url += '&nationId=' + this.searchValue.nationId;
+        }
+        if (this.searchValue.jobLevelId) {
+          url += '&jobLevelId=' + this.searchValue.jobLevelId;
+        }
+        if (this.searchValue.posId) {
+          url += '&posId=' + this.searchValue.posId;
+        }
+        if (this.searchValue.engageForm) {
+          url += '&engageForm=' + this.searchValue.engageForm;
+        }
+        if (this.searchValue.departmentId) {
+          url += '&departmentId=' + this.searchValue.departmentId;
+        }
+        if (this.searchValue.beginDateScope) {
+          url += '&beginDateScope=' + this.searchValue.beginDateScope;
+        }
+        if (this.searchValue.workState) {
+          url += '&workState=' + this.searchValue.workState;
+        }
+        url += "&name=" + this.keyword;
         getRequest(url).then(resp => {
           if (resp && resp.status === 200) {
             this.loading = false;
             this.total = resp.obj.total;
             this.tableData = resp.obj.data;
-            if (this.total<this.currentPage*this.size){
-              this.page=1
+            if (this.total < this.currentPage * this.size) {
+              this.page = 1
             }
           }
 

@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 10px">
-    <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; justify-content: center;">
       <el-tag size="medium">请选择部门:</el-tag>
       <el-select placeholder="请选择" size="mini" v-model="depId" @change="initTable">
         <el-option
@@ -10,7 +10,7 @@
           v-for="item in this.deps">
         </el-option>
       </el-select>
-      <div>
+      <div style="margin-left: 10px">
         <el-button @click="exportXls" icon="el-icon-download" size="mini"
                    style="margin-right: 0px" :disabled="this.depSalary.length<=0"
                    type="primary">导出当前部门工资表

@@ -1,9 +1,9 @@
 <template>
   <div style="margin-top: 10px">
-    <div style="display: flex; justify-content: flex-start;">
+    <div style="display: flex; justify-content: center;">
       <el-input @keydown.enter.native="search" placeholder="可通过名字模糊搜索" size="mini"
                 style="width: 300px" v-model="keyword"/>
-      <el-button @click="search" icon="el-icon-search" size="mini" type="primary">搜索</el-button>
+      <el-button style="margin-left: 10px" @click="search" icon="el-icon-search" size="mini" type="primary">搜索</el-button>
     </div>
     <div>
       <el-table :data="emps" border stripe size="mini"

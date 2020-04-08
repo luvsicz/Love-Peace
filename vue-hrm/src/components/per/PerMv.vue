@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 10px">
-    <el-header
+    <div
       style="display: flex;justify-content: space-between;align-items: center;padding-left: 0px">
       <el-button @click="addTransferInfo" icon="el-icon-plus" type="primary" size="mini">
         添加调动记录
@@ -25,8 +25,8 @@
 
       <el-button size="mini" type="success" @click="loadTransferInfo"
                  icon="el-icon-refresh"></el-button>
-    </el-header>
-    <el-main style="padding-left: 0px;padding-top: 0px">
+    </div>
+    <div style="padding-left: 0px;padding-top: 0px">
       <div>
         <el-table
           :data="moves"
@@ -103,7 +103,7 @@
           :total="totalCount">
         </el-pagination>
       </div>
-    </el-main>
+    </div>
     <div style="text-align: left">
       <el-form :model="move" :rules="rules" ref="addEmpForm" style="margin: 0px;padding: 0px;">
         <div style="text-align: left">
@@ -356,7 +356,6 @@
           + this.size).then(resp => {
           _this.tableLoading = false;
           if (resp && resp.status === 200) {
-            console.log(this.moves.length)
             _this.moves = resp.obj.data;
             _this.totalCount = resp.obj.total;
             //当前页码 没取到数据
