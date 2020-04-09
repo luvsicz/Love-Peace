@@ -165,11 +165,9 @@ public class LoginActivity extends AppCompatActivity {
           e.printStackTrace();
         } catch (IOException e) {
           Log.e("bamboo", "IOException");
-          // TODO Auto-generated catch block
           e.printStackTrace();
         } catch (JSONException e) {
           Log.e("bamboo", "IOException");
-          // TODO Auto-generated catch block
           e.printStackTrace();
         }
       }
@@ -214,7 +212,6 @@ public class LoginActivity extends AppCompatActivity {
         /*try {
             intent.putExtra("username", json.getString("username"));
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }*/
     //  startActivity(intent);
