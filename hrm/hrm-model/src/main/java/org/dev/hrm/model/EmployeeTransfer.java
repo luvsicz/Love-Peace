@@ -68,4 +68,9 @@ public class EmployeeTransfer implements Serializable {
    * 部门
    */
   private Department department;
+  /**
+   * 调用结果
+   */
+  private Integer result;
+
 }

@@ -68,4 +68,9 @@ public class EmployeeTransferService {
     String[] id = ids.split(",");
     return employeeTransferMapper.deleteByPrimaryKeys(id);
   }
+
+  public void commit(EmployeeTransfer employeeTransfer) {
+    employeeTransferMapper.commit(employeeTransfer);
+
+  }
 }

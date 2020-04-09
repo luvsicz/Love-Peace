@@ -221,7 +221,7 @@
       </el-table-column>
     </el-table>
     <div style="margin-top: 10px;display: flex;justify-content: space-between">
-      <el-button :disabled="multipleSelection.length<=0" @click="multipleDelete" size="mini"
+      <el-button :disabled="multipleSelection.length<=0" round @click="multipleDelete" size="mini"
                  type="danger">批量删除
       </el-button>
     </div>

@@ -35,4 +35,6 @@ public interface EmployeeTransferMapper {
   long getTotal(@Param("emp") Employee emp);
 
   int deleteByPrimaryKeys(@Param("ids") String[] id);
+
+  void commit(EmployeeTransfer employeeTransfer);
 }

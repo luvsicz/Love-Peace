@@ -86,11 +86,20 @@
                 </el-button>
               </template>
             </el-table-column>
+            <el-table-column label="生效" align="center">
+              <template slot-scope="scope">
+                <el-button
+                  size="mini"
+                  type="warning"
+                  @click="commit(scope.$index, scope.row)">生效
+                </el-button>
+              </template>
+            </el-table-column>
           </el-table-column>
         </el-table>
       </div>
-      <div style="display: flex;justify-content: space-between;margin: 2px" v-if="moves!=0">
-        <el-button type="danger" round size="mini" :disabled="multipleSelection.length==0"
+      <div style="display: flex;justify-content: space-between;margin: 2px" v-if="moves!==0">
+        <el-button type="danger" round size="mini" :disabled="multipleSelection.length===0"
                    @click="deleteAll">批量删除
         </el-button>
         <el-pagination
@@ -98,7 +107,6 @@
           :page-size="size"
           :current-page="currentPage"
           @current-change="currentChange"
-
           layout="total,prev, pager, next"
           :total="totalCount">
         </el-pagination>
@@ -286,11 +294,13 @@
         this.loadTransferInfo();
       },
       remoteMethod(query) {
-        this.getRequest('/per/emp/?size=100&name=' + query).then(resp => {
-          if (resp.status === 200) {
-            this.emps = resp.obj.data;
-          }
-        })
+        if (query !== '') {
+          this.getRequest('/per/emp/?size=10&name=' + query).then(resp => {
+            if (resp.status === 200) {
+              this.emps = resp.obj.data;
+            }
+          })
+        }
       },
       currentChange(currentChange) {
         this.currentPage = currentChange;
@@ -322,6 +332,21 @@
         this.dialogVisible = true;
         this.move = row;
       },
+      commit(index, row) {
+        this.$confirm('提交生效这条记录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.doCommit(row.id);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      }
+      ,
       handleDelete(index, row) {
         this.$confirm('删除[' + 1 + ']条记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -336,6 +361,18 @@
           });
         });
       },
+      doCommit(id) {
+        var _this = this;
+        _this.tableLoading = true;
+        this.postRequest("/per/transfer/commit/" + id).then(resp => {
+          _this.tableLoading = false;
+          if (resp && resp.status === 200) {
+            var data = resp.data;
+            _this.loadTransferInfo();
+          }
+        });
+      }
+      ,
       doDelete(id) {
         var _this = this;
         _this.tableLoading = true;

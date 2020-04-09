@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dev.hrm.mapper.AdjustSalaryMapper">
+  <resultMap id="BaseResultMap" type="org.dev.hrm.model.AdjustSalary">
+    <!--@mbg.generated-->
+    <!--@Table adjustsalary-->
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="eid" jdbcType="INTEGER" property="eid"/>
+    <result column="asDate" jdbcType="DATE" property="asDate"/>
+    <result column="amount" jdbcType="INTEGER" property="amount"/>
+    <result column="reason" jdbcType="VARCHAR" property="reason"/>
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
+  </resultMap>
+  <resultMap id="WithEmpInfo" type="org.dev.hrm.model.AdjustSalary" extends="BaseResultMap">
+    <!--@mbg.generated-->
+    <!--@Table employeetransfer-->
+    <association property="employee" javaType="org.dev.hrm.model.Employee">
+      <id column="eid" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, eid, asDate, amount, reason, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from adjustsalary
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from adjustsalary
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.dev.hrm.model.AdjustSalary"
+    useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into adjustsalary (eid, asDate, amount,
+    reason, remark)
+    values (#{eid,jdbcType=INTEGER}, #{asDate,jdbcType=DATE}, #{amount,jdbcType=INTEGER},
+    #{reason,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id"
+    parameterType="org.dev.hrm.model.AdjustSalary" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into adjustsalary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eid != null">
+        eid,
+      </if>
+      <if test="asDate != null">
+        asDate,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eid != null">
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="asDate != null">
+        #{asDate,jdbcType=DATE},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.dev.hrm.model.AdjustSalary">
+    <!--@mbg.generated-->
+    update adjustsalary
+    <set>
+      <if test="eid != null">
+        eid = #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="asDate != null">
+        asDate = #{asDate,jdbcType=DATE},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.dev.hrm.model.AdjustSalary">
+    <!--@mbg.generated-->
+    update adjustsalary
+    set eid = #{eid,jdbcType=INTEGER},
+    asDate = #{asDate,jdbcType=DATE},
+    amount = #{amount,jdbcType=INTEGER},
+    reason = #{reason,jdbcType=VARCHAR},
+    remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getAdjustSalaryByPage" resultMap="WithEmpInfo">
+    SELECT
+    adjustsalary.id,
+    adjustsalary.eid,
+    adjustsalary.asDate,
+    adjustsalary.amount,
+    adjustsalary.reason,
+    adjustsalary.remark,
+    employee.`name`
+    FROM
+    adjustsalary
+    INNER JOIN
+    employee
+    ON
+    adjustsalary.eid = employee.id
+    <where>
+      <if test="emp!=null">
+        <if test="emp.name!=null and emp.name != ''">
+          employee.`name` like concat('%',#{emp.name},'%')
+        </if>
+      </if>
+    </where>
+    <if test="page !=null and size!=null">
+      limit #{page},#{size}
+    </if>
+  </select>
+  <select id="getTotal" resultType="long">
+    SELECT
+    COUNT(*)
+    FROM
+    adjustsalary
+    INNER JOIN
+    employee
+    ON
+    adjustsalary.eid = employee.id
+    <where>
+      <if test="emp!=null ">
+        <if test="emp.name != null and emp.name != ''">
+          employee.`name`like concat('%',#{emp.name},'%')
+        </if>
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKeys">
+    delete from adjustsalary
+    where id in(
+    <foreach collection="ids" item="id" separator=",">
+      #{id}
+    </foreach>)
+  </delete>
+  <select id="commit" statementType="CALLABLE">
+    <!--    TODO 完成提交生效-->
+    call commitSalAdjust(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER});
+  </select>
+</mapper>

@@ -34,7 +34,6 @@
       <id column="pid" property="id"/>
       <result column="pname" property="name"/>
     </association>
-
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -211,10 +210,14 @@
     </where>
   </select>
   <delete id="deleteByPrimaryKeys">
-    delete  from employeetransfer
+    delete from employeetransfer
     where id in(
     <foreach collection="ids" item="id" separator=",">
       #{id}
     </foreach>)
   </delete>
+  <select id="commit" statementType="CALLABLE">
+    <!--    TODO 完成提交生效-->
+    call commitEmpTransfer(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER});
+  </select>
 </mapper>

@@ -1,8 +1,8 @@
 package org.dev.hrm.model;
 
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,41 +10,39 @@ import lombok.NoArgsConstructor;
 /**
  * @author 冷嘉贤
  * @version 1.0.0
- * @ClassName Adjustsalary.java
- * @createTime 2020年04月02日 20:14:00
+ * @ClassName AdjustSalary.java
+ * @createTime 2020年04月09日 15:32:00
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Adjustsalary implements Serializable {
+public class AdjustSalary implements Serializable {
 
   private static final long serialVersionUID = 1L;
   private Integer id;
+  private Employee employee;
   private Integer eid;
   /**
    * 调薪日期
    */
-
-  private LocalDate asDate;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
+  private Date asDate;
   /**
-   * 调前薪资
+   * 调前额度
    */
-
-  private Integer beforeSalary;
-  /**
-   * 调后薪资
-   */
-
-  private Integer afterSalary;
+  private Integer amount;
   /**
    * 调薪原因
    */
-
   private String reason;
   /**
    * 备注
    */
-
   private String remark;
+  /**
+   * 调用结果
+   */
+  private Integer result;
+
+
 }
