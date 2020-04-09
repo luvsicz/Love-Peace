@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 10px">
-    <div style="display: flex;justify-content: space-between;align-items: center;padding-left: 0px">
+    <div style="display: flex;justify-content: space-between;align-items: center;padding-left: 0">
       <el-button @click="dialogVisible = true"
                  icon="el-icon-plus"
                  type="primary"
@@ -14,12 +14,12 @@
           style="width: 300px;margin: 0px;padding: 0px;"
           size="mini"
           :disabled="advanceSearchViewVisible"
-          @keyup.enter.native="searchEmp"
+          @keyup.enter.native="searchAdjustSal"
           prefix-icon="el-icon-search"
           v-model="keywords">
         </el-input>
         <el-button type="primary" size="mini" style="margin-left: 5px" icon="el-icon-search"
-                   @click="searchEmp">搜索
+                   @click="searchAdjustSal">搜索
         </el-button>
       </div>
       <el-button size="mini" type="success" @click="loadAdjustsalarysCfg"
@@ -262,7 +262,7 @@
           this.loadAdjustsalarysCfg();
         }
       },
-      searchEmp() {
+      searchAdjustSal() {
         this.loadAdjustsalarysCfg();
       },
 

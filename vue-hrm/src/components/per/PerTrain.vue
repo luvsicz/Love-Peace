@@ -148,7 +148,7 @@
       return {
         dialogVisible: false,
         dialogTitle: '',
-        tableLoading: false,
+        tableLoading: true,
         keywords: '',
         advanceSearchViewVisible: false,
         index: 0,
@@ -211,9 +211,10 @@
         var _this = this;
         _this.tableLoading = true;
         this.deleteRequest("/per/train/" + id).then(resp => {
-          _this.tableLoading = false;
           if (resp && resp.status === 200) {
             var data = resp.data;
+            _this.tableLoading = false;
+
             _this.initData();
           }
         });
@@ -223,10 +224,11 @@
         var _this = this;
         this.getRequest(
           "/per/train/?page=" + this.currentPage + '&size=10').then(resp => {
-          _this.tableLoading = false;
           if (resp && resp.status === 200) {
             _this.trains = resp.obj.data;
             _this.totalCount = resp.obj.total;
+            _this.tableLoading = false;
+
           }
         })
       },
