@@ -1,6 +1,7 @@
 <template>
   <div style="margin-top: 10px">
     <div style="display: flex; justify-content: center;">
+      <el-tag size="medium">请输入员工姓名:</el-tag>
       <el-input @keydown.enter.native="search" placeholder="可通过名字模糊搜索" size="mini"
                 style="width: 300px" v-model="keyword"/>
       <el-button @click="search" icon="el-icon-search" size="mini" type="primary">搜索</el-button>
@@ -9,8 +10,6 @@
            aria-hidden="true"></i>
         高级搜索
       </el-button>
-    </div>
-    <div style="display: flex; justify-content: flex-end;">
       <el-button @click="exportXls" icon="el-icon-download" size="mini" style="margin-right: 0px"
                  type="primary">导出
       </el-button>
@@ -18,9 +17,10 @@
         添加员工
       </el-button>
     </div>
-    <transition name="slide-fade">
+    <el-collapse-transition>
       <div
-        style="border: 1px solid #409eff;border-radius: 5px;box-sizing: border-box;padding: 5px;margin: 10px 0px;"
+        style="border: 1px solid #545c64;border-radius: 5px;box-sizing: border-box;padding: 5px;margin-top:  10px;"
+        class="transition-box"
         v-show="showAdvanceSearchView">
         <el-row>
           <el-col :span="5">
@@ -117,20 +117,20 @@
           </el-col>
         </el-row>
       </div>
-    </transition>
+    </el-collapse-transition>
     <!--表格行列-->
     <el-table
       :data="tableData"
       @selection-change="handleSelectionChange"
       border
-      style="width: 100%"
+      style="width: 100%;margin-top: 10px"
       v-loading="loading">
       <el-table-column type="selection" width="50"/>
       <el-table-column
         fixed="left"
         label="员工编号"
         prop="workID"
-        width="120">
+        width="100">
       </el-table-column>
       <el-table-column
         fixed="left"
@@ -532,7 +532,7 @@
         dialogVisible: false,
         tiptopDegrees: ['本科', '大专', '硕士', '博士', '高中', '初中', '小学', '其他'],
         emp: {
-          name: "王祖贤",
+          name: "测试员工",
           gender: "女",
           birthday: "2020-02-02",
           idCard: "202020202002022222",
@@ -540,7 +540,7 @@
           nationId: 1,
           nativePlace: "湖北",
           politicId: 13,
-          email: "wangzuxian@ggmail.com",
+          email: "wangzuxian@gmail.com",
           phone: "1776543210",
           address: "湖北省武汉市",
           departmentId: null,
@@ -847,18 +847,24 @@
 </script>
 
 <style scoped>
-  .slide-fade-enter-active {
-    transition: all .8s ease;
-  }
+  /*.slide-fade-enter-active {*/
+  /*  transition: all .8s ease;*/
+  /*}*/
 
-  .slide-fade-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
+  /*.slide-fade-leave-active {*/
+  /*  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
+  /*}*/
 
-  .slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active for below version 2.1.8 */
-  {
-    transform: translateX(10px);
-    opacity: 0;
+  /*.slide-fade-enter, .slide-fade-leave-to*/
+  /*  !* .slide-fade-leave-active for below version 2.1.8 *!*/
+  /*{*/
+  /*  transform: translateX(10px);*/
+  /*  opacity: 0;*/
+  /*}*/
+  .transition-box {
+    border-radius: 4px;
+    text-align: center;
+    box-sizing: border-box;
+    margin-right: 20px;
   }
 </style>

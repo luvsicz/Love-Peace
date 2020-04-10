@@ -7,6 +7,7 @@
       </el-button>
 
       <div style="display: inline">
+        <el-tag size="medium">请输入员工姓名:</el-tag>
         <el-input
           placeholder="通过员工名搜索员工,记得回车哦..."
           clearable
