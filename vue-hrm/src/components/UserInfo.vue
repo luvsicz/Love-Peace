@@ -33,6 +33,7 @@
     </el-card>
     <el-dialog
       :visible.sync="dialogVisible"
+      :close-on-click-modal="false"
       title="修改用户信息"
       width="30%">
       <div>
