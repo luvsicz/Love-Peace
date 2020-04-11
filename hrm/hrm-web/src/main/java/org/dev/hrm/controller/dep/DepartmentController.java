@@ -39,7 +39,6 @@ public class DepartmentController {
     return service.getAllDepartments();
   }
 
-  //TODO FIX添加部门偶尔出现BUG
   @PostMapping("/")
   @WebLogger
   public RespBean addDep(@RequestBody Department dep) {

@@ -115,11 +115,12 @@
   </select>
   <!--调用存储过程，结果存储到result里面去-->
   <select id="addDepartment" statementType="CALLABLE">
-    call
-    addDep(#{name,mode=IN,jdbcType=VARCHAR},#{parentId,mode=IN,jdbcType=INTEGER},#{enabled,mode=IN,jdbcType=BOOLEAN},#{result,mode=OUT,jdbcType=INTEGER},#{id,mode=OUT,jdbcType=INTEGER})
+    call addDep(#{name,mode=IN,jdbcType=VARCHAR}, #{parentId,mode=IN,jdbcType=INTEGER},
+                #{enabled,mode=IN,jdbcType=BOOLEAN}, #{result,mode=OUT,jdbcType=INTEGER},
+                #{id,mode=OUT,jdbcType=INTEGER})
   </select>
   <select id="delDepartment" statementType="CALLABLE">
-    call deleteDep(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER})
+    call deleteDep(#{id,mode=IN,jdbcType=INTEGER}, #{result,mode=OUT,jdbcType=INTEGER})
   </select>
   <resultMap id="DepartmentWithChildren" type="org.dev.hrm.model.Department"
     extends="BaseResultMap">
