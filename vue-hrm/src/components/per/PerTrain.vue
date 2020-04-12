@@ -21,7 +21,7 @@
           </el-table-column>
           <el-table-column
             label="培训日期">
-            <template slot-scope="scope">{{ scope.row.trainDate}}</template>
+            <template slot-scope="scope">{{ scope.row.trainDate.substr(0,10)}}</template>
           </el-table-column>
           <el-table-column
             width="200"
@@ -100,9 +100,10 @@
                     <el-date-picker
                       v-model="train.trainDate"
                       value-format="yyyy-MM-dd HH:mm:ss"
-                      type="datetime"
+                      type="date"
                       size="mini"
                       style="width: 180px"
+                      :picker-options="pickerOptions"
                       placeholder="选择日期时间">
                     </el-date-picker>
                   </el-form-item>
@@ -152,6 +153,7 @@
         keywords: '',
         advanceSearchViewVisible: false,
         index: 0,
+        eids: [],
         totalCount: -1,
         currentPage: 1,
         trains: [],
@@ -169,8 +171,39 @@
           eid: [{required: true, message: '必填:员工号', trigger: 'blur'}],
           trainDate: [{required: true, message: '必填:培训日期', trigger: 'blur'}],
           trainContent: [{required: true, message: '必填:培训内容', trigger: 'blur'}],
+        },
+        pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() > Date.now();
+          },
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: '明天天',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() + 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: '一周后',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() + 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }]
         }
       };
+    },
+    watch:{
+      //监视该变量，一变化就复制给train对象
+      eids: function (newEids, oldEids) {
+        this.train.eid=newEids.join(',');
+      }
     },
     methods: {
       remoteMethod(query) {

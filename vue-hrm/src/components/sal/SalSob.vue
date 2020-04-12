@@ -50,7 +50,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
     <el-button @click="preStep">{{activeItemIndex===10?'取消':'上一步'}}</el-button>
-    <el-button type="primary" @keydown.enter.native="nextStep" @click="nextStep">{{activeItemIndex==10?'完成':'下一步'}}</el-button>
+    <el-button type="primary" @keydown.enter.native="nextStep" @click="nextStep">{{activeItemIndex===10?'完成':'下一步'}}</el-button>
   </span>
     </el-dialog>
   </div>
@@ -171,7 +171,8 @@
           medicalPer: 0,
           medicalBase: 0,
           accumulationFundPer: 0,
-          accumulationFundBase: 0
+          accumulationFundBase: 0,
+          name: ''
         }
         this.dialogTitle = '添加工资账套';
         this.activeItemIndex = 0;

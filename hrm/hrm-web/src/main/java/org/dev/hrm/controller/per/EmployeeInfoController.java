@@ -54,7 +54,8 @@ public class EmployeeInfoController {
       @RequestParam(defaultValue = "10") Integer size, Employee employee,
       Date[] beginDateScope) {
     return RespBean.ok("",
-        empService.getEmployeeByPage(page, size, employee, beginDateScope));
+                       empService.getEmployeeByPage(page, size, employee,
+                                                    beginDateScope));
   }
 
   /**
@@ -133,8 +134,9 @@ public class EmployeeInfoController {
   @GetMapping("/availableWorkId")
   @WebLogger
   public RespBean availableWorkId() {
+    Integer maxId = empService.getMaxWorkerId();
     return RespBean.build().setStatus(200)
-        .setObj(String.format("%08d", empService.getMaxWorkerId() + 1));
+        .setObj(String.format("%08d", null == maxId ? 1 : maxId + 1));
   }
 
   @GetMapping("/deps")

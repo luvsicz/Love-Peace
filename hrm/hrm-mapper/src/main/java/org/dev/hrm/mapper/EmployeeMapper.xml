@@ -527,4 +527,15 @@
     REPLACE INTO empsalary (eid, sid)
     VALUES (#{eid}, #{sid})
   </insert>
+  <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from employee
+    <where>
+      id in(
+      <foreach collection="ids" item="id" separator=",">
+        #{id}
+      </foreach>)
+    </where>
+  </select>
 </mapper>

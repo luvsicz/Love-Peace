@@ -236,7 +236,7 @@
       </el-pagination>
     </div>
     <el-dialog
-      :before-close="handleClose"
+      :close-on-click-modal="false"
       :title="title"
       :visible.sync="dialogVisible"
       width="80%">
@@ -532,32 +532,32 @@
         dialogVisible: false,
         tiptopDegrees: ['本科', '大专', '硕士', '博士', '高中', '初中', '小学', '其他'],
         emp: {
-          name: "测试员工",
-          gender: "女",
-          birthday: "2020-02-02",
+          name: "员工",
+          gender: "男",
+          birthday: "2002-02-02",
           idCard: "202020202002022222",
-          wedlock: "未婚",
+          wedlock: "已婚",
           nationId: 1,
           nativePlace: "湖北",
-          politicId: 13,
-          email: "wangzuxian@gmail.com",
+          politicId: 1,
+          email: "1610940520@qq.com",
           phone: "1776543210",
           address: "湖北省武汉市",
-          departmentId: null,
-          jobLevelId: 9,
-          posId: 29,
-          engageForm: "劳务合同",
+          departmentId: 1,
+          jobLevelId: 1,
+          posId: 1,
+          engageForm: "劳动合同",
           tiptopDegree: "本科",
           specialty: "信息管理与信息系统",
-          school: "深圳大学",
-          beginDate: "2017-12-31",
+          school: "三峡大学",
+          beginDate: "2020-12-31",
           workState: "在职",
-          workID: "00000057",
+          workID: "00000001",
           contractTerm: 2,
-          conversionTime: "2018-03-31",
+          conversionTime: "2021-12-31",
           notworkDate: null,
-          beginContract: "2017-12-31",
-          endContract: "2019-12-31",
+          beginContract: "2020-12-31",
+          endContract: "2022-12-31",
           workAge: null
         },
         rules: {

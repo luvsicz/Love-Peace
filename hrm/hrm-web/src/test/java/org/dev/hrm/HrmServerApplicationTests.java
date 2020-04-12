@@ -1,14 +1,16 @@
 package org.dev.hrm;
 
+import static java.util.stream.Collectors.toList;
+
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Date;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.dev.hrm.service.AccessLogService;
 import org.dev.hrm.service.EmployeeService;
 import org.dev.hrm.service.HrService;
 import org.dev.hrm.util.DateTimeUtils;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +29,7 @@ class HrmServerApplicationTests {
   EmployeeService employeeService;
   @Autowired
   AccessLogService logService;
-  @Autowired
+  @Resource
   JavaMailSender javaMailSender;
   @Value("${spring.mail.username}")
   String mailAddr;
@@ -37,21 +39,27 @@ class HrmServerApplicationTests {
     logService.getAccessLogByPage(1, 10, null, null);
   }
 
-
   @Test
-  @DisplayName("HR查询测试")
-  void queryHr() {
-//    HrExample exp = new HrExample();
-//    exp.createCriteria().andPasswordIsNotNull().andAddressIsNotNull();
-//    List<Hr> hrExampleList = hrService.selectByExample(exp);
-//    log.info("\n HR Query Result Size:{}", hrExampleList.size());
+  void getMaxWorkID() {
+    System.out.println(employeeService.getMaxWorkerId());
   }
 
   @Test
-  void 密码生成() {
+  void PasswordGen() {
     System.out.println(new BCryptPasswordEncoder().encode("123"));
   }
 
+  @Test
+  void LambdaASEmails() {
+    String id = "1931,1932,1933,1934";
+    log.info("emails = {}",
+             employeeService
+                 .getEmailsByPKs(id)
+                 .parallelStream()
+                 .distinct()
+                 .collect(toList())
+                 .toString());
+  }
 
   @Test
   void mailTest() {
@@ -62,20 +70,11 @@ class HrmServerApplicationTests {
     message.setSentDate(new Date());
     message.setText("请于，" + DateTimeUtils
         .timeStampToDateString(Timestamp.from(Instant.now())) +
-        ","
-        + "参与培训！" +
-        "培训内容："
-        + "ABCDEFG");
-//    javaMailSender.send(message);
+                    ","
+                    + "参与培训！" +
+                    "培训内容："
+                    + "ABCDEFG");
+    //    javaMailSender.send(message);
 
-  }
-
-  @Test
-  @DisplayName("Employee查询测试")
-  void queryEmployee() {
-//    EmployeeExample exp = new EmployeeExample();
-//    exp.createCriteria().andAddressIsNotNull().andPhoneIsNotNull().andSchoolIsNotNull();
-//    List<Employee> employeeList = employeeService.selectByExample(exp);
-//    log.info("\n Employee Query Result Size:{}", employeeList.size());
   }
 }

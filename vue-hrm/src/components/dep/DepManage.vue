@@ -6,7 +6,7 @@
         prefix-icon="el-icon-search"
         v-model="filterText">
       </el-input>
-
+      <!--TODO 叶子节点显示箭头-->
       <el-tree
         :data="deps"
         :expand-on-click-node="false"
@@ -104,7 +104,7 @@
       addDep2Deps(deps, dep) {
         for (let i = 0; i < deps.length; i++) {
           let d = deps[i];
-          if (d.id == dep.parentId) {
+          if (d.id === dep.parentId) {
             d.children = d.children.concat(dep);
             if (d.children.length > 0) {
               d.parent = true;
@@ -130,9 +130,9 @@
       removeDepFromDeps(p, deps, id) {
         for (let i = 0; i < deps.length; i++) {
           let d = deps[i];
-          if (d.id == id) {
+          if (d.id === id) {
             deps.splice(i, 1);
-            if (deps.length == 0) {
+            if (deps.length === 0) {
               p.parent = false;
             }
             return;

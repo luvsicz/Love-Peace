@@ -65,24 +65,10 @@ public class EmployeeTrainController {
   @WebLogger
   public RespBean addTrainingInfo(@RequestBody Employeetrain employeetrain) {
     Employee emp = employeeService.selectByPrimaryKey(employeetrain.getEid());
+    String ids = "";
+    List<String> emails = employeeService.getEmailsByPKs(ids);
     if (employeetrainService.insertSelective(employeetrain) == 1) {
-      //发送邮件
-      String empEmail = emp.getEmail();
-      SimpleMailMessage message = new SimpleMailMessage();
-      message.setSubject("培训通知");
-      message.setFrom(mailAddr);
-      message.setTo(empEmail);
-      message.setSentDate(new Date());
-      message
-          .setText(emp.getName() +
-              ("男".equals(emp.getGender()) ? "先生," : "女士,")
-              + "请于" + DateTimeUtils
-              .timeStampToDateString(employeetrain.getTrainDate())
-              + ",在" + employeetrain.getRemark()
-              + "参与培训" +
-              ",培训内容："
-              + employeetrain.getTrainContent());
-      javaMailSender.send(message);
+      sendMail(employeetrain, emp);
       return RespBean
           .ok("培训添加成功，会有邮件通知该员工！");
     }
@@ -93,9 +79,33 @@ public class EmployeeTrainController {
   @PutMapping("/")
   @WebLogger
   public RespBean updateTrainingInfo(@RequestBody Employeetrain employeetrain) {
-    return employeetrainService.updateByPrimaryKeySelective(employeetrain) == 1
-        ? RespBean
-        .ok("更新成功") : RespBean
-        .error("更新失败");
+    Employee emp = employeeService.selectByPrimaryKey(employeetrain.getEid());
+    if (employeetrainService.updateByPrimaryKeySelective(employeetrain) == 1) {
+      sendMail(employeetrain, emp);
+      return RespBean.ok("更新成功");
+    }
+    return RespBean.error("更新失败");
+  }
+
+  private void sendMail(
+      Employeetrain employeetrain,
+      Employee emp) {
+    //发送邮件
+    String empEmail = emp.getEmail();
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setSubject("培训通知");
+    message.setFrom(mailAddr);
+    message.setTo(empEmail);
+    message.setSentDate(new Date());
+    message
+        .setText(emp.getName() +
+                 ("男".equals(emp.getGender()) ? "先生," : "女士,")
+                 + "请于" + DateTimeUtils
+                     .timeStampToDateString(employeetrain.getTrainDate())
+                 + ",在" + employeetrain.getRemark()
+                 + "参与培训" +
+                 ",培训内容："
+                 + employeetrain.getTrainContent());
+    javaMailSender.send(message);
   }
 }

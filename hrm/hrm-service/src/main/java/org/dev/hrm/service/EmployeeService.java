@@ -1,5 +1,7 @@
 package org.dev.hrm.service;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -57,8 +59,8 @@ public class EmployeeService {
   }
 
   public RespPageBean getEmployeeByPage(Integer page, Integer size,
-      Employee emp,
-      Date[] beginDateScope) {
+                                        Employee emp,
+                                        Date[] beginDateScope) {
     if (page != null && size != null) {
       page = (page - 1) * size;
     }
@@ -76,14 +78,17 @@ public class EmployeeService {
   }
 
   public RespPageBean getEmployeeByPageWithSalary(Integer page, Integer size,
-      Integer depId, String keyword) {
+                                                  Integer depId,
+                                                  String keyword) {
     if (page != null && size != null) {
       page = (page - 1) * size;
     }
     Employee employee = new Employee();
     employee.setName(keyword);
     List<Employee> list = employeeMapper.getEmployeeByPageWithSalary(page,
-        size, depId, keyword);
+                                                                     size,
+                                                                     depId,
+                                                                     keyword);
     RespPageBean respPageBean = new RespPageBean();
     respPageBean.setData(list);
     respPageBean.setTotal(employeeMapper.getTotal(employee, null, depId));
@@ -92,6 +97,15 @@ public class EmployeeService {
 
   public Integer updateEmployeeSalaryById(Integer eid, Integer sid) {
     return employeeMapper.updateEmployeeSalaryById(eid, sid);
+  }
+
+  public List<String> getEmailsByPKs(String ids) {
+    String[] id = ids.split(",");
+    return employeeMapper
+        .selectByPrimaryKeys(id)
+        .parallelStream()
+        .map(Employee::getEmail)
+        .collect(toList());
   }
 }
 

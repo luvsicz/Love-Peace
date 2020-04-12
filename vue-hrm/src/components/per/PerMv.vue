@@ -149,7 +149,7 @@
                   <el-form-item label="调动日期:" prop="removeDate">
                     <el-date-picker
                       v-model="move.removeDate"
-                      value-format="yyyy-MM-dd HH:mm:ss"
+                      value-format="yyyy-MM-dd"
                       size="mini"
                       style="width: 135px"
                       type="date"
