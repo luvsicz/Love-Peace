@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class RequestUtils {
 
+  private RequestUtils() {
+  }
+
   /**
    * 读取HttpServletRequest postData为对象
    *
@@ -47,7 +50,6 @@ public class RequestUtils {
 
   public static String transFormDataToString(HttpServletRequest req) {
     StringBuilder sb = new StringBuilder();
-    ObjectMapper mapper = new ObjectMapper();
     try {
       BufferedReader
           br = new BufferedReader(new InputStreamReader(req.getInputStream()));

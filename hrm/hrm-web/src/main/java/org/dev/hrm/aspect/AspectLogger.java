@@ -54,8 +54,8 @@ public class AspectLogger {
    * @return
    */
   public static Map<String, Object> transStringToMap(String mapString,
-      String separator,
-      String pairSeparator) {
+                                                     String separator,
+                                                     String pairSeparator) {
     Map<String, Object> map = new HashMap<>();
     String[] fSplit = mapString.split(separator);
     for (String s : fSplit) {
@@ -69,15 +69,14 @@ public class AspectLogger {
     return map;
   }
 
-  //    @Pointcut(value = "execution(  * org.dev.hrm.hrmserver.controller..*(
-  //    ..))")
   @Pointcut("@annotation(org.dev.hrm.annotation.WebLogger)")
   public void httpWebLog() {
+    //Empty method
   }
 
-  //    @Pointcut(value = "execution(  * org.dev.hrm.hrmserver.service..*(..))")
   @Pointcut("@annotation(org.dev.hrm.annotation.ServiceLogger)")
   public void serviceAspect() {
+    //Empty method
   }
 
   /**
@@ -106,40 +105,49 @@ public class AspectLogger {
       //针对get请求
       if (request.getQueryString() != null) {
         decode = new StringBuilder(URLDecoder
-            .decode(request.getQueryString(), StandardCharsets.UTF_8));
+                                       .decode(request.getQueryString(),
+                                               StandardCharsets.UTF_8));
       } else {
         //针对post请求
+        /*
         for (String key : params.keySet()) {
           String[] values = params.get(key);
           for (String value : values) {
             decode.append(key).append("=").append(value).append("&");
           }
         }
+        */
+        //遍历entrySet
+        for (Map.Entry<String, String[]> entry : params.entrySet()) {
+          decode.append(entry.getKey()).append("=").append(
+              Arrays.toString(entry.getValue())).append(
+              "&");
+        }
       }
       //将String根据&转成Map
       Map<String, Object> methodParamMap = transStringToMap(decode.toString(),
-          "&", "=");
+                                                            "&", "=");
       //设置日期格式
       SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-      //方法描述
-//            String methodDescription = getControllerMethodDescription
-//            (joinPoint);
       StringBuilder sb = new StringBuilder(1000);
       sb.append("\n");
       sb.append(
           "*********************************Request" +
-              "请求***************************************");
+          "请求***************************************");
       sb.append("\n");
       sb.append("ClassName     :  ").append(className).append("\n");
       accessLog.setClassName(className);
       sb.append("RequestMethod :  ").append(method).append("\n");
       accessLog.setRequestMethod(method);
       sb.append("ContentType   :  ").append(("".equals(request.getContentType())
-          || request.getContentType() == null) ? "FORM"
-          : request.getContentType()).append("\n");
+                                             ||
+                                             request.getContentType() == null)
+                                                ? "FORM"
+                                                : request.getContentType())
+          .append("\n");
       accessLog.setContentType(("".equals(request.getContentType())
-          || request.getContentType() == null) ? "FORM"
-          : request.getContentType());
+                                || request.getContentType() == null) ? "FORM"
+                                   : request.getContentType());
       sb.append("RequestParams :  ")
           .append("".equals(decode.toString()) ? methodParam :
               methodParamMap)
@@ -155,8 +163,8 @@ public class AspectLogger {
           .append(request.getServerName()).append(":")
           .append(request.getServerPort()).append("\n");
       accessLog.setServerAddr(request.getScheme() + "://"
-          + request.getServerName() + ":"
-          + request.getServerPort());
+                              + request.getServerName() + ":"
+                              + request.getServerPort());
       sb.append("RemoteAddr    :  ").append(IPUtils.getRemoteAddr(request))
           .append("\n");
       accessLog.setRemoteAddr(IPUtils.getRemoteAddr(request));
@@ -175,15 +183,13 @@ public class AspectLogger {
       accessLog.setRequestUri(request.getRequestURI());
       sb.append("******************************");
       sb.append(df.format(new Date()));
-//      Timestamp.valueOf(df.format(new Date());
       accessLog.setRequestTime(new Timestamp(System.currentTimeMillis()));
       sb.append("***********************************");
       sb.append("\n");
       accessLog.setHrid(currentHr.getId());
       service.insertSelective(accessLog);
-//      log.info(sb.toString());
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("Controller访问日志记录异常" + e);
     }
 
   }
@@ -199,8 +205,8 @@ public class AspectLogger {
     StringBuilder sb = new StringBuilder(1000);
     // 处理完请求，返回内容
     sb.append("\n");
-    sb.append("Result        :  ").append(JackSonUtils.bean2Json(ret));
-//    log.info(sb.toString());
+    sb.append("\nResult        :  ").append(JackSonUtils.bean2Json(ret));
+    sb.append("\nMethod        :  ").append(JackSonUtils.bean2Json(method));
   }
 
 
@@ -213,20 +219,14 @@ public class AspectLogger {
   @AfterThrowing(pointcut = "serviceAspect()", throwing = "ex")
   public void doAfterThrowing(JoinPoint joinPoint, Throwable ex) {
     try {
-      HttpServletRequest request =
-          ((ServletRequestAttributes) Objects
-              .requireNonNull(RequestContextHolder.getRequestAttributes()))
-              .getRequest();
       //类名
       String className = joinPoint.getTarget().getClass().getName();
       //请求方法
       String method = (joinPoint.getTarget().getClass().getName() + "."
-          + joinPoint.getSignature().getName() +
-          "()");
+                       + joinPoint.getSignature().getName() +
+                       "()");
       //方法参数
       String methodParam = Arrays.toString(joinPoint.getArgs());
-      //方法描述
-//            String methodDescription = getServiceMthodDescription(joinPoint);
       //获取用户请求方法的参数并序列化为JSON格式字符串
       StringBuilder params = new StringBuilder();
       if (joinPoint.getArgs() != null && joinPoint.getArgs().length > 0) {
@@ -239,20 +239,19 @@ public class AspectLogger {
       sb.append("\n");
       sb.append(
           "*********************************Service" +
-              "异常***************************************");
+          "异常***************************************");
       sb.append("\n");
       sb.append("ClassName        :  ").append(className).append("\n");
       sb.append("Method           :  ").append(method).append("\n");
       sb.append("Params           :  ").append("[").append(params).append("]")
           .append("\n");
-//            sb.append("Description      :  ").append(methodDescription)
-//            .append("\n");
+      sb.append("Params      :  ").append(methodParam)
+          .append("\n");
       sb.append("ExceptionName    :  ").append(ex.getClass().getName())
           .append("\n");
       sb.append("ExceptionMessage :  ").append(ex.getMessage()).append("\n");
-//      log.info(sb.toString());
     } catch (Exception e1) {
-      e1.printStackTrace();
+      log.error("Service层日志记录异常:" + e1);
     }
   }
 }

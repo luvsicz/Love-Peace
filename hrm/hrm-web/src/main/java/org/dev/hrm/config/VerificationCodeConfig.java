@@ -18,14 +18,19 @@ import javax.imageio.ImageIO;
  */
 public class VerificationCodeConfig {
 
-  private int width = 100;// 生成验证码图片的宽度
-  private int height = 30;// 生成验证码图片的高度
-  private String[] fontNames = {"宋体", "楷体", "隶书", "微软雅黑"};
-  private Color bgColor = new Color(255, 255, 255);// 定义验证码图片的背景颜色为白色
-  private Random random = new Random();
-  //  private String codes = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  private String codes = "0123456789";
-  private String text;// 记录随机字符串
+  // 生成验证码图片的宽度
+  private static final int WIDTH = 100;
+  private static final String[] fontNames = {"宋体", "楷体", "隶书", "微软雅黑"};
+  //  private static final  String CODES =
+  //  "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  private static final String CODES = "0123456789";
+  // 定义验证码图片的背景颜色为白色
+  private final Color bgColor = new Color(255, 255, 255);
+  private final Random random = new Random();
+  // 生成验证码图片的高度
+  private int height = 30;
+  // 记录随机字符串
+  private String text;
 
   public static void output(BufferedImage image, OutputStream out)
       throws IOException {
@@ -62,7 +67,7 @@ public class VerificationCodeConfig {
    * @return
    */
   private char randomChar() {
-    return codes.charAt(random.nextInt(codes.length()));
+    return CODES.charAt(random.nextInt(CODES.length()));
   }
 
   /**
@@ -71,24 +76,24 @@ public class VerificationCodeConfig {
    * @return
    */
   private BufferedImage createImage() {
-    BufferedImage image = new BufferedImage(width, height,
-        BufferedImage.TYPE_INT_RGB);
+    BufferedImage image = new BufferedImage(WIDTH, height,
+                                            BufferedImage.TYPE_INT_RGB);
     Graphics2D g2 = (Graphics2D) image.getGraphics();
     g2.setColor(bgColor);// 设置验证码图片的背景颜色
-    g2.fillRect(0, 0, width, height);
+    g2.fillRect(0, 0, WIDTH, height);
     return image;
   }
 
   public BufferedImage getImage() {
     BufferedImage image = createImage();
     Graphics2D g2 = (Graphics2D) image.getGraphics();
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     for (int i = 0; i < 4; i++) {
       String s = randomChar() + "";
       sb.append(s);
       g2.setColor(randomColor());
       g2.setFont(randomFont());
-      float x = i * width * 1.0f / 4;
+      float x = i * WIDTH * 1.0f / 4;
       g2.drawString(s, x, height - 8);
     }
     this.text = sb.toString();
@@ -105,9 +110,9 @@ public class VerificationCodeConfig {
     Graphics2D g2 = (Graphics2D) image.getGraphics();
     int num = 5;
     for (int i = 0; i < num; i++) {
-      int x1 = random.nextInt(width);
+      int x1 = random.nextInt(WIDTH);
       int y1 = random.nextInt(height);
-      int x2 = random.nextInt(width);
+      int x2 = random.nextInt(WIDTH);
       int y2 = random.nextInt(height);
       g2.setColor(randomColor());
       g2.setStroke(new BasicStroke(1.5f));

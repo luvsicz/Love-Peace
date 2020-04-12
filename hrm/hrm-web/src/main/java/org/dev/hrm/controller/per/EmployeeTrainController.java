@@ -1,6 +1,8 @@
 package org.dev.hrm.controller.per;
 
 import java.util.Date;
+import java.util.List;
+import javax.annotation.Resource;
 import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Employee;
 import org.dev.hrm.model.Employeetrain;
@@ -36,7 +38,7 @@ public class EmployeeTrainController {
   EmployeetrainService employeetrainService;
   @Autowired
   EmployeeService employeeService;
-  @Autowired
+  @Resource
   JavaMailSender javaMailSender;
 
   @Value("${spring.mail.username}")

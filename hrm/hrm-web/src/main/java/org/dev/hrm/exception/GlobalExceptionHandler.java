@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(SQLException.class)
-  public RespBean SQLExceptionHandler(SQLException e) {
+  public RespBean constraintViolationException(SQLException e) {
     if (e instanceof SQLIntegrityConstraintViolationException) {
       return RespBean.error("本次操作违反外键约束，操作失败!");
     }

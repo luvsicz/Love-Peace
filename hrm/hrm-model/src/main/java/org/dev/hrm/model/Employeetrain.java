@@ -1,10 +1,8 @@
 package org.dev.hrm.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

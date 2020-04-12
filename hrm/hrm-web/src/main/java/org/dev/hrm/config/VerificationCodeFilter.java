@@ -30,7 +30,7 @@ public class VerificationCodeFilter extends GenericFilter {
     //请求路径为/doLogin或者/reg并且Method为POST的请求就拦截，校验验证码
     if ("POST".equals(req.getMethod())
         && ("/doLogin".equals(req.getServletPath())
-        || "/reg".equals(req.getServletPath()))) {
+            || "/reg".equals(req.getServletPath()))) {
       //登录请求
       String code = null == req.getParameter("code") ?
           RequestUtils.getFormDateParameter(req, "code")
@@ -38,8 +38,7 @@ public class VerificationCodeFilter extends GenericFilter {
       String verifyCode = (String) req.getSession()
           .getAttribute("verify_code");
       if (code == null || verifyCode == null || "".equals(code) || !verifyCode
-          .toLowerCase()
-          .equals(code.toLowerCase())) {
+          .equalsIgnoreCase(code)) {
         //验证码不正确
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter out = resp.getWriter();

@@ -77,7 +77,7 @@ public class NotificationController {
   //客户端接受消息订阅的地址:/notice
   @MessageMapping("/im/send")
   @SendTo("/notice") //也可以使用 messagingTemplate.convertAndSend(); 推送
-  //TODO GET 这里徐需要带参数Authentication authentication，否则取不到Security的信息
+  //FIXED 这里徐需要带参数Authentication authentication，否则取不到Security的信息
   public MsgContent sendPublicMessage(@Payload MsgContent msgContent,
       Authentication authentication) {
     msgContentService.sendMsg(msgContent, authentication);
@@ -86,6 +86,7 @@ public class NotificationController {
 
   //由后台发送到浏览器服务
   //定时5秒给页面推一次数据
+  //TODO ws保活
   @Scheduled(fixedRate = 1000 * 5)//5
   public void sendMessage() {
     simpMessageSendingOperations.convertAndSend("/keepALive",

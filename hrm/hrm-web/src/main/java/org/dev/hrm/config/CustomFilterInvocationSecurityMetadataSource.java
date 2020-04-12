@@ -1,6 +1,7 @@
 package org.dev.hrm.config;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import org.dev.hrm.model.Menu;
 import org.dev.hrm.model.Role;
@@ -18,14 +19,14 @@ import org.springframework.util.AntPathMatcher;
  */
 @Component
 public class CustomFilterInvocationSecurityMetadataSource implements
-    FilterInvocationSecurityMetadataSource {
+                                                          FilterInvocationSecurityMetadataSource {
 
   @Autowired
   MenuService menuService;
   AntPathMatcher antPathMatcher = new AntPathMatcher();
 
   @Override
-  public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
+  public Collection<ConfigAttribute> getAttributes(Object object) {
     String requestUrl = ((FilterInvocation) object).getRequestUrl();
     //引入Redis缓存，先去Redis缓存中取
     List<Menu> menus = menuService.getAllMenusWithRole();
@@ -44,7 +45,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements
 
   @Override
   public Collection<ConfigAttribute> getAllConfigAttributes() {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override

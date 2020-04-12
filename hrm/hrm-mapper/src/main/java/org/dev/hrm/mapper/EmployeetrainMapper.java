@@ -3,7 +3,6 @@ package org.dev.hrm.mapper;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.dev.hrm.model.EmployeeRemove;
 import org.dev.hrm.model.Employeetrain;
 
 /**

@@ -1,7 +1,6 @@
 package org.dev.hrm.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

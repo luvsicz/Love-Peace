@@ -3,6 +3,7 @@ package org.dev.hrm.converter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
  * @createTime 2020年03月29日 14:31:00
  */
 @Component
+@Slf4j
 public class Str2DateConverter implements Converter<String, Date> {
 
   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -23,7 +25,7 @@ public class Str2DateConverter implements Converter<String, Date> {
     try {
       return sdf.parse(source);
     } catch (ParseException e) {
-      e.printStackTrace();
+      log.error("日期转换异常:"+e);
     }
     return null;
   }

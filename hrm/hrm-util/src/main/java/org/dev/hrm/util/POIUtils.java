@@ -28,6 +28,9 @@ import org.springframework.http.ResponseEntity;
  */
 public class POIUtils {
 
+  private POIUtils() {
+  }
+
   /**
    * 员工集合转换成Excel
    *
@@ -40,7 +43,8 @@ public class POIUtils {
     //2. 创建文档摘要
     workbook.createInformationProperties();
     //3. 获取并配置文档信息
-    DocumentSummaryInformation docInfo = workbook.getDocumentSummaryInformation();
+    DocumentSummaryInformation docInfo = workbook
+        .getDocumentSummaryInformation();
     //文档类别
     docInfo.setCategory("员工信息");
     //文档管理员
@@ -214,13 +218,17 @@ public class POIUtils {
     HttpHeaders headers = new HttpHeaders();
     try {
       headers.setContentDispositionFormData("attachment",
-          new String("员工表.xls".getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1));
+                                            new String("员工表.xls".getBytes(
+                                                StandardCharsets.UTF_8),
+                                                       StandardCharsets.ISO_8859_1));
       headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
       workbook.write(baos);
+      workbook.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.CREATED);
+    return new ResponseEntity<>(baos.toByteArray(), headers,
+                                HttpStatus.CREATED);
   }
 
 
@@ -233,7 +241,7 @@ public class POIUtils {
   public static ResponseEntity<byte[]> depSalary2Excel(List<Employee> list) {
     //因为是同部门的信息，所以部门信息是相同的
     String departName = "";
-    if (list.size() > 0) {
+    if (!list.isEmpty()) {
       departName = list.get(0).getDepartment().getName();
     }
     //1. 创建一个 Excel 文档
@@ -241,7 +249,8 @@ public class POIUtils {
     //2. 创建文档摘要
     workbook.createInformationProperties();
     //3. 获取并配置文档信息
-    DocumentSummaryInformation docInfo = workbook.getDocumentSummaryInformation();
+    DocumentSummaryInformation docInfo = workbook
+        .getDocumentSummaryInformation();
     //文档类别
     docInfo.setCategory(departName + "部门工资表");
     //文档管理员
@@ -337,13 +346,18 @@ public class POIUtils {
     HttpHeaders headers = new HttpHeaders();
     try {
       headers.setContentDispositionFormData("attachment",
-          new String((departName + "部门工资表.xls").getBytes(StandardCharsets.UTF_8),
-              StandardCharsets.ISO_8859_1));
+                                            new String(
+                                                (departName + "部门工资表.xls")
+                                                    .getBytes(
+                                                        StandardCharsets.UTF_8),
+                                                StandardCharsets.ISO_8859_1));
       headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
       workbook.write(baos);
+      workbook.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.CREATED);
+    return new ResponseEntity<>(baos.toByteArray(), headers,
+                                HttpStatus.CREATED);
   }
 }

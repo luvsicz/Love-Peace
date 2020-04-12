@@ -1,9 +1,9 @@
 package org.dev.hrm.service;
 
-import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
-import org.dev.hrm.model.Employeeec;
 import org.dev.hrm.mapper.EmployeeecMapper;
+import org.dev.hrm.model.Employeeec;
+import org.springframework.stereotype.Service;
 /**
  * @ClassName EmployeeecService.java
  * @author 冷嘉贤

@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.dev.hrm.mapper.AdjustSalaryMapper;
 import org.dev.hrm.model.AdjustSalary;
 import org.dev.hrm.model.Employee;
-import org.dev.hrm.model.EmployeeTransfer;
 import org.dev.hrm.model.RespPageBean;
 import org.springframework.stereotype.Service;
 

@@ -25,6 +25,10 @@ import org.apache.commons.lang3.time.DateFormatUtils;
  */
 public class DateTimeUtils {
 
+  public static final String YYYY_MMDD = "yyyyMMdd";
+
+  private DateTimeUtils() {
+  }
 
   /**
    * 例如:2018-12-28
@@ -209,7 +213,7 @@ public class DateTimeUtils {
         .withDayOfMonth(1);
 
     if (StringUtils.isEmpty(pattern)) {
-      pattern = "yyyyMMdd";
+      pattern = YYYY_MMDD;
     }
 
     return format(localDateTime2Date(localDateTime), pattern);

@@ -4,7 +4,6 @@ package org.dev.hrm.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.dev.hrm.model.Hr;
@@ -34,6 +33,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  public static final String APPLICATION_JSON_CHARSET_UTF_8 = "application/json;charset=utf-8";
   @Autowired
   HrService hrService;
   @Autowired
@@ -87,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //未登录泽跳转到
         .loginPage("/login")
         .successHandler((req, resp, authentication) -> {
-          resp.setContentType("application/json;charset=utf-8");
+          resp.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
           PrintWriter out = resp.getWriter();
           Hr hr = (Hr) authentication.getPrincipal();
           hr.setPassword(null);
@@ -98,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           out.close();
         })
         .failureHandler((req, resp, exception) -> {
-          resp.setContentType("application/json;charset=utf-8");
+          resp.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
           PrintWriter out = resp.getWriter();
           RespBean respBean = RespBean.error("登录失败!");
           if (exception instanceof LockedException) {
@@ -120,7 +120,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .logout()
         .logoutSuccessHandler((req, resp, authentication) -> {
-          resp.setContentType("application/json;charset=utf-8");
+          resp.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
           PrintWriter out = resp.getWriter();
           out.write(
               new ObjectMapper().writeValueAsString(RespBean.ok("注销成功!")));
@@ -135,8 +135,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           @Override
           public void commence(HttpServletRequest req, HttpServletResponse resp,
               AuthenticationException authException)
-              throws IOException, ServletException {
-            resp.setContentType("application/json;charset=utf-8");
+              throws IOException {
+            resp.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
             resp.setStatus(401);
             PrintWriter out = resp.getWriter();
             RespBean respBean = RespBean.error(401, "访问失败!");

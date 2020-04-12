@@ -1,7 +1,6 @@
 package org.dev.hrm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
