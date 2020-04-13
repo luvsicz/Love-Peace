@@ -201,12 +201,12 @@ public class AspectLogger {
             .requireNonNull(RequestContextHolder.getRequestAttributes()))
             .getRequest();
     //请求方法
-    String method = request.getRequestURI();
+    /*String method = request.getRequestURI();
     StringBuilder sb = new StringBuilder(1000);
     // 处理完请求，返回内容
     sb.append("\n");
     sb.append("\nResult        :  ").append(JackSonUtils.bean2Json(ret));
-    sb.append("\nMethod        :  ").append(JackSonUtils.bean2Json(method));
+    sb.append("\nMethod        :  ").append(JackSonUtils.bean2Json(method));*/
   }
 
 

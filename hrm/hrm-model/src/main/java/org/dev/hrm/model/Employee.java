@@ -1,6 +1,8 @@
 package org.dev.hrm.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(Include.NON_NULL)
 public class Employee implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -169,11 +172,23 @@ public class Employee implements Serializable {
   private Nation nation;
   private PoliticsStatus politicsstatus;
   private Department department;
+  private AdjustSalary adjustSalary;
   private JobLevel jobLevel;
   private Position position;
   private Salary salary;
+  private Integer salaryWithBonus;
 
   public Employee(String name) {
     this.name = name;
+  }
+
+  public Integer getSalaryWithBonus() {
+    if (null != this.salary && null != this.salary.getAllSalary()) {
+      if (null != this.adjustSalary && null != this.adjustSalary.getAmount()) {
+        return this.salary.getAllSalary() + this.adjustSalary.getAmount();
+      }
+      return this.salary.getAllSalary();
+    }
+    return 0;
   }
 }

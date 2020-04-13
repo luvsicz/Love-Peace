@@ -40,7 +40,12 @@
           prop="salary.basicSalary"
           width="120"/>
         <el-table-column
-          label="奖金"
+          label="员工奖金"
+          width="120">
+          <template slot-scope="scope">{{scope.row.adjustSalary?scope.row.adjustSalary.amount:0}}</template>
+        </el-table-column>
+        <el-table-column
+          label="部门奖金"
           prop="salary.bonus"
           width="120"/>
         <el-table-column
@@ -80,11 +85,13 @@
           prop="salary.name"
           width="120"/>
         <el-table-column
-          label="应发工资"
-          prop="salary.allSarary"
+          label="应发工资(未算入奖金)"
+          prop="salary.allSalary"
           width="120"/>
-
-
+        <el-table-column
+          label="应发工资(算入奖金)"
+          prop="salaryWithBonus"
+          width="120"/>
       </el-table-column>
     </el-table>
     <div style="margin-right:20px;display: flex;justify-content: center">

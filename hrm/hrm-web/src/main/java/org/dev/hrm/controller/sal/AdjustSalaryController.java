@@ -76,13 +76,13 @@ public class AdjustSalaryController {
   @PostMapping("/commit/{id}")
   @WebLogger
   public RespBean commitTransfer(@PathVariable Integer id) {
-    AdjustSalary adjustSalary = new AdjustSalary();
+/*    AdjustSalary adjustSalary = new AdjustSalary();
     adjustSalary.setId(id);
     adjustsalaryService.commit(adjustSalary);
     if (adjustSalary.getResult() == 1) {
       return RespBean.ok("生效成功"
       );
-    }
+    }*/
     return RespBean.error("生效失败,请联系管理员！");
   }
 }

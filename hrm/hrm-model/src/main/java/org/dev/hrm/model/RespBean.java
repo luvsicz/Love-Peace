@@ -1,5 +1,8 @@
 package org.dev.hrm.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author 冷嘉贤
  * @version 1.0.0
@@ -7,6 +10,7 @@ package org.dev.hrm.model;
  * @Description 通用接口返回Bean
  * @createTime 2020年03月16日 17:29:00
  */
+@JsonInclude(Include.NON_NULL)
 public class RespBean {
 
   private Integer status;

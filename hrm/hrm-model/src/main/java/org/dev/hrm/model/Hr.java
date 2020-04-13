@@ -1,6 +1,8 @@
 package org.dev.hrm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @NoArgsConstructor
 //@Data使用data 会导致Mybatis调用getter setter方法的时候 抛异常，找不到使用 enable属性的哪个方法。
+@JsonInclude(Include.NON_NULL)
 public class Hr implements UserDetails {
 
   private static final long serialVersionUID = 1L;
