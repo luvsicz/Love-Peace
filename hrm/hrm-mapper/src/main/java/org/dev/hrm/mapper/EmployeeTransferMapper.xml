@@ -219,7 +219,6 @@
     </foreach>)
   </delete>
   <select id="commit" statementType="CALLABLE">
-    <!--    TODO 完成提交生效-->
     call commitEmpTransfer(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER});
   </select>
 </mapper>

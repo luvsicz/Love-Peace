@@ -3,7 +3,7 @@
     <div
       style="display: flex;justify-content: space-between;align-items: center;padding-left: 0px">
       <el-button @click="addAdjustSalaryInfo" icon="el-icon-plus" type="primary" size="mini">
-        添加调薪记录
+        添加奖惩录
       </el-button>
 
       <div style="display: inline">
@@ -45,17 +45,17 @@
             label="员工姓名">
           </el-table-column>
           <el-table-column
-            label="调薪日期">
+            label="奖惩日期">
             <template slot-scope="scope">{{ scope.row.asDate}}</template>
           </el-table-column>
           <el-table-column
             width="200"
             prop="amount"
-            label="调薪金额">
+            label="奖惩金额">
           </el-table-column>
           <el-table-column
             prop="reason"
-            label="调薪原因">
+            label="奖惩原因">
           </el-table-column>
           <el-table-column
             prop="remark"
@@ -79,15 +79,6 @@
                 </el-button>
               </template>
             </el-table-column>
-            <!--<el-table-column label="生效" align="center">
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  type="warning"
-                  @click="commit(scope.$index, scope.row)">生效
-                </el-button>
-              </template>
-            </el-table-column>-->
           </el-table-column>
         </el-table>
       </div>
@@ -117,7 +108,7 @@
           width="77%">
           <!--第一行-->
           <el-row>
-            <el-col :span="6" v-if="this.dialogTitle==='新增调薪'">
+            <el-col :span="6" v-if="this.dialogTitle==='新增奖惩'">
               <div>
                 <el-form-item label="姓名:" prop="eid">
                   <el-tooltip class="item" effect="light" content="输入员工名字进行模糊搜索" placement="top">
@@ -139,33 +130,33 @@
             </el-col>
             <el-col :span="6">
               <div>
-                <el-form-item label="调薪日期:" prop="asDate">
+                <el-form-item label="奖惩日期:" prop="asDate">
                   <el-date-picker
                     v-model="adjust.asDate"
                     value-format="yyyy-MM-dd HH:mm:ss"
                     size="mini"
                     style="width: 135px"
                     type="date"
-                    placeholder="请输入调薪日期">
+                    placeholder="请输入奖惩日期">
                   </el-date-picker>
                 </el-form-item>
               </div>
             </el-col>
             <el-col :span="6">
               <div>
-                <el-form-item label="调薪原因:" prop="reason">
+                <el-form-item label="奖惩原因:" prop="reason">
                   <el-input prefix-icon="el-icon-edit" v-model="adjust.reason" size="mini"
                             style="width: 150px"
-                            placeholder="请输入调薪原因"></el-input>
+                            placeholder="请输入奖惩原因"></el-input>
                 </el-form-item>
               </div>
             </el-col>
             <el-col :span="6">
               <div>
-                <el-form-item label="调薪金额:" prop="amount">
+                <el-form-item label="奖惩金额:" prop="amount">
                   <el-input prefix-icon="el-icon-edit" v-model="adjust.amount" size="mini"
                             style="width: 150px"
-                            placeholder="请输入调薪金额"></el-input>
+                            placeholder="请输入奖惩金额"></el-input>
                 </el-form-item>
               </div>
             </el-col>
@@ -218,16 +209,16 @@
         multipleSelection: [],
         rules: {
           eid: [{required: true, message: '必填:姓名', trigger: 'blur'}],
-          asDate: [{required: true, message: '必填:调薪日期', trigger: 'blur'}],
-          amount: [{required: true, message: '必填:调薪金额', trigger: 'blur'}],
-          reason: [{required: true, message: '必填:调薪原因', trigger: 'blur'}],
+          asDate: [{required: true, message: '必填:奖惩日期', trigger: 'blur'}],
+          amount: [{required: true, message: '必填:奖惩金额', trigger: 'blur'}],
+          reason: [{required: true, message: '必填:奖惩原因', trigger: 'blur'}],
           remark: [{required: true, message: '必填:备注', trigger: 'blur'}],
         },
       };
     },
     methods: {
       addAdjustSalaryInfo() {
-        this.dialogTitle = '新增调薪';
+        this.dialogTitle = '新增奖惩';
         this.dialogVisible = true;
       },
       keywordsChange(val) {
@@ -275,7 +266,7 @@
         this.multipleSelection = val;
       },
       handleEdit(index, row) {
-        this.dialogTitle = '编辑调薪信息';
+        this.dialogTitle = '编辑奖惩信息';
         this.dialogVisible = true;
         this.adjust = row;
       },
