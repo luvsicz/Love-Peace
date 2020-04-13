@@ -87,12 +87,12 @@
                 </el-button>
               </template>
             </el-table-column>
-            <el-table-column label="生效" align="center">
+            <el-table-column label="生效" align="center" >
               <template slot-scope="scope">
                 <el-button
                   size="mini"
                   type="warning"
-                  @click="commit(scope.$index, scope.row)">生效
+                  @click="commit(scope.$index, scope.row)" :disabled="scope.row.finished">生效
                 </el-button>
               </template>
             </el-table-column>

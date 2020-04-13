@@ -68,9 +68,4 @@ public class AdjustSalaryService {
     String[] id = ids.split(",");
     return adjustsalaryMapper.deleteByPrimaryKeys(id);
   }
-
-  public void commit(AdjustSalary adjustSalary) {
-    adjustsalaryMapper.commit(adjustSalary);
-
-  }
 }

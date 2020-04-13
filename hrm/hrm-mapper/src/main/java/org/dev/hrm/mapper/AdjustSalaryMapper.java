@@ -35,5 +35,4 @@ public interface AdjustSalaryMapper {
 
   int deleteByPrimaryKeys(@Param("ids") String[] ids);
 
-  void commit(AdjustSalary adjustSalary);
 }

@@ -75,5 +75,9 @@ public class EmployeeTransfer implements Serializable {
    * 调用结果
    */
   private Integer result;
+  /**
+   * 是否已完成
+   */
+  private boolean finished;
 
 }

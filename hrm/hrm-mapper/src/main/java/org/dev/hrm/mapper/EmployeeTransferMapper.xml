@@ -13,6 +13,7 @@
     <result column="reason" jdbcType="VARCHAR" property="reason"/>
     <result column="remark" jdbcType="VARCHAR" property="remark"/>
     <result column="afterLevelId" jdbcType="INTEGER" property="afterLevelId"/>
+    <result column="finished" jdbcType="INTEGER" property="finished"/>
   </resultMap>
   <resultMap id="DepartmemtAndJobLevelAndPosition" type="org.dev.hrm.model.EmployeeTransfer"
     extends="BaseResultMap">
@@ -157,6 +158,7 @@
     employeetransfer.removeDate,
     department.`name` AS dname,
     employeetransfer.remark,
+    employeetransfer.finished,
     employeetransfer.reason,
     position.`name` AS pname,
     joblevel.`name` AS jname,

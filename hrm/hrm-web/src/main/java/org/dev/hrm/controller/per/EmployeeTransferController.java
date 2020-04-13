@@ -80,6 +80,7 @@ public class EmployeeTransferController {
     EmployeeTransfer employeeTransfer = new EmployeeTransfer();
     employeeTransfer.setId(id);
     employeeTransferService.commit(employeeTransfer);
+    //-1是失败 1 是成功
     if (employeeTransfer.getResult() == 1) {
       return RespBean.ok("生效成功"
       );
