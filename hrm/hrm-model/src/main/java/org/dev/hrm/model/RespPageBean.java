@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
  * @createTime 2020年03月23日 16:18:00
  */
 @Data
-
 @AllArgsConstructor
 @NoArgsConstructor
 public class RespPageBean {
