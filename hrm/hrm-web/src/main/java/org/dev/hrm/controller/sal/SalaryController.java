@@ -43,10 +43,10 @@ public class SalaryController {
     return RespBean.error("添加失败!");
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/{ids}")
   @WebLogger
-  public RespBean deleteSalaryById(@PathVariable Integer id) {
-    if (salaryService.deleteByPrimaryKey(id) == 1) {
+  public RespBean deleteSalaryById(@PathVariable String ids) {
+    if (salaryService.deleteByPrimaryKeys(ids) >= 1) {
       return RespBean.ok("删除成功！");
     }
     return RespBean.error("删除失败！");

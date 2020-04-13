@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
  * @author 冷嘉贤
  * @version 1.0.0
  * @ClassName SalaryService.java
-
  * @createTime 2020年03月29日 15:17:00
  */
 @Service
@@ -53,14 +52,8 @@ public class SalaryService {
     return salaryMapper.getAllSalaries();
   }
 
-//  public RespPageBean getDepsSalaryTable(Integer page, Integer size, Integer depId) {
-//    if (page != null && size != null) {
-//      page = (page - 1) * size;
-//    }
-//    List<Employee> list = salaryMapper.getDepsSalaryTable(page, size, depId);
-//    RespPageBean respPageBean = new RespPageBean();
-//    respPageBean.setData(list);
-//    respPageBean.setTotal(salaryMapper.getTotal(null, null));
-//    return respPageBean;
-//  }
+  public int deleteByPrimaryKeys(String ids) {
+    String[] id = ids.split(",");
+    return salaryMapper.deleteByPrimaryKeys(id);
+  }
 }

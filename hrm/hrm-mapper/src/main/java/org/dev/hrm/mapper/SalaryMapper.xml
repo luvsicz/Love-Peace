@@ -213,4 +213,11 @@
   <select id="getDepsSalaryTable" resultType="org.dev.hrm.model.RespPageBean">
 
   </select>
+  <delete id="deleteByPrimaryKeys">
+    delete from salary
+    where id in(
+    <foreach collection="ids" item="id" separator=",">
+      #{id}
+    </foreach>)
+  </delete>
 </mapper>

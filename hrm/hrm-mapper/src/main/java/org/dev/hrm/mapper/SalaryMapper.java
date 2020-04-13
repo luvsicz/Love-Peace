@@ -31,4 +31,6 @@ public interface SalaryMapper {
   List<Salary> getAllSalaries();
 
   RespPageBean getDepsSalaryTable(@Param("page") Integer page,@Param("size")  Integer size,@Param("depId")  Integer depId);
+
+  int deleteByPrimaryKeys(@Param("ids") String[] ids);
 }

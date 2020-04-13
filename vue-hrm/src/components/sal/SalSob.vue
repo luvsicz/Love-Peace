@@ -9,7 +9,9 @@
       <el-button icon="el-icon-refresh" size="mini" type="success"
                  @click="initSalaries"></el-button>
     </div>
-    <el-table :data="salaries" border stripe v-loading="loading">
+    <el-table :data="salaries" border stripe v-loading="loading"
+              @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="50"/>
       <el-table-column width="120" prop="name" label="账套名称"></el-table-column>
       <el-table-column width="70" prop="basicSalary" label="基本工资"></el-table-column>
       <el-table-column width="70" prop="trafficSalary" label="交通补助"></el-table-column>
@@ -35,6 +37,11 @@
         </template>
       </el-table-column>
     </el-table>
+    <div style="margin-top: 10px;display: flex;justify-content: space-between">
+      <el-button :disabled="multipleSelection.length<=0" round @click="multipleDelete" size="mini"
+                 type="danger">批量删除
+      </el-button>
+    </div>
     <el-dialog
       :title="dialogTitle"
       :visible.sync="dialogVisible"
@@ -63,6 +70,7 @@
       return {
         dialogVisible: false,
         loading: true,
+        multipleSelection: [],
         dialogTitle: '添加工资账套',
         salaries: [],
         activeItemIndex: 0,
@@ -98,6 +106,18 @@
       this.initSalaries();
     },
     methods: {
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      },
+      multipleDelete() {
+        //遍历参数
+        let ids = '';
+        this.multipleSelection.forEach(slices => {
+          ids += (slices.id + ','
+          )
+        });
+        this.deleteSalaries(ids);
+      },
       showEditSalaryView(data) {
         this.dialogTitle = '修改工资账套';
         this.dialogVisible = true;
@@ -113,6 +133,26 @@
         this.salary.accumulationFundBase = data.accumulationFundBase;
         this.salary.name = data.name;
         this.salary.id = data.id;
+      },
+      deleteSalaries(ids) {
+        this.$confirm('确认删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.deleteRequest("/sal/sob/" + ids).then(resp => {
+            if (resp && resp.status === 200) {
+              //200则初始化表格，刷新数据
+              this.initSalaries();
+            }
+          })
+
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
       },
       deleteSalary(data) {
         this.$confirm('此操作将删除【' + data.name + '】账套，是否继续？', '提示', {
@@ -179,6 +219,7 @@
         this.dialogVisible = true;
       },
       initSalaries() {
+        this.loading = true;
         this.getRequest("/sal/sob/").then(resp => {
           if (resp) {
             this.salaries = resp;
