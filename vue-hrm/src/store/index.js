@@ -46,12 +46,11 @@ export default new Vuex.Store({
             })
           }
         })
-        context.state.stomp.subscribe('/keepAlive', msg => {
-          //收到消息的处理
-          let receiveMsg = JSON.parse(msg.body);
-          //已登录才出发通知弹出
-          console.log("websocket保活" + receiveMsg)
-        })
+        // context.state.stomp.subscribe('/keepAlive', msg => {
+        //   //收到消息的处理
+        //   let receiveMsg = JSON.parse(msg.body);
+        //   console.log("websocket保活" + msg)
+        // })
       }, error => {
         console.log("websocket初始化失败")
 

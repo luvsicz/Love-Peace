@@ -10,8 +10,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/sys/nf")
 @RestController
-@EnableScheduling
 public class NotificationController {
 
   @Autowired
@@ -54,7 +51,7 @@ public class NotificationController {
       @RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size) {
     return RespBean.ok("",
-        msgContentService.getAllNotices(page, size));
+                       msgContentService.getAllNotices(page, size));
   }
 
   @DeleteMapping("/")
@@ -79,7 +76,7 @@ public class NotificationController {
   @SendTo("/notice") //也可以使用 messagingTemplate.convertAndSend(); 推送
   //FIXED 这里徐需要带参数Authentication authentication，否则取不到Security的信息
   public MsgContent sendPublicMessage(@Payload MsgContent msgContent,
-      Authentication authentication) {
+                                      Authentication authentication) {
     msgContentService.sendMsg(msgContent, authentication);
     return msgContent;
   }
@@ -87,10 +84,11 @@ public class NotificationController {
   //由后台发送到浏览器服务
   //定时5秒给页面推一次数据
   //TODO ws保活
-  @Scheduled(fixedRate = 1000 * 5)//5
+/*  @Scheduled(fixedRate = 1000)//1s
   public void sendMessage() {
+    log.error("任务执行");
     simpMessageSendingOperations.convertAndSend("/keepALive",
-        "来自服务端的websocket保活消息");
-  }
+        "hello");
+  }*/
 
 }

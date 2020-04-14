@@ -46,6 +46,10 @@ spring:
       #uri监控的过滤规则
       web-stat-filter:
         exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 5000
 
   redis:
     port: 6379
@@ -65,7 +69,6 @@ spring:
     protocol: smtp
     username: notice@0101.design
 
-debug: false
-#mybatis:
-#mybatis:
-#  config-location: classpath:/mybatis-config.xml
+debug: true
+mybatis:
+  config-location: classpath:/mybatis-config.xml
