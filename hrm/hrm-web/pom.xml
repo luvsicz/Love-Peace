@@ -59,6 +59,12 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-mail</artifactId>
     </dependency>
+    <!--Druid Starter-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid-spring-boot-starter</artifactId>
+      <version>${druidStarter-version}</version>
+    </dependency>
     <!--热部署-->
     <dependency>
       <artifactId>spring-boot-devtools</artifactId>

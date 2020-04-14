@@ -42,10 +42,10 @@
         if (bool) {
           bool = !bool;
           if ('menu' === type) {
-            getRequest('/system/evictCache/menuWithRole')
+            getRequest('/sys/cache/menuWithRole')
           }
           if ('all' === type) {
-            getRequest('/system/evictCache/all')
+            getRequest('/sys/cache/all')
           }
           if ('accessLog' === type) {
             deleteRequest('/sys/access/')

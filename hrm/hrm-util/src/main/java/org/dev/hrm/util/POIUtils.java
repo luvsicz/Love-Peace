@@ -93,6 +93,7 @@ public class POIUtils {
     sheet.setColumnWidth(22, 14 * 256);
     sheet.setColumnWidth(23, 15 * 256);
     sheet.setColumnWidth(24, 15 * 256);
+    sheet.setColumnWidth(25, 15 * 256);
     //6. 创建标题行
     HSSFRow r0 = sheet.createRow(0);
     HSSFCell c0 = r0.createCell(0);

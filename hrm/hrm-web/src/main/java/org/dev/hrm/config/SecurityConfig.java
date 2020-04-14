@@ -2,13 +2,11 @@ package org.dev.hrm.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.dev.hrm.model.Hr;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.HrService;
+import org.dev.hrm.util.JackSonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,17 +21,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  public static final String APPLICATION_JSON_CHARSET_UTF_8 = "application/json;charset=utf-8";
+  public static final String MIME = "application/json;charset=utf-8";
   @Autowired
   HrService hrService;
   @Autowired
@@ -58,16 +55,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //不拦截的请求
     web.ignoring()
         .antMatchers("/css/**", "/js/**", "/index.html", "/img/**", "/fonts/**",
-            "/favicon.ico", "/verifyCode","/reg","/error");
+                     "/favicon.ico", "/verifyCode", "/reg", "/error",
+                     "/druid/**");
 
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.addFilterBefore(verificationCodeFilter,
-        UsernamePasswordAuthenticationFilter.class);
+                         UsernamePasswordAuthenticationFilter.class);
     http.authorizeRequests()
-//                .anyRequest().authenticated()
+        //                .anyRequest().authenticated()
         .withObjectPostProcessor(
             new ObjectPostProcessor<FilterSecurityInterceptor>() {
               @Override
@@ -87,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //未登录泽跳转到
         .loginPage("/login")
         .successHandler((req, resp, authentication) -> {
-          resp.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
+          resp.setContentType(MIME);
           PrintWriter out = resp.getWriter();
           Hr hr = (Hr) authentication.getPrincipal();
           hr.setPassword(null);
@@ -98,7 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           out.close();
         })
         .failureHandler((req, resp, exception) -> {
-          resp.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
+          resp.setContentType(MIME);
           PrintWriter out = resp.getWriter();
           RespBean respBean = RespBean.error("登录失败!");
           if (exception instanceof LockedException) {
@@ -120,7 +118,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .logout()
         .logoutSuccessHandler((req, resp, authentication) -> {
-          resp.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
+          resp.setContentType(MIME);
           PrintWriter out = resp.getWriter();
           out.write(
               new ObjectMapper().writeValueAsString(RespBean.ok("注销成功!")));
@@ -131,22 +129,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .csrf().disable().exceptionHandling()
         //没有认证时，在这里处理结果，不要重定向
-        .authenticationEntryPoint(new AuthenticationEntryPoint() {
-          @Override
-          public void commence(HttpServletRequest req, HttpServletResponse resp,
-              AuthenticationException authException)
-              throws IOException {
-            resp.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
-            resp.setStatus(401);
-            PrintWriter out = resp.getWriter();
-            RespBean respBean = RespBean.error(401, "访问失败!");
-            if (authException instanceof InsufficientAuthenticationException) {
-              respBean.setMsg("请求失败，请联系管理员!");
-            }
-            out.write(new ObjectMapper().writeValueAsString(respBean));
-            out.flush();
-            out.close();
+        .authenticationEntryPoint((req, resp, authException) -> {
+          resp.setContentType(MIME);
+          resp.setStatus(401);
+          PrintWriter out = resp.getWriter();
+          RespBean respBean = RespBean.error(401, "访问失败!");
+          if (authException instanceof InsufficientAuthenticationException) {
+            respBean.setMsg("请求失败，请联系管理员!");
           }
-        });
+          out.write(new ObjectMapper().writeValueAsString(respBean));
+          out.flush();
+          out.close();
+        })
+        //处理权限不足的异常
+        .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+  }
+
+  @Bean
+  public AccessDeniedHandler accessDeniedHandler() {
+    return (request, response, accessDeniedException) -> {
+      response.setContentType("text/html;charset=utf-8");
+      response.getWriter().print(JackSonUtils.bean2Json(RespBean.error(403,
+                                                                       "权限不足，请联系管理员")));
+      response.setStatus(403);
+    };
   }
 }

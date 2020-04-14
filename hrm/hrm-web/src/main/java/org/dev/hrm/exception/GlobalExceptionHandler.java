@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+  //处理SQL的异常
   @ExceptionHandler(SQLException.class)
   public RespBean constraintViolationException(SQLException e) {
     if (e instanceof SQLIntegrityConstraintViolationException) {
@@ -22,5 +23,4 @@ public class GlobalExceptionHandler {
     }
     return RespBean.error("数据库异常!");
   }
-
 }

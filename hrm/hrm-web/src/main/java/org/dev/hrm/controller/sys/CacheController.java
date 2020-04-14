@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @createTime 2020年03月27日 16:16:00
  */
 @RestController
-@RequestMapping("/system/evictCache")
+@RequestMapping("/sys/cache")
 public class CacheController {
 
   /**

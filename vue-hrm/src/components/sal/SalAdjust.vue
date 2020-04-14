@@ -3,7 +3,7 @@
     <div
       style="display: flex;justify-content: space-between;align-items: center;padding-left: 0px">
       <el-button @click="addAdjustSalaryInfo" icon="el-icon-plus" type="primary" size="mini">
-        添加奖惩录
+        添加奖惩记录
       </el-button>
 
       <div style="display: inline">
