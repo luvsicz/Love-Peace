@@ -18,6 +18,7 @@ module.exports = {
     port: 8081,
     proxy: proxyObj
   },
+  productionSourceMap: false,
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       return {

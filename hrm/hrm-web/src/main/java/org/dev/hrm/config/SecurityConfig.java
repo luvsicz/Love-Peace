@@ -78,6 +78,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               }
             })
         .and()
+        //druid csrf
+//        .csrf().ignoringAntMatchers("/druid/**")
+//        .and()
         .formLogin()
         .usernameParameter("username")
         .passwordParameter("password")
