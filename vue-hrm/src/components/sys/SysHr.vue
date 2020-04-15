@@ -99,7 +99,6 @@
       doSearch() {
         this.initHrs();
       },
-      //TODO FIX 删除最后两个角色的时候会有问题
       hidePop(hr) {
         let roles = [];
         Object.assign(roles, hr.roles);
@@ -127,9 +126,15 @@
         }
         if (flag) {
           let url = '/sys/hr/role?hrid=' + hr.id;
-          this.selectedRoles.forEach(sr => {
-            url += '&rids=' + sr;
-          });
+          //rids数组不为空则拼接数组元素
+          if (this.selectedRoles.length > 0) {
+            this.selectedRoles.forEach(sr => {
+              url += '&rids=' + sr;
+            });
+          } else {
+            //否则拼接-1
+            url += '&rids=' + -1;
+          }
           this.putRequest(url).then(resp => {
             if (resp) {
               this.initHrs();

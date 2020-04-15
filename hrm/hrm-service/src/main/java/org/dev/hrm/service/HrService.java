@@ -68,7 +68,7 @@ public class HrService implements UserDetailsService {
   }
 
   public boolean updateHrPassById(String oldPass, String newPass,
-      Integer hrId) {
+                                  Integer hrId) {
     Hr hr = hrMapper.selectByPrimaryKey(hrId);
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     if (encoder.matches(oldPass, hr.getPassword())) {
@@ -109,5 +109,12 @@ public class HrService implements UserDetailsService {
     hrMapper.deleteByHrId(hrid);
     return hrRoleMapper.insertHrWithRoles(hrid, rids) == rids.length;
   }
+
+  @Transactional(rollbackFor = Exception.class)
+  public int deleteAllRolesByHrid(Integer hrid) {
+    //清空指定hr的所有角色
+    return hrMapper.deleteByHrId(hrid);
+  }
+
 }
 

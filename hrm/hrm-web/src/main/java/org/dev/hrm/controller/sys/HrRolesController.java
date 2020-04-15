@@ -65,6 +65,14 @@ public class HrRolesController {
   @WebLogger
   @CacheEvict(value = "menuService", allEntries = true)
   public RespBean updateHrRole(Integer hrid, Integer[] rids) {
+    //前端设置rids为-1则清空用户权限
+    if (rids[0] == -1) {
+      if (hrService.deleteAllRolesByHrid(hrid) > 0) {
+        return RespBean.ok("权限清空成功!");
+      } else {
+        return RespBean.error("权限清空失败!");
+      }
+    }
     if (hrService.updateHrRole(hrid, rids)) {
       return RespBean.ok("更新成功!");
     }
