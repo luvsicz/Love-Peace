@@ -9,6 +9,8 @@
       <!--TODO 叶子节点显示箭头-->
       <el-tree
         :data="deps"
+        default-expand-all
+        highlight-current
         :expand-on-click-node="false"
         :filter-node-method="filterNode"
         :props="defaultProps"
@@ -81,7 +83,7 @@
         deps: [],
         defaultProps: {
           children: 'children',
-          label: 'name'
+          label: 'name',
         }
       }
     },

@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toList;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Date;
-import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.dev.hrm.service.AccessLogService;
 import org.dev.hrm.service.EmployeeService;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
@@ -29,8 +27,6 @@ class HrmServerApplicationTests {
   EmployeeService employeeService;
   @Autowired
   AccessLogService logService;
-  @Resource
-  JavaMailSender javaMailSender;
   @Value("${spring.mail.username}")
   String mailAddr;
 

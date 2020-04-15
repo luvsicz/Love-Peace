@@ -1,7 +1,8 @@
 package org.dev.hrm.controller.per;
 
-import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.annotation.Resource;
 import org.dev.hrm.annotation.WebLogger;
 import org.dev.hrm.model.Employee;
@@ -9,10 +10,10 @@ import org.dev.hrm.model.Employeetrain;
 import org.dev.hrm.model.RespBean;
 import org.dev.hrm.service.EmployeeService;
 import org.dev.hrm.service.EmployeetrainService;
-import org.dev.hrm.util.DateTimeUtils;
+import org.dev.hrm.thread.EmailRunnable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,9 +41,11 @@ public class EmployeeTrainController {
   EmployeeService employeeService;
   @Resource
   JavaMailSender javaMailSender;
-
+  @Autowired
+  ExecutorService executorService;
   @Value("${spring.mail.username}")
   String mailAddr;
+
 
   @GetMapping("/")
   @WebLogger
@@ -68,7 +71,9 @@ public class EmployeeTrainController {
     String ids = "";
     List<String> emails = employeeService.getEmailsByPKs(ids);
     if (employeetrainService.insertSelective(employeetrain) == 1) {
-      sendMail(employeetrain, emp);
+      //提交发送邮件的任务给线程池
+      executorService.execute(new EmailRunnable(javaMailSender, emp,
+                                                employeetrain, mailAddr));
       return RespBean
           .ok("培训添加成功，会有邮件通知该员工！");
     }
@@ -81,31 +86,21 @@ public class EmployeeTrainController {
   public RespBean updateTrainingInfo(@RequestBody Employeetrain employeetrain) {
     Employee emp = employeeService.selectByPrimaryKey(employeetrain.getEid());
     if (employeetrainService.updateByPrimaryKeySelective(employeetrain) == 1) {
-      sendMail(employeetrain, emp);
+      //提交发送邮件的任务给线程池
+      executorService.execute(new EmailRunnable(javaMailSender, emp,
+                                                employeetrain, mailAddr));
       return RespBean.ok("更新成功");
     }
     return RespBean.error("更新失败");
   }
 
-  private void sendMail(
-      Employeetrain employeetrain,
-      Employee emp) {
-    //发送邮件
-    String empEmail = emp.getEmail();
-    SimpleMailMessage message = new SimpleMailMessage();
-    message.setSubject("培训通知");
-    message.setFrom(mailAddr);
-    message.setTo(empEmail);
-    message.setSentDate(new Date());
-    message
-        .setText(emp.getName() +
-                 ("男".equals(emp.getGender()) ? "先生," : "女士,")
-                 + "请于" + DateTimeUtils
-                     .timeStampToDateString(employeetrain.getTrainDate())
-                 + ",在" + employeetrain.getRemark()
-                 + "参与培训" +
-                 ",培训内容："
-                 + employeetrain.getTrainContent());
-    javaMailSender.send(message);
+  /**
+   * 发送邮件的线程池
+   *
+   * @return 线程池
+   */
+  @Bean
+  public ExecutorService executorService() {
+    return Executors.newCachedThreadPool();
   }
 }
