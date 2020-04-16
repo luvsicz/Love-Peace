@@ -51,12 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   @Override
-  public void configure(WebSecurity web) throws Exception {
+  public void configure(WebSecurity web) {
     //不拦截的请求
     web.ignoring()
         .antMatchers("/css/**", "/js/**", "/index.html", "/img/**", "/fonts/**",
-                     "/favicon.ico", "/verifyCode", "/reg", "/error",
-                     "/druid/**");
+                     "/favicon.ico", "/verifyCode", "/reg");
 
   }
 
@@ -79,8 +78,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             })
         .and()
         //druid csrf
-//        .csrf().ignoringAntMatchers("/druid/**")
-//        .and()
+        //        .csrf().ignoringAntMatchers("/druid/**")
+        //        .and()
+        .headers().frameOptions().disable()
+        .and()
         .formLogin()
         .usernameParameter("username")
         .passwordParameter("password")

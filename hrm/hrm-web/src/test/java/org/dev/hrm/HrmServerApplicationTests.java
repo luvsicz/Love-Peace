@@ -10,16 +10,20 @@ import org.dev.hrm.service.AccessLogService;
 import org.dev.hrm.service.EmployeeService;
 import org.dev.hrm.service.HrService;
 import org.dev.hrm.util.DateTimeUtils;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
+//2.1.8版本需要加这个才能泡测试类
+@RunWith(SpringRunner.class)
 @Slf4j
-class HrmServerApplicationTests {
+public class HrmServerApplicationTests {
 
   @Autowired
   HrService hrService;
@@ -31,22 +35,22 @@ class HrmServerApplicationTests {
   String mailAddr;
 
   @Test
-  void loggerTest() {
+  public void loggerTest() {
     logService.getAccessLogByPage(1, 10, null, null);
   }
 
   @Test
-  void getMaxWorkID() {
+  public void getMaxWorkID() {
     System.out.println(employeeService.getMaxWorkerId());
   }
 
   @Test
-  void PasswordGen() {
+  public void PasswordGen() {
     System.out.println(new BCryptPasswordEncoder().encode("123"));
   }
 
   @Test
-  void LambdaASEmails() {
+  public void LambdaASEmails() {
     String id = "1931,1932,1933,1934";
     log.info("emails = {}",
              employeeService
@@ -58,7 +62,7 @@ class HrmServerApplicationTests {
   }
 
   @Test
-  void mailTest() {
+  public void mailTest() {
     SimpleMailMessage message = new SimpleMailMessage();
     message.setSubject("培训通知");
     message.setFrom(mailAddr);
@@ -71,6 +75,12 @@ class HrmServerApplicationTests {
                     "培训内容："
                     + "ABCDEFG");
     //    javaMailSender.send(message);
+
+  }
+
+  @Test
+  public void hello() {
+    System.out.println("11");
 
   }
 }

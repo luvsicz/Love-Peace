@@ -1,35 +1,23 @@
 let proxyObj = {};
-const CompressionPlugin = require("compression-webpack-plugin");
-// proxyObj['/im'] = {
-//   ws: true,
-//   target: "ws://localhost:8080"
-// };
+require("compression-webpack-plugin");
+//请求代理到哪儿去
+proxyObj['/im'] = {
+    ws: true,
+    target: "ws://localhost:8080"
+};
 proxyObj['/'] = {
-  ws: false,
-  target: 'http://localhost:8080',
-  changeOrigin: true,
-  pathRewrite: {
-    '^/': ''
-  }
-};
-module.exports = {
-  devServer: {
-    host: 'localhost',
-    port: 8081,
-    proxy: proxyObj
-  },
-  productionSourceMap: false,
-  configureWebpack: config => {
-    if (process.env.NODE_ENV === 'production') {
-      return {
-        plugins: [
-          new CompressionPlugin({
-            test: /\.js$|\.html$|\.css/,
-            threshold: 1024,
-            deleteOriginalAssets: false
-          })
-        ]
-      }
+    ws: false,
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/': ''
     }
-  }
-};
+}
+//开发模式的访问端口
+module.exports = {
+    devServer: {
+        host: 'localhost',
+        port: 8081,
+        proxy: proxyObj
+    }
+}

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex'
 import '../utils/stomp'
-import '../utils/socks'
+import '../utils/sockjs'
 import {Notification} from 'element-ui';
 
 Vue.use(Vuex);
