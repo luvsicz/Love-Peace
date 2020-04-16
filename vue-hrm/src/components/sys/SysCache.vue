@@ -21,6 +21,18 @@
       active-color="#13ce66"
       inactive-color="#ff4949">
     </el-switch>
+    <div>
+      <!-- container -->
+      <el-container class="main-container">
+        <!-- main -->
+        <el-main class="app-main">
+          <el-card>
+            <iframe src="/druid/index.html" width="100%" height="100%" style="height: 100vh;"
+                    name="iframe" frameborder="0"></iframe>
+          </el-card>
+        </el-main>
+      </el-container>
+    </div>
   </div>
 </template>
 
