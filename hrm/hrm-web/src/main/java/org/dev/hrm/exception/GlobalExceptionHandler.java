@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.dev.hrm.model.RespBean;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +50,15 @@ public class GlobalExceptionHandler {
   public RespBean exceptionHandler(HttpRequestMethodNotSupportedException e) {
     log.error("异常:请求方式不合法", e);
     return RespBean.error("请求方式不合法");
+  }
+  /**
+   * 处理请求方式不合法的异常
+   */
+  @ExceptionHandler(value = HttpMessageNotWritableException.class)
+  @ResponseBody
+  public RespBean exceptionHandler(HttpMessageNotWritableException e) {
+    log.error("异常:参数转换异常", e);
+    return RespBean.error("参数转换异常");
   }
 
 
