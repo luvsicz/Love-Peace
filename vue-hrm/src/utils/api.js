@@ -20,6 +20,14 @@ axios.interceptors.response.use(success => {
     Message.error({message: '权限不足，请联系管理员'})
   } else if (error.response.status === 401) {
     Message.error({message: '尚未登录，请登录'})
+    //清除用户信息
+    window.sessionStorage.removeItem('user')
+    window.sessionStorage.removeItem('politicsstatus')
+    window.sessionStorage.removeItem('nations')
+    window.sessionStorage.removeItem('deps')
+    window.sessionStorage.removeItem('joblevels')
+    window.sessionStorage.removeItem('depList')
+    window.sessionStorage.removeItem('positions')
     router.replace('/')
   } else {
     if (error.response.data.msg) {
