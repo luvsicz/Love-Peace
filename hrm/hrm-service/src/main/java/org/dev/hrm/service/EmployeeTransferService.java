@@ -7,6 +7,7 @@ import org.dev.hrm.model.Employee;
 import org.dev.hrm.model.EmployeeTransfer;
 import org.dev.hrm.model.RespPageBean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 冷嘉贤
@@ -51,7 +52,7 @@ public class EmployeeTransferService {
   }
 
   public RespPageBean getEmployeeTransInfoByPage(Integer page, Integer size,
-      Employee emp) {
+                                                 Employee emp) {
     if (page != null && size != null) {
       page = (page - 1) * size;
     }
@@ -69,6 +70,7 @@ public class EmployeeTransferService {
     return employeeTransferMapper.deleteByPrimaryKeys(id);
   }
 
+  @Transactional(rollbackFor = Exception.class)
   public void commit(EmployeeTransfer employeeTransfer) {
     employeeTransferMapper.commit(employeeTransfer);
 

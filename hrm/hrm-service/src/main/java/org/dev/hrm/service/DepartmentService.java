@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.dev.hrm.mapper.DepartmentMapper;
 import org.dev.hrm.model.Department;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 冷嘉贤
@@ -52,11 +53,13 @@ public class DepartmentService {
     return departmentMapper.getAllDepartmentsByParentId(-1);
   }
 
+  @Transactional(rollbackFor = Exception.class)
   public void addDepartment(Department department) {
     department.setEnabled(true);
     departmentMapper.addDepartment(department);
   }
 
+  @Transactional(rollbackFor = Exception.class)
   public void delDepartment(Department department) {
     departmentMapper.delDepartment(department);
   }

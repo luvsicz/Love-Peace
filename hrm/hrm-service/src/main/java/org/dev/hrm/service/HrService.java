@@ -110,7 +110,6 @@ public class HrService implements UserDetailsService {
     return hrRoleMapper.insertHrWithRoles(hrid, rids) == rids.length;
   }
 
-  @Transactional(rollbackFor = Exception.class)
   public int deleteAllRolesByHrid(Integer hrid) {
     //清空指定hr的所有角色
     return hrMapper.deleteByHrId(hrid);
