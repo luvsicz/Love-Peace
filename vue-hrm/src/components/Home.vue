@@ -6,15 +6,15 @@
       </div>
       <div style="display: flex;align-items: center;margin-right: 17px;
     margin-top: 9px;">
+        <span style="color: white;margin: 15px "> {{user.name}}</span>
         <el-dropdown @command="handleCommand">
-  <span class="el-dropdown-link" style="display: flex;align-items: center">
-    <span style="color: white;margin: 15px "> {{user.name}}</span>
-    <el-badge :value="haveNews?'news':''" class="item">
-    <img :src="user.userface" alt="用户头像" style="width: 40px;height: 40px;border-radius: 40px;"/>
-      </el-badge>
-
-  </span>
-          <el-dropdown-menu slot="dropdown">
+          <span class="el-dropdown-link" style="display: flex;align-items: center">
+            <el-badge :value="haveNews?'news':''" class="item">
+            <img :src="user.userface" alt="用户头像"
+                 style="width: 40px;height: 40px;border-radius: 40px;"/>
+              </el-badge>
+          </span>
+          <el-dropdown-menu slot="dropdown" style="margin-right: 15px">
             <el-dropdown-item command="usercenter">个人中心</el-dropdown-item>
             <el-dropdown-item command="notice">我的通知</el-dropdown-item>
             <el-dropdown-item command="logout">注销</el-dropdown-item>

@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //不拦截的请求
     web.ignoring()
         .antMatchers("/css/**", "/js/**", "/index.html", "/img/**", "/fonts/**",
-                     "/favicon.ico", "/verifyCode", "/reg");
+                     "/favicon.ico", "/verifyCode", "/reg", "/");
 
   }
 

@@ -24,6 +24,7 @@ spring:
         reset-enable: false
         login-username: emm
         login-password: emm
+        allow:
       #连接池初始化
       initial-size: 1
       min-idle: 1
