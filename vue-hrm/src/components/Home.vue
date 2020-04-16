@@ -87,6 +87,8 @@
             window.sessionStorage.removeItem('deps')
             window.sessionStorage.removeItem('joblevels')
             window.sessionStorage.removeItem('depList')
+            window.sessionStorage.removeItem('positions')
+
             //跳转到首页
             this.$router.replace('/')
             //清理路由
