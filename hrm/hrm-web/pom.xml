@@ -12,7 +12,8 @@
 
   <artifactId>hrm-web</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-
+  <!--打包方式  -->
+  <packaging>jar</packaging>
   <dependencies>
     <!--Utils-->
     <dependency>
@@ -75,6 +76,8 @@
   </dependencies>
 
   <build>
+    <!--指定最后商城的jar包名称-->
+    <finalName>hrm</finalName>
     <plugins>
       <plugin>
         <artifactId>spring-boot-maven-plugin</artifactId>
