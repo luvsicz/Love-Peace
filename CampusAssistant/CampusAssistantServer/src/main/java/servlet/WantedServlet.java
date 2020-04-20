@@ -27,22 +27,19 @@ public class WantedServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws IOException {
     response.setContentType("text/html; charset=UTF-8");
-    //  response. header("Content-type: text/html; charset=utf-8");
-//    DataOutputStream dos = new DataOutputStream(response.getOutputStream());
+      //response. header("Content-type: text/html; charset=utf-8");
+   /* DataOutputStream dos = new DataOutputStream(response.getOutputStream());*/
     String result = null;
     try {
       result = getWantedNews();
-      //dos.writeUTF(result);
-//      response.getWriter().write(result);
       response.getWriter().print(result);
     } catch (SQLException e) {
-//      e.printStackTrace();
+
     }
   }
 
   private String getWantedNews() throws SQLException {
     HashMap<String, Object> resultMap = new HashMap<String, Object>();
-//    resultMap.put("data", DBUtils.query("select * from wanted"));
     return (new Gson()).toJson(DBUtils.query("select * from wanted"));
   }
 }

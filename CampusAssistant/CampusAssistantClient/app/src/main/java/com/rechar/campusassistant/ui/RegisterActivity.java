@@ -42,7 +42,7 @@ import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
 
-  public static final int MSG_CREATE_RESULT = 1;
+  private static final int MSG_CREATE_RESULT = 1;
   private static String ip = "liurechar.utools.club";
   public String CREATE_ACCOUNT_URL = "https://" + ip + "/RegisterServlet";
   private FloatingActionButton fab;
@@ -52,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
   private EditText rg_username;
   private EditText rg_password;
   private EditText rgre_password;
+  private static final String TAG="RegisterActivity";
   private Handler mHandler = new Handler() {
     public void handleMessage(Message msg) {
       switch (msg.what) {
@@ -102,7 +103,6 @@ public class RegisterActivity extends AppCompatActivity {
       finish();
       return;
     }
-
   }
 
   @Override
@@ -157,7 +157,7 @@ public class RegisterActivity extends AppCompatActivity {
     progress = new ProgressDialog(this);
     progress.setCancelable(false);
     progress.setCanceledOnTouchOutside(false);
-    ProgressDialog.show(this, null, "注册中...");
+  //  ProgressDialog.show(this, null, "注册中...");
     new Thread(new Runnable() {
       @Override
       public void run() {
@@ -176,8 +176,8 @@ public class RegisterActivity extends AppCompatActivity {
             String entityStr = EntityUtils.toString(entity);
             String jsonStr = entityStr.substring(entityStr.indexOf("{"));
             JSONObject json = new JSONObject(jsonStr);
+            Log.e(TAG, "run: "+json);
             sendMessage(MSG_CREATE_RESULT, json);
-
           }
         } catch (ClientProtocolException e) {
           e.printStackTrace();

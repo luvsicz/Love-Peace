@@ -1,6 +1,8 @@
 package com.rechar.campusassistant.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +16,12 @@ import com.rechar.campusassistant.R;
 import com.rechar.campusassistant.model.Painting;
 import com.rechar.campusassistant.ui.ActivitysFragment;
 import com.rechar.campusassistant.util.GlideHelper;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -25,23 +31,17 @@ import okhttp3.Response;
  */
 public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.ViewHolder> implements
     View.OnClickListener {
+    private static final String TAG = "PaintingsAdapter";
+    private String CREATE_ACCOUNT_URL = "https://" + ip + "/WantedServlet";
+    private static String ip = "liurechar.utools.club";
+    private Activity activity;
+    private List<Painting> paintingList = null;
 
-  private String CREATE_ACCOUNT_URL = "https://" + ip + "/WantedServlet";
-  private static String ip = "liurechar.utools.club";
-  private static final String TAG = "PaintingsAdapter";
-  private List<Painting> paintingList = null;
-  long time=0;
-  private boolean isGot=false;
-  public PaintingsAdapter(Context context) {
-  //  AsyncTask
-    pint.start();
-    try {
-      Thread.sleep(5000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    setItemsList(paintingList);
-    Log.e(TAG, "PaintingsAdapter: ");
+    public PaintingsAdapter(Context context) {
+
+        this.activity= (Activity) context;
+        pint.start();
+        Log.e(TAG, "PaintingsAdapter: ");
   }
   @Override
   protected ViewHolder onCreateHolder(ViewGroup parent, int viewType) {
@@ -62,6 +62,7 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
     final Painting item = (Painting) view.getTag(R.id.list_item_image);
     ActivitysFragment activitysFragment = new ActivitysFragment();
     activitysFragment.openDetails(view, item);
+
   }
 
   static class ViewHolder extends ItemsAdapter.ViewHolder {
@@ -79,14 +80,17 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
   public Thread pint = new Thread(new Runnable() {
     @Override
     public void run() {
-      long start = System.currentTimeMillis();
-
-      //
-      OkHttpClient client = new OkHttpClient();
+        long maxCacheSize = 100 * 1024 * 1024;
+        File file=new File("/sdcard/");
+      //  Cache cache = new Cache(new File(String.valueOf(Environment.getExternalStorageDirectory())), maxCacheSize);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .cache(new Cache(file,maxCacheSize)).build();
       Request request = new Request.Builder().url(CREATE_ACCOUNT_URL).build();
       Log.e(TAG, "onCreateView: 2");
       try {
         Response response = client.newCall(request).execute();
+          System.out.println("network response = " + response.networkResponse());
+          System.out.println("cache response = " + response.cacheResponse());
         if (response.isSuccessful()) {
           String str = null;
           if (response.body() != null) {
@@ -94,9 +98,15 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
           }
           Gson gson = new Gson();
           paintingList = gson.fromJson(str, new TypeToken<List<Painting>>() {}.getType());
-          //end = System.currentTimeMillis();
-          //time=end-start;
-         // Log.e(TAG, "run: res"+(end-start));
+
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setItemsList(paintingList);
+                }
+            });
+
+
           for (Painting painting : paintingList) {
             Log.e(TAG, "run: " + gson.toJson(painting));
           }
@@ -104,9 +114,7 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
       } catch (IOException e) {
         e.printStackTrace();
       }
-
     }
   });
-
 
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rechar.campusassistant.MainActivity;
 import com.rechar.campusassistant.R;
+import com.rechar.campusassistant.util.DBHelper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -101,13 +103,6 @@ public class LoginActivity extends AppCompatActivity {
       if (userName == null || userName.equals("") || passWord == null || passWord.equals("")) {
         Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
       }
-         /*  else if (!checkNetWork()) {
-                Log.e(TAG, "setListener: ");
-                Toast toast = Toast.makeText(this, "网络未连接", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-            }*/
-
       else {
         handleLogin();
       }
@@ -117,8 +112,7 @@ public class LoginActivity extends AppCompatActivity {
       getWindow().setExitTransition(null);
       getWindow().setEnterTransition(null);
       ActivityOptions options =
-          ActivityOptions
-              .makeSceneTransitionAnimation(LoginActivity.this, fab, fab.getTransitionName());
+          ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, fab, fab.getTransitionName());
       startActivity(new Intent(LoginActivity.this, RegisterActivity.class),
           options.toBundle());
 
@@ -165,9 +159,11 @@ public class LoginActivity extends AppCompatActivity {
           e.printStackTrace();
         } catch (IOException e) {
           Log.e("bamboo", "IOException");
+          // TODO Auto-generated catch block
           e.printStackTrace();
         } catch (JSONException e) {
           Log.e("bamboo", "IOException");
+          // TODO Auto-generated catch block
           e.printStackTrace();
         }
       }
@@ -201,24 +197,28 @@ public class LoginActivity extends AppCompatActivity {
         break;
       case -1:
       default:
-        Toast.makeText(this, "登陆失败！未知错误！", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "登录失败！未知错误！", Toast.LENGTH_LONG).show();
         break;
     }
 
   }
 
   private void onLoginSuccess(JSONObject json) {
-    //Intent intent = new Intent(this, MainActivity.class);
-        /*try {
-            intent.putExtra("username", json.getString("username"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
-    //  startActivity(intent);
-    //  finish();
     Log.e(TAG, "onLoginSuccess: " + json);
-    ActivityOptionsCompat oc2 =
-        ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
+    String username = etUsername.getText().toString();
+    String password = etPassword.getText().toString();
+    DBHelper dbHelper=new DBHelper(LoginActivity.this,"user.db",null,1);
+    dbHelper.execSQL("insert into users(username,password) values(?,?)",new Object[]{username,password});
+    // Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
+      Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
+      Log.e(TAG, "onLoginSuccess: "+cursor1.moveToFirst());
+      if (cursor1!=null&&cursor1.moveToFirst()) {
+          Log.e(TAG, "onLoginSuccess: 1111");
+          String id=cursor1.getString(0);
+
+          Log.e(TAG, "hhh1111 "+id);
+      }
+    ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
     Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
     startActivity(i2, oc2.toBundle());
   }
@@ -229,7 +229,6 @@ public class LoginActivity extends AppCompatActivity {
     msg.obj = obj;
     mHandler.sendMessage(msg);
   }
-
 
   @SuppressLint("RestrictedApi")
   @Override
@@ -245,15 +244,6 @@ public class LoginActivity extends AppCompatActivity {
     fab.setVisibility(View.VISIBLE);
   }
 
-    /*//检测网络，只能检测流量，不能检测wifi
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean checkNetWork() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getActiveNetwork() != null) {
-            return connectivityManager.getActiveNetworkInfo().isAvailable();
-        }
-        return true;
-    }*/
 }
 
 

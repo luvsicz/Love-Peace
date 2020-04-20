@@ -43,7 +43,6 @@ public class DBUtils {
       String key = iterator.next();
       columnSql.append(i == 0 ? "" : ",");
       columnSql.append(key);
-
       unknownMarkSql.append(i == 0 ? "" : ",");
       unknownMarkSql.append("?");
       bindArgs[i] = valueMap.get(key);

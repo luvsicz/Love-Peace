@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 
 import com.rechar.campusassistant.ui.ActivitysFragment;
 import com.rechar.campusassistant.ui.NewsFragment;
-import com.rechar.campusassistant.ui.GuideFragment;
+import com.rechar.campusassistant.ui.CricleFragment;
 import com.rechar.campusassistant.widget.CanaroTextView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 
@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity  {
     View contentHamburger;
     View contentNews;
     CanaroTextView title;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity  {
                 title.setText(getString(R.string.guide));
                 FragmentManager managerFeed = getSupportFragmentManager();
                 FragmentTransaction transactionFeed = managerFeed.beginTransaction();
-            transactionFeed.replace(R.id.container_fragment, new GuideFragment());
+            transactionFeed.replace(R.id.container_fragment, new CricleFragment());
             transactionFeed.commit();
 
         });

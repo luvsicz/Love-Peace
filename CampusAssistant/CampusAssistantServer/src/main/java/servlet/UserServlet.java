@@ -24,18 +24,13 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
         response.setContentType("text/html; charset=UTF-8");
         DataOutputStream dos = new DataOutputStream(response.getOutputStream());
-
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
         String result = doLogin(username, password);
         System.out.println("result = " + result);
         dos.writeUTF(result);
-
     }
 
     private String doLogin(String username, String password) {

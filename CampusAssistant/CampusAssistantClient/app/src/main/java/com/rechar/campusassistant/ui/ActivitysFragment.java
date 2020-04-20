@@ -1,5 +1,6 @@
 package com.rechar.campusassistant.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -35,14 +36,15 @@ import com.rechar.campusassistant.util.GlideHelper;
 public class ActivitysFragment extends Fragment {
 
   public static final String TAG = "ActivitysFragment";
+  @SuppressLint("StaticFieldLeak")
   private static View listTouchInterceptor;
+  @SuppressLint("StaticFieldLeak")
   private static View detailsLayout;
+  @SuppressLint("StaticFieldLeak")
   private static UnfoldableView unfoldableView;
+  @SuppressLint("StaticFieldLeak")
   private static Activity aActivity;
-  private static PaintingsAdapter paintingsAdapter;
-  private ListView listView;
-  private Bitmap glance;
-  public String CREATE_ACCOUNT_URL = "https://" + ip + "/WantedServlet";
+    public String CREATE_ACCOUNT_URL = "https://" + ip + "/WantedServlet";
   private static String ip = "liurechar.utools.club";
   private static ObjectMapper mapper = new ObjectMapper();
   @Nullable
@@ -51,8 +53,8 @@ public class ActivitysFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.activitys_fragment, container, false);
     Log.e(TAG, "onCreateView: ");
-    listView = view.findViewById(R.id.list_view);
-    paintingsAdapter = new PaintingsAdapter(aActivity);
+    ListView listView = view.findViewById(R.id.list_view);
+    PaintingsAdapter paintingsAdapter = new PaintingsAdapter(aActivity);
 
     listView.setAdapter(paintingsAdapter);
     listTouchInterceptor = view.findViewById(R.id.touch_interceptor_view);
@@ -63,7 +65,7 @@ public class ActivitysFragment extends Fragment {
     Log.e(TAG, "onCreateView: " + detailsLayout);
     unfoldableView = view.findViewById(R.id.unfoldable_view);
 
-    glance = BitmapFactory.decodeResource(getResources(), R.drawable.unfold_glance);
+      Bitmap glance = BitmapFactory.decodeResource(getResources(), R.drawable.unfold_glance);
     unfoldableView.setFoldShading(new GlanceFoldShading(glance));
     unfoldableView.setOnFoldingListener(new UnfoldableView.SimpleFoldingListener() {
       @Override
