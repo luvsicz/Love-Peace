@@ -1,0 +1,42 @@
+package servlet;
+
+import com.google.gson.Gson;
+import tools.DBUtils;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
+
+@WebServlet("/Comments")
+public class CommentsServlet extends HttpServlet {
+
+  private final static long serialVersionUID = 1L;
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    doGet(request, response);
+  }
+
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws IOException {
+    response.setContentType("text/html; charset=UTF-8");
+    String result = null;
+    try {
+      result = getComments();
+      response.getWriter().print(result);
+    } catch (SQLException e) {
+    }
+  }
+
+  private String getComments() throws SQLException {
+    HashMap<String, Object> resultMap = new HashMap<String, Object>();
+    return (new Gson()).toJson(DBUtils.query("select * from comments"));
+  }
+}
