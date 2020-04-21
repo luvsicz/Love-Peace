@@ -46,9 +46,10 @@ public class CommentsDeleteServlet extends HttpServlet {
         System.out.println("json:" + jsonObj);
         String username = jsonObj.getString("username");
         String content = jsonObj.getString("content");
+        String id = jsonObj.getString("id");
         int code = 0;
         try {
-            code = delete(username, content);
+            code = delete(username, content,id);
         } catch (SQLException throwables) {
             code = 500;
         }
@@ -62,10 +63,11 @@ public class CommentsDeleteServlet extends HttpServlet {
 
     }
 
-    private int delete(String username, String content) throws SQLException {
+    private int delete(String username, String content,String id) throws SQLException {
         Map condi = new HashMap<String, String>();
         condi.put("username", username);
         condi.put("content", content);
+        condi.put("id",id)
         int affe = DBUtils.delete("comments",
                 condi);
         return 1 == affe ? 200 : 500;
