@@ -19,12 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityOptionsCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.rechar.campusassistant.MainActivity;
 import com.rechar.campusassistant.R;
 import com.rechar.campusassistant.util.DBHelper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -39,6 +41,12 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -59,28 +67,10 @@ public class LoginActivity extends AppCompatActivity {
   private FloatingActionButton fab;
   //创建等待框
   private ProgressDialog dialog;
-  //返回主线程更新数据
-  private Handler logHandler;
-  private Handler mHandler = new Handler() {
-    public void handleMessage(Message msg) {
-      switch (msg.what) {
-        case MSG_LOGIN_RESULT:
-          Log.e(TAG, "handleMessage: 1  " + msg.obj);
-          JSONObject json = (JSONObject) msg.obj;
-          Log.e(TAG, "handleMessage:2   " + json);
-          handleLoginResult(json);
-          break;
-      }
-    }
-
-  };
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.login_activity);
-
-    logHandler = new Handler();
     initView();
     setListener();
 
@@ -100,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
     btGo.setOnClickListener(view -> {
       userName = etUsername.getText().toString();
       passWord = etPassword.getText().toString();
-      if (userName == null || userName.equals("") || passWord == null || passWord.equals("")) {
+      if (userName == null || userName.equals("") || passWord.equals("")) {
         Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
       }
       else {
@@ -124,110 +114,78 @@ public class LoginActivity extends AppCompatActivity {
     String password = etPassword.getText().toString();
     login(username, password);
   }
-
+  private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+  private final OkHttpClient mOkHttpClient = new OkHttpClient();
   private void login(final String username, final String password) {
 
     new Thread(new Runnable() {
       @Override
       public void run() {
-        Log.e("bamboo", "start network!");
-        HttpClient client = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(serverUrl);
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("username", username));
-        params.add(new BasicNameValuePair("password", password));
-
-        HttpResponse httpResponse = null;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("username",username  );
+        params.put("password", password);
+        Gson gson = new Gson();
+        //使用Gson将对象转换为json字符串
+        String json = gson.toJson(params);
+        RequestBody body = RequestBody.create(json, JSON);
+        Request request = new Request.Builder()
+                .url(serverUrl)
+                .post(body)
+                .build();
+        Response response = null;
         try {
-          httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-          httpResponse = client.execute(httpPost);
-          if (httpResponse.getStatusLine().getStatusCode() == 200) {
-            Log.e("bamboo", "network OK!");
-            HttpEntity entity = httpResponse.getEntity();
-            String entityString = EntityUtils.toString(entity);
-            String jsonString = entityString.substring(entityString.indexOf("{"));
-            Log.e("bamboo", "entity = " + jsonString);
-            JSONObject json = new JSONObject(jsonString);
-            sendMessage(MSG_LOGIN_RESULT, json);
-            Log.e("bamboo", "json = " + json);
+          response = mOkHttpClient.newCall(request).execute();
+          String str = null;
+          if (response.isSuccessful()) {
+            Log.e(TAG, "isSuccessful: " );
+            if (response.body() != null) {
+              str = response.body().string();
+              Log.e(TAG, "str: " + str);
+            }
+          if (str.equals("200"))
+          {
+            runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                Log.e(TAG, "ok" );
+                String username = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                //清空用户表
+                DBHelper dbHelper=new DBHelper(LoginActivity.this,"user.db",null,1);
+                dbHelper.execSQL("delete/**/ from users");
+                dbHelper.execSQL("insert into users(username,password) values(?,?)",new Object[]{username,password});
+            //     Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
+                /*Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
+                Log.e(TAG, "onLoginSuccess: "+cursor1.moveToFirst());
+                if (cursor1!=null&&cursor1.moveToFirst()) {
+                  Log.e(TAG, "onLoginSuccess: 1111");
+                  String id=cursor1.getString(0);
+                Log.e(TAG, "onLoginSuccess "+id);
+              }*/
+
+
+                ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
+                Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i2, oc2.toBundle());
+              }
+            });
           }
-        } catch (UnsupportedEncodingException e) {
-          Log.e("bamboo", "UnsupportedEncodingException");
-          e.printStackTrace();
-        } catch (ClientProtocolException e) {
-          Log.e("bamboo", "ClientProtocolException");
-          e.printStackTrace();
+            else  {
+            runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                Toast.makeText(LoginActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
+              }
+            });
+            }
+            Log.e(TAG, "sendData: " + gson.toJson(str));
+          }
         } catch (IOException e) {
-          Log.e("bamboo", "IOException");
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        } catch (JSONException e) {
-          Log.e("bamboo", "IOException");
-          // TODO Auto-generated catch block
           e.printStackTrace();
         }
       }
     }).start();
 
-  }
-
-  private void handleLoginResult(JSONObject json) {
-    /*
-     * login_result:
-     * -1：登陆失败，未知错误！
-     * 0: 登陆成功！
-     * 1：登陆失败，用户名或密码错误！
-     * 2：登陆失败，用户名不存在！
-     * */
-    Log.e(TAG, "handleLoginResult3:  " + json);
-
-    Log.e(TAG, "handleLoginResult: " + resultCode);
-    resultCode = json.optInt("result_code");
-    Log.e(TAG, "handleLoginResult4: " + resultCode);
-    switch (resultCode) {
-      case 0:
-        Log.e(TAG, "login succ: ");
-        onLoginSuccess(json);
-        break;
-      case 1:
-        Toast.makeText(this, "用户名或密码错误！", Toast.LENGTH_LONG).show();
-        break;
-      case 2:
-        Toast.makeText(this, "用户名不存在！", Toast.LENGTH_LONG).show();
-        break;
-      case -1:
-      default:
-        Toast.makeText(this, "登录失败！未知错误！", Toast.LENGTH_LONG).show();
-        break;
-    }
-
-  }
-
-  private void onLoginSuccess(JSONObject json) {
-    Log.e(TAG, "onLoginSuccess: " + json);
-    String username = etUsername.getText().toString();
-    String password = etPassword.getText().toString();
-    DBHelper dbHelper=new DBHelper(LoginActivity.this,"user.db",null,1);
-    dbHelper.execSQL("insert into users(username,password) values(?,?)",new Object[]{username,password});
-    // Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
-      Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
-      Log.e(TAG, "onLoginSuccess: "+cursor1.moveToFirst());
-      if (cursor1!=null&&cursor1.moveToFirst()) {
-          Log.e(TAG, "onLoginSuccess: 1111");
-          String id=cursor1.getString(0);
-
-          Log.e(TAG, "hhh1111 "+id);
-      }
-    ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
-    Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
-    startActivity(i2, oc2.toBundle());
-  }
-
-  private void sendMessage(int what, Object obj) {
-    Message msg = Message.obtain();
-    msg.what = what;
-    msg.obj = obj;
-    mHandler.sendMessage(msg);
   }
 
   @SuppressLint("RestrictedApi")

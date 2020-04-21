@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 @WebServlet("/WantedServlet")
 public class WantedServlet extends HttpServlet {
@@ -29,7 +28,7 @@ public class WantedServlet extends HttpServlet {
     response.setContentType("text/html; charset=UTF-8");
       //response. header("Content-type: text/html; charset=utf-8");
    /* DataOutputStream dos = new DataOutputStream(response.getOutputStream());*/
-    String result = null;
+    String result = null;thread
     try {
       result = getWantedNews();
       response.getWriter().print(result);
@@ -39,7 +38,6 @@ public class WantedServlet extends HttpServlet {
   }
 
   private String getWantedNews() throws SQLException {
-    HashMap<String, Object> resultMap = new HashMap<String, Object>();
     return (new Gson()).toJson(DBUtils.query("select * from wanted"));
   }
 }

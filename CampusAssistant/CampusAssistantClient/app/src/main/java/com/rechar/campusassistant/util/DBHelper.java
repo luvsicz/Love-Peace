@@ -42,6 +42,14 @@ public class DBHelper extends SQLiteOpenHelper {
     db.execSQL(sql, args);
 
   }
+
+  public void execSQL(String sql)
+  {
+    Log.e(TAG, "sql: " +sql);
+    SQLiteDatabase db = this.getWritableDatabase();
+    db.execSQL(sql);
+
+  }
   public Cursor query(String sql, String[] args){
     Log.e(TAG, "sql: " +sql+"arg: "+args);
     SQLiteDatabase db = this.getReadableDatabase();

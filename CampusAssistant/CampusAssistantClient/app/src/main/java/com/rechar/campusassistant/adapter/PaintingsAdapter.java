@@ -36,9 +36,7 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
     private static String ip = "liurechar.utools.club";
     private Activity activity;
     private List<Painting> paintingList = null;
-
     public PaintingsAdapter(Context context) {
-
         this.activity= (Activity) context;
         pint.start();
         Log.e(TAG, "PaintingsAdapter: ");

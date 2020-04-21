@@ -1,15 +1,14 @@
 package com.rechar.campusassistant.ui;
 
 import android.database.Cursor;
-import android.net.ParseException;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -21,63 +20,47 @@ import com.rechar.campusassistant.util.DBHelper;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * create by bamboo time 2020/4/5
  */
 public class AddNoticeActivity extends AppCompatActivity {
     private EditText notice_post;
-    private ImageButton postAllDate;
+    private Button postAllDate;
     private String CREATE_ACCOUNT_URL = "https://" + ip + "/PostComments";
     private static String ip = "liurechar.utools.club";
     private static final String TAG = "AddNoticeActivity";
-    private static final int MSG_CREATE_RESULT = 1;
     String username = null;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_notice);
         notice_post = findViewById(R.id.notice_post);
         postAllDate = findViewById(R.id.post_alldate);
+        ImageView back = findViewById(R.id.back);
         Log.e(TAG, "onCreate:---------- " );
-       // DBHelper dbHelper=new DBHelper(LoginActivity.this,"user.db",null,1);
         DBHelper dbHelper = new DBHelper(AddNoticeActivity.this, "user.db", null, 1);
-      //  Cursor cursor1=dbHelper.query("select username from users where rowid=(select last_insert_rowid())",null);
-        Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
-
-        Log.e(TAG, "onCreate: "+cursor1.moveToFirst());
-        if (cursor1!=null&&cursor1.moveToFirst()) {
-            Log.e(TAG, "sendData: 1111");
-            String id=cursor1.getString(0);
-            Log.e(TAG, "hhh "+id);
+        Cursor cursor1=dbHelper.query("select username from users",null);
+        Log.e(TAG, "onLoginSuccess: "+cursor1.moveToFirst());
+        if (cursor1.moveToFirst()) {
+            Log.e(TAG, "onLoginSuccess: 1111");
+             username=cursor1.getString(0);
+            Log.e(TAG, "onLoginSuccess "+username);
         }
-
+        back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         postAllDate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,12 +74,10 @@ public class AddNoticeActivity extends AppCompatActivity {
         });
     }
 
-    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
-
     private void sendData() throws IOException {
         Log.e(TAG, "sendData: ");
-
         // Log.e(TAG, "sendData: username: " + username);
         String content = notice_post.getText().toString();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
@@ -133,7 +114,8 @@ public class AddNoticeActivity extends AppCompatActivity {
                         }
                         if (str.equals("200")) {
                             Log.e(TAG, "run: 发布成功");
-                            finish();
+                        finish();
+
                         } else {
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -141,7 +123,6 @@ public class AddNoticeActivity extends AppCompatActivity {
                                     Toast.makeText(AddNoticeActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
                                 }
                             });
-
                         }
                         Log.e(TAG, "sendData: " + gson.toJson(str));
                     }
@@ -151,5 +132,7 @@ public class AddNoticeActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+
 
 }

@@ -18,12 +18,16 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.rechar.campusassistant.R;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -39,6 +43,12 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -53,57 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
   private EditText rg_password;
   private EditText rgre_password;
   private static final String TAG="RegisterActivity";
-  private Handler mHandler = new Handler() {
-    public void handleMessage(Message msg) {
-      switch (msg.what) {
-        case MSG_CREATE_RESULT:
-          progress.dismiss();
-          JSONObject json = (JSONObject) msg.obj;
-          hanleCreateAccountResult(json);
-          break;
-      }
-    }
-  };
-
-
-  private void hanleCreateAccountResult(JSONObject json) {
-    /*
-     *   result_code:
-     * 0  注册成功
-     * 1  用户名已存在
-     * 2 数据库操作异常
-     * */
-    int result;
-    try {
-      result = json.getInt("result_code");
-    } catch (JSONException e) {
-      Toast.makeText(this, "没有获取到网络的响应！", Toast.LENGTH_LONG).show();
-      e.printStackTrace();
-      progress.dismiss();
-      return;
-    }
-
-    if (result == 1) {
-      Toast.makeText(this, "用户名已存在！", Toast.LENGTH_LONG).show();
-      progress.dismiss();
-      return;
-    }
-
-    if (result == 2) {
-      Toast.makeText(this, "注册失败！服务端出现异常！", Toast.LENGTH_LONG).show();
-      progress.dismiss();
-      return;
-    }
-
-    if (result == 0) {
-      Toast.makeText(this, "注册成功！前往登陆界面！", Toast.LENGTH_LONG).show();
-      progress.dismiss();
-      Intent intent = new Intent(this, LoginActivity.class);
-      startActivity(intent);
-      finish();
-      return;
-    }
-  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +84,6 @@ public class RegisterActivity extends AppCompatActivity {
     rg_username = findViewById(R.id.rg_username);
     rg_password = findViewById(R.id.rg_password);
     rgre_password = findViewById(R.id.rg_repeatpassword);
-
     bt_go.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -140,7 +98,6 @@ public class RegisterActivity extends AppCompatActivity {
       Toast.makeText(this, "用户名不正确，请重新输入", Toast.LENGTH_LONG).show();
       return;
     }
-
     int pwdResult = checkPassword();
     if (pwdResult == 1) {
       Toast.makeText(this, "两次输入的密码不一致，请确认！", Toast.LENGTH_LONG).show();
@@ -152,42 +109,56 @@ public class RegisterActivity extends AppCompatActivity {
     }
     createAccount();
   }
-
+  private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+  private final OkHttpClient mOkHttpClient = new OkHttpClient();
   private void createAccount() {
-    progress = new ProgressDialog(this);
-    progress.setCancelable(false);
-    progress.setCanceledOnTouchOutside(false);
-  //  ProgressDialog.show(this, null, "注册中...");
     new Thread(new Runnable() {
       @Override
       public void run() {
-        Log.d("bamboo", "Start Network!");
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(CREATE_ACCOUNT_URL);
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("username", rg_username.getText().toString()));
-        params.add(new BasicNameValuePair("password", rg_password.getText().toString()));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("username",   rg_username.getText().toString());
+        params.put("password", rg_password.getText().toString());
+        Gson gson = new Gson();
+        //使用Gson将对象转换为json字符串
+        String json = gson.toJson(params);
+        RequestBody body = RequestBody.create(json, JSON);
+        Request request = new Request.Builder()
+                .url(CREATE_ACCOUNT_URL)
+                .post(body)
+                .build();
+        Response response = null;
         try {
-          httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-          HttpResponse httpResponse = httpClient.execute(httpPost);
-          if (httpResponse.getStatusLine().getStatusCode() == 200) {
-            Log.e("bamboo", "Network OK!");
-            HttpEntity entity = httpResponse.getEntity();
-            String entityStr = EntityUtils.toString(entity);
-            String jsonStr = entityStr.substring(entityStr.indexOf("{"));
-            JSONObject json = new JSONObject(jsonStr);
-            Log.e(TAG, "run: "+json);
-            sendMessage(MSG_CREATE_RESULT, json);
+          response = mOkHttpClient.newCall(request).execute();
+          String str = null;
+          if (response.isSuccessful()) {
+            if (response.body() != null) {
+              str = response.body().string();
+              Log.e(TAG, "str: " + str);
+            }
+            if (str.equals("200")) {
+              Log.e(TAG, "run: 发布成功");
+              runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                  Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                }
+              });
+              finish();
+            } else {
+              runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                  Toast.makeText(RegisterActivity.this, "账号已存在", Toast.LENGTH_SHORT).show();
+                }
+              });
+
+            }
+            Log.e(TAG, "sendData: " + gson.toJson(str));
           }
-        } catch (ClientProtocolException e) {
-          e.printStackTrace();
         } catch (IOException e) {
           e.printStackTrace();
-        } catch (ParseException e) {
-          e.printStackTrace();
-        } catch (JSONException e) {
-          e.printStackTrace();
         }
+
       }
     }).start();
   }
@@ -213,13 +184,6 @@ public class RegisterActivity extends AppCompatActivity {
   private boolean checkUsername() {
     String username = rg_username.getText().toString();
     return !TextUtils.isEmpty(username);
-  }
-
-  private void sendMessage(int what, Object obj) {
-    Message msg = Message.obtain();
-    msg.what = what;
-    msg.obj = obj;
-    mHandler.sendMessage(msg);
   }
 
   private void ShowEnterAnimation() {

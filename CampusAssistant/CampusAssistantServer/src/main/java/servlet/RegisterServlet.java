@@ -1,18 +1,21 @@
 package servlet;
 
-import com.google.gson.Gson;
-import entity.User;
-import service.UserService;
-import service.impl.UserServiceImpl;
+import net.sf.json.JSONObject;
+import tools.DBUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -24,52 +27,55 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
-        //request.setCharacterEncoding("UTF-8");
-        DataOutputStream dos = new DataOutputStream(response.getOutputStream());
-        HashMap<String, Object> params = getParamsFromRequest(request);
-        String result = handleNewUser(params);
-        dos.writeUTF(result);
-    }
-
-    private String handleNewUser(HashMap<String, Object> params) {
-        /*
-         *   result_code:
-         * 0 用户名不存在，可以正常注册
-         * 1  用户名已存在
-         * 2 数据库操作异常
-         * */
-        HashMap<String, Object> result = new HashMap<String, Object>();
-        String username = (String) params.get("username");
-        String password = (String) params.get("password");
-        System.out.println(username + "_" + password);
-        UserService test = new UserServiceImpl();
-        User users;
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        BufferedReader br = new BufferedReader(new InputStreamReader((ServletInputStream) request.getInputStream(), "utf-8"));
+        StringBuffer sb = new StringBuffer("");
+        String temp;
+        while ((temp = br.readLine()) != null) {
+            sb.append(temp);
+        }
+        br.close();
+        //获取到的json字符串
+        String acceptjson = sb.toString();
+        //将json字符串转为jsonobject对象
+        System.out.println("acceptjson:" + acceptjson);
+        //转JSONObject对象
+        JSONObject jsonObj;
+        jsonObj = JSONObject.fromObject(acceptjson);
+        //将jsonobject对象转为java对象
+        System.out.println("json:" + jsonObj);
+        String username = jsonObj.getString("username");
+        String password = jsonObj.getString("password");
+        System.out.println(username + "_" + password );
+        Map<String, Object> condi = new HashMap<>();
+        condi.put("username", username);
+        condi.put("password", password);
         try {
-            users = (User) test.checkName(username);
-            if (users != null) {
-                //不可插入
-                result.put("result_code", 1);
+            //插入成功返回200 插入失败返回500
+            int counts = DBUtils.insert("user", condi);
+            System.out.println(counts);
+            int code = 0;
+            if (counts == 1) {
+                //注册成功
+                code = 200;
             } else {
-                int counts = test.register(username, password);
-                if (counts == 0) {
-                    //注册失败
-                    result.put("result_code", 2);
-                } else {
-                    //chengg
-                    result.put("result_code", 0);
-                }
+                code = 500;
             }
-        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            System.out.println("ceode: " + code);
+            out.print(code);
+            // 释放PrintWriter对象
+            out.flush();
+            out.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return (new Gson()).toJson(result);
+
+
+
     }
 
-    HashMap<String, Object> getParamsFromRequest(HttpServletRequest request) {
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("username", request.getParameter("username"));
-        params.put("password", request.getParameter("password"));
-        return params;
-    }
 
 }

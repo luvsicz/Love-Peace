@@ -66,8 +66,8 @@ public class ActivitysFragment extends Fragment {
     unfoldableView = view.findViewById(R.id.unfoldable_view);
 
       Bitmap glance = BitmapFactory.decodeResource(getResources(), R.drawable.unfold_glance);
-    unfoldableView.setFoldShading(new GlanceFoldShading(glance));
-    unfoldableView.setOnFoldingListener(new UnfoldableView.SimpleFoldingListener() {
+      unfoldableView.setFoldShading(new GlanceFoldShading(glance));
+      unfoldableView.setOnFoldingListener(new UnfoldableView.SimpleFoldingListener() {
       @Override
       public void onUnfolding(UnfoldableView unfoldableView) {
         listTouchInterceptor.setClickable(true);

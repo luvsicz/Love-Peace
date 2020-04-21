@@ -1,9 +1,7 @@
 package servlet;
 
-
 import net.sf.json.JSONObject;
 import tools.DBUtils;
-
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
