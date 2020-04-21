@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,38 +51,35 @@ import okhttp3.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
-
   public static final int MSG_LOGIN_RESULT = 0;
   private static String TAG = "LoginActivity";
   private static String ip = "liurechar.utools.club";
   public String serverUrl = "https://" + ip + "/UserServlet";
   //返回的数据
-  String info = null;
-  int resultCode = -1;
   private String userName;
   private String passWord;
   private EditText etUsername;
   private EditText etPassword;
   private Button btGo;
-  private CardView cv;
   private FloatingActionButton fab;
   //创建等待框
   private ProgressDialog dialog;
+  private TextView visitor_login;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.login_activity);
     initView();
     setListener();
-
   }
 
   private void initView() {
     etUsername = findViewById(R.id.et_username);
     etPassword = findViewById(R.id.et_password);
     btGo = findViewById(R.id.bt_go);
-    cv = findViewById(R.id.cv);
+    CardView cv = findViewById(R.id.cv);
     fab = findViewById(R.id.fab);
+    visitor_login=findViewById(R.id.visitor_login);
   }
 
   @RequiresApi(api = Build.VERSION_CODES.M)
@@ -101,11 +99,18 @@ public class LoginActivity extends AppCompatActivity {
     fab.setOnClickListener(view -> {
       getWindow().setExitTransition(null);
       getWindow().setEnterTransition(null);
-      ActivityOptions options =
-          ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, fab, fab.getTransitionName());
-      startActivity(new Intent(LoginActivity.this, RegisterActivity.class),
-          options.toBundle());
-
+      ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, fab, fab.getTransitionName());
+      startActivity(new Intent(LoginActivity.this, RegisterActivity.class), options.toBundle());
+    });
+    visitor_login.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        DBHelper dbHelper=new DBHelper(LoginActivity.this,"user.db",null,1);
+        dbHelper.execSQL("delete from users");
+        ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
+        Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(i2, oc2.toBundle());
+      }
     });
   }
 
@@ -154,16 +159,6 @@ public class LoginActivity extends AppCompatActivity {
                 DBHelper dbHelper=new DBHelper(LoginActivity.this,"user.db",null,1);
                 dbHelper.execSQL("delete from users");
                 dbHelper.execSQL("insert into users(username,password) values(?,?)",new Object[]{username,password});
-//                 Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
-                /*Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
-                Log.e(TAG, "onLoginSuccess: "+cursor1.moveToFirst());
-                if (cursor1!=null&&cursor1.moveToFirst()) {
-                  Log.e(TAG, "onLoginSuccess: 1111");
-                  String id=cursor1.getString(0);
-                Log.e(TAG, "onLoginSuccess "+id);
-              }*/
-
-
                 ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
                 Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(i2, oc2.toBundle());

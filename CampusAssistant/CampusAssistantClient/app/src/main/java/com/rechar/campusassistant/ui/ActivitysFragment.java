@@ -99,7 +99,6 @@ public class ActivitysFragment extends Fragment {
     Log.e(TAG, "openDetails: -----");
     final TextView title = Views.find(detailsLayout, R.id.details_title);
     final TextView description = Views.find(detailsLayout, R.id.details_text);
-
     Log.e(TAG, "openDetails: 2");
     GlideHelper.loadPaintingImage(image, painting);
     title.setText(painting.getTitle());

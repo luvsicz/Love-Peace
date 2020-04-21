@@ -68,12 +68,10 @@ public class AddNoticeActivity extends AppCompatActivity {
             }
         });
     }
-
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
     private void sendData() throws IOException {
-        Log.e(TAG, "sendData: ");
-        // Log.e(TAG, "sendData: username: " + username);
+        Log.e(TAG, "sendData: username: " + username);
         String content = notice_post.getText().toString();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
         //获取当前时间

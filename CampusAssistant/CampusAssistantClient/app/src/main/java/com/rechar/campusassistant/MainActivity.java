@@ -1,29 +1,23 @@
 package com.rechar.campusassistant;
 
-
-
+import android.content.DialogInterface;
 import android.os.Bundle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
-
 import android.view.View;
-
 import android.widget.FrameLayout;
-
 import android.widget.LinearLayout;
-
-
 import com.rechar.campusassistant.ui.ActivitysFragment;
 import com.rechar.campusassistant.ui.NewsFragment;
 import com.rechar.campusassistant.ui.CricleFragment;
 import com.rechar.campusassistant.widget.CanaroTextView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
-
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -87,24 +81,19 @@ public class MainActivity extends AppCompatActivity  {
                 FragmentTransaction transactionFeed = managerFeed.beginTransaction();
             transactionFeed.replace(R.id.container_fragment, new CricleFragment());
             transactionFeed.commit();
-
         });
         activity.setOnClickListener((v)-> {
                 animation.close();
                 title.setText(getString(R.string.activity));
                 FragmentManager managerActivity = getSupportFragmentManager();
                 FragmentTransaction transactionActivity = managerActivity.beginTransaction();
-            transactionActivity.replace(R.id.container_fragment, new ActivitysFragment());
-            transactionActivity.commit();
+                transactionActivity.replace(R.id.container_fragment, new ActivitysFragment());
+                transactionActivity.commit();
 
         });
         settings.setOnClickListener((v)-> {
                 animation.close();
                 title.setText(getString(R.string.settings));
-                FragmentManager managerSettings = getSupportFragmentManager();
-                FragmentTransaction transactionSettings = managerSettings.beginTransaction();
-                //   transactionSettings.replace(R.id.container_fragment,new () );
-                //    transactionSettings.commit();
         });
         animation.close();
     }
@@ -144,5 +133,30 @@ public class MainActivity extends AppCompatActivity  {
         super.onDestroy();
         Log.e(TAG, "onDestroy: " );
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if(keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("确认退出吗");
+            builder.setTitle("提示");
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // TODO Auto-generated method stub
+                    arg0.dismiss();
+                }
+            });
 
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            builder.create().show();
+        }
+        return true;
+    }
 }

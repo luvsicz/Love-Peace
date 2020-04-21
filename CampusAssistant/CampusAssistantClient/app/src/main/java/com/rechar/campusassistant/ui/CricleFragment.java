@@ -40,23 +40,33 @@ import okhttp3.Response;
  * @date on:2020/1/15 18:15
  */
 public class CricleFragment extends Fragment {
-  private static final String TAG = "CricleFragment";
-  private ListView listView;
-  private ArrayList<CircleFriends> friendsList = new ArrayList<CircleFriends>();
-  private String CREATE_ACCOUNT_URL = "https://" + ip + "/Comments";
-  private static String ip = "liurechar.utools.club";
-  private String deleteUrl="https://" + ip + "/CommentsDelete" ;
-    private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    private final OkHttpClient mOkHttpClient = new OkHttpClient();  @Nullable
-  @Override
+      private static final String TAG = "CricleFragment";
+      private ListView listView;
+      private ArrayList<CircleFriends> friendsList = new ArrayList<CircleFriends>();
+      private String CREATE_ACCOUNT_URL = "https://" + ip + "/Comments";
+      private static String ip = "liurechar.utools.club";
+      private String deleteUrl="https://" + ip + "/CommentsDelete" ;
+      private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+      private final OkHttpClient mOkHttpClient = new OkHttpClient();
+   @Nullable
+   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     Log.e(TAG, "onCreateView: ");
     View view = inflater.inflate(R.layout.circle_fragment, container, false);
     listView = view.findViewById(R.id.list);
     FloatingActionButton fab = view.findViewById(R.id.fab_add);
-    fab.setOnClickListener(view1 -> startActivity(new Intent(getActivity(), AddNoticeActivity.class)));
-      listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+       Cursor cursor2=new DBHelper(getActivity(),"user.db",null,1).query("Select username from users",null);
+       if (cursor2.moveToFirst()) {
+           fab.setOnClickListener(view1 -> startActivity(new Intent(getActivity(), AddNoticeActivity.class)));
+       }
+       else
+       {
+           Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_SHORT).show();
+       }
+
+    listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
           @Override
           public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
               String username=null;

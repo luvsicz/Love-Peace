@@ -16,7 +16,7 @@ s
     <string name="login">LOGIN</string>
     <string name="Username">Username</string>
     <string name="Password">Password</string>
-    <string name="forgot_your_password">Forgot your password ?</string>
+    <string name="visitor_login">游客登录</string>
     <string name="go">注册</string>
     <string name="repeat_password">Repeat Password</string>
     <string name="next">登录</string>

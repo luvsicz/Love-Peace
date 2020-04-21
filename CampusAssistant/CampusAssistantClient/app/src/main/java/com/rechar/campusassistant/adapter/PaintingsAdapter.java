@@ -2,7 +2,6 @@ package com.rechar.campusassistant.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.rechar.campusassistant.util.GlideHelper;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -36,11 +34,12 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
     private static String ip = "liurechar.utools.club";
     private Activity activity;
     private List<Painting> paintingList = null;
+
     public PaintingsAdapter(Context context) {
+        Log.e(TAG, "PaintingsAdapter: ");
         this.activity= (Activity) context;
         pint.start();
-        Log.e(TAG, "PaintingsAdapter: ");
-  }
+    }
   @Override
   protected ViewHolder onCreateHolder(ViewGroup parent, int viewType) {
     final ViewHolder holder = new ViewHolder(parent);
@@ -60,29 +59,24 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
     final Painting item = (Painting) view.getTag(R.id.list_item_image);
     ActivitysFragment activitysFragment = new ActivitysFragment();
     activitysFragment.openDetails(view, item);
-
   }
 
   static class ViewHolder extends ItemsAdapter.ViewHolder {
-
     final ImageView image;
     final TextView title;
-
     ViewHolder(ViewGroup parent) {
       super(Views.inflate(parent, R.layout.list_item));
       image = Views.find(itemView, R.id.list_item_image);
       title = Views.find(itemView, R.id.list_item_title);
     }
   }
-
   public Thread pint = new Thread(new Runnable() {
     @Override
     public void run() {
+        String path=activity.getCacheDir().getPath();
         long maxCacheSize = 100 * 1024 * 1024;
-        File file=new File("/sdcard/");
-      //  Cache cache = new Cache(new File(String.valueOf(Environment.getExternalStorageDirectory())), maxCacheSize);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .cache(new Cache(file,maxCacheSize)).build();
+        File file=new File(path+"/image_cache");
+        OkHttpClient client = new OkHttpClient.Builder().cache(new Cache(file,maxCacheSize)).build();
       Request request = new Request.Builder().url(CREATE_ACCOUNT_URL).build();
       Log.e(TAG, "onCreateView: 2");
       try {
@@ -94,17 +88,15 @@ public class PaintingsAdapter extends ItemsAdapter<Painting, PaintingsAdapter.Vi
           if (response.body() != null) {
             str = response.body().string();
           }
+            response.body().close();
           Gson gson = new Gson();
           paintingList = gson.fromJson(str, new TypeToken<List<Painting>>() {}.getType());
-
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     setItemsList(paintingList);
                 }
             });
-
-
           for (Painting painting : paintingList) {
             Log.e(TAG, "run: " + gson.toJson(painting));
           }
