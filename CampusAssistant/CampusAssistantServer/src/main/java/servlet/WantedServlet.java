@@ -26,9 +26,7 @@ public class WantedServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws IOException {
     response.setContentType("text/html; charset=UTF-8");
-      //response. header("Content-type: text/html; charset=utf-8");
-   /* DataOutputStream dos = new DataOutputStream(response.getOutputStream());*/
-    String result = null;thread
+    String result = null;
     try {
       result = getWantedNews();
       response.getWriter().print(result);
