@@ -8,6 +8,14 @@ public class CircleFriends {
   private String username;
   private String content;
   private String postDate;
+  private int friendsId;
+
+  public CircleFriends(String username, String content, String postDate, int friendsId) {
+    this.username = username;
+    this.content = content;
+    this.postDate = postDate;
+    this.friendsId = friendsId;
+  }
 
   public CircleFriends(String username, String content, String postDate) {
     this.username = username;
@@ -15,11 +23,19 @@ public class CircleFriends {
     this.postDate = postDate;
   }
 
-  public String getId() {
+  public int getFriendsId() {
+    return friendsId;
+  }
+
+  public void setFriendsId(int friendsId) {
+    this.friendsId = friendsId;
+  }
+
+  public String getUserName() {
     return username;
   }
 
-  public void setId(String username) {
+  public void setUserName(String username) {
     this.username = username;
   }
 

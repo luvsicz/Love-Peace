@@ -1,5 +1,4 @@
 package com.rechar.campusassistant.ui;
-
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,17 +6,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.gson.Gson;
 import com.rechar.campusassistant.R;
 import com.rechar.campusassistant.util.DBHelper;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

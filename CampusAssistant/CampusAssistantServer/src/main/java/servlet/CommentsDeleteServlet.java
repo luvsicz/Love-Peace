@@ -27,8 +27,7 @@ public class CommentsDeleteServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-                (ServletInputStream) request.getInputStream(), "utf-8"));
+        BufferedReader br = new BufferedReader(new InputStreamReader((ServletInputStream) request.getInputStream(), "utf-8"));
         StringBuffer sb = new StringBuffer("");
         String temp;
         while ((temp = br.readLine()) != null) {
@@ -66,8 +65,7 @@ public class CommentsDeleteServlet extends HttpServlet {
         Map condi = new HashMap<String, String>();
         condi.put("username", username);
         condi.put("content", content);
-        int affe = DBUtils.delete("comments",
-                condi);
+        int affe = DBUtils.delete("comments", condi);
         return 1 == affe ? 200 : 500;
     }
 }

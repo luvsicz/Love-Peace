@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.rechar.campusassistant.R;
 import com.rechar.campusassistant.model.CircleFriends;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * create by bamboo time 2020/4/5
@@ -57,28 +56,22 @@ public class CircleAdapter extends BaseAdapter {
       holder.userid.setCursorVisible(false);
       holder.content.setCursorVisible(false);
       holder.postDate.setCursorVisible(false);
-
-
       holder.userid.setFocusable(false);
       holder.content.setFocusable(false);
       holder.postDate.setFocusable(false);
-
-
       convertView.setTag(holder);
     } else {
       holder = (ViewHolder) convertView.getTag();
     }
     CircleFriends circleFriends = circleList.get(position);
-    holder.userid.setText(circleFriends.getId());
+    holder.userid.setText(circleFriends.getUserName());
     holder.content.setText(circleFriends.getContent());
     holder.postDate.setText(circleFriends.getPostDate());
-
     return convertView;
   }
   public final class ViewHolder {
     TextView userid;
     TextView content;
     TextView postDate;
-
   }
 }

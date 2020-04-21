@@ -152,9 +152,9 @@ public class LoginActivity extends AppCompatActivity {
                 String password = etPassword.getText().toString();
                 //清空用户表
                 DBHelper dbHelper=new DBHelper(LoginActivity.this,"user.db",null,1);
-                dbHelper.execSQL("delete/**/ from users");
+                dbHelper.execSQL("delete from users");
                 dbHelper.execSQL("insert into users(username,password) values(?,?)",new Object[]{username,password});
-            //     Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
+//                 Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
                 /*Cursor cursor1=dbHelper.query("select last_insert_rowid()",null);
                 Log.e(TAG, "onLoginSuccess: "+cursor1.moveToFirst());
                 if (cursor1!=null&&cursor1.moveToFirst()) {
