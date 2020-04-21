@@ -3,9 +3,11 @@ package com.rechar.campusassistant.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import com.alexvasilkov.android.commons.ui.Views;
 import com.alexvasilkov.foldablelayout.UnfoldableView;
 import com.alexvasilkov.foldablelayout.shading.GlanceFoldShading;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rechar.campusassistant.R;
 import com.rechar.campusassistant.adapter.PaintingsAdapter;
 import com.rechar.campusassistant.model.Painting;
@@ -34,7 +37,6 @@ import com.rechar.campusassistant.util.GlideHelper;
  * @date on:2020/1/21 16:46
  */
 public class ActivitysFragment extends Fragment {
-
   public static final String TAG = "ActivitysFragment";
   @SuppressLint("StaticFieldLeak")
   private static View listTouchInterceptor;
@@ -44,9 +46,6 @@ public class ActivitysFragment extends Fragment {
   private static UnfoldableView unfoldableView;
   @SuppressLint("StaticFieldLeak")
   private static Activity aActivity;
-    public String CREATE_ACCOUNT_URL = "https://" + ip + "/WantedServlet";
-  private static String ip = "liurechar.utools.club";
-  private static ObjectMapper mapper = new ObjectMapper();
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -61,10 +60,15 @@ public class ActivitysFragment extends Fragment {
     listTouchInterceptor.setClickable(false);
     detailsLayout = view.findViewById(R.id.details_layout);
     detailsLayout.setVisibility(View.INVISIBLE);
-
+    FloatingActionButton fab = view.findViewById(R.id.fab_activity_add);
+    fab.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=41657772")));
+      }
+    });
     Log.e(TAG, "onCreateView: " + detailsLayout);
     unfoldableView = view.findViewById(R.id.unfoldable_view);
-
       Bitmap glance = BitmapFactory.decodeResource(getResources(), R.drawable.unfold_glance);
       unfoldableView.setFoldShading(new GlanceFoldShading(glance));
       unfoldableView.setOnFoldingListener(new UnfoldableView.SimpleFoldingListener() {

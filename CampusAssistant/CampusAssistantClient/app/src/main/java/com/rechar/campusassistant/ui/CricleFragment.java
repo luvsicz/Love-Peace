@@ -125,7 +125,7 @@ public class CricleFragment extends Fragment {
                                              }
                                          });
                                          circleAdapter.notifyDataSetChanged();friendsList.remove(position);
-           } else {
+                                     } else {
                                          getActivity().runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {
@@ -139,21 +139,16 @@ public class CricleFragment extends Fragment {
                              } catch (IOException e) {
                                  e.printStackTrace();
                              }
-
-
                          }
                      }).start();
 
                   }
               });
               builder.create().show();
-
               }
               return true;
           }
       });
-
-
     return view;
   }
 

@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content">
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListView
         android:id="@+id/list_view"
@@ -76,5 +77,15 @@
         android:id="@+id/unfoldable_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_activity_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@mipmap/ic_qq"
+        android:backgroundTint="#CCFFFFFF"
+        />
 
 </RelativeLayout>
