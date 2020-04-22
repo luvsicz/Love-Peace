@@ -139,9 +139,9 @@ public class MainActivity extends AppCompatActivity  {
         if(keyCode == KeyEvent.KEYCODE_BACK)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("确认退出吗");
-            builder.setTitle("提示");
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            builder.setMessage(getString(R.string.sure_exit));
+            builder.setTitle(getString(R.string.tip));
+            builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
                     // TODO Auto-generated method stub
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity  {
                 }
             });
 
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();

@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">CampusAssistant</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+s
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+
+    <string name="login_success">login success</string>
+    <string name="login">LOGIN</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="visitor_login">visitor login</string>
+    <string name="go">register</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="next">login</string>
+    <string name="register">REGISTER</string>
+
+    <string name="unlogin">please login</string>
+    <string name="sure_delete"> Are you sure you want to delete it </string>
+    <string name="tip">tip</string>
+    <string name="news">Campus News</string>
+    <string name="guide">Moment</string>
+    <string name="activity">Club</string>
+    <string name="settings">Setting</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">delete</string>
+    <string name="delete_success">Delete success</string>
+    <string name="incorrect">Username or password is incorrect</string>
+    <string name="delete_fail">Delete fail</string>
+    <string name="u_incor">Username is incorrect, please re-enter</string>
+    <string name="tow_input">The password entered twice is inconsistent, please confirm</string>
+    <string name="null_password">password can not be blank</string>
+    <string name="register_success">registration success</string>
+    <string name="register_fail">Registered successfully</string>
+    <string name="exit">exit</string>
+    <string name="sure_exit">Confirm exit?</string>
+
+</resources>

@@ -29,7 +29,6 @@ import okhttp3.Response;
  */
 public class AddNoticeActivity extends AppCompatActivity {
     private EditText notice_post;
-    private Button postAllDate;
     private String CREATE_ACCOUNT_URL = "https://" + ip + "/PostComments";
     private static String ip = "liurechar.utools.club";
     private static final String TAG = "AddNoticeActivity";
@@ -39,7 +38,7 @@ public class AddNoticeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_notice);
         notice_post = findViewById(R.id.notice_post);
-        postAllDate = findViewById(R.id.post_alldate);
+        Button postAllDate = findViewById(R.id.post_alldate);
         ImageView back = findViewById(R.id.back);
         Log.e(TAG, "onCreate:---------- " );
         DBHelper dbHelper = new DBHelper(AddNoticeActivity.this, "user.db", null, 1);
@@ -125,7 +124,5 @@ public class AddNoticeActivity extends AppCompatActivity {
             }
         }).start();
     }
-
-
 
 }

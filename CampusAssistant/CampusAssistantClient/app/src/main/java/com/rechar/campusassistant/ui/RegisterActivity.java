@@ -3,11 +3,7 @@ package com.rechar.campusassistant.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.ParseException;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
@@ -18,30 +14,13 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.rechar.campusassistant.R;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -52,13 +31,10 @@ import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-  private static final int MSG_CREATE_RESULT = 1;
   private static String ip = "liurechar.utools.club";
   public String CREATE_ACCOUNT_URL = "https://" + ip + "/RegisterServlet";
   private FloatingActionButton fab;
   private CardView cvAdd;
-  private ProgressDialog progress;
-  private Button bt_go;
   private EditText rg_username;
   private EditText rg_password;
   private EditText rgre_password;
@@ -80,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
   private void initView() {
     fab = findViewById(R.id.fab);
     cvAdd = findViewById(R.id.cv_add);
-    bt_go = findViewById(R.id.bt_go);
+    Button bt_go = findViewById(R.id.bt_go);
     rg_username = findViewById(R.id.rg_username);
     rg_password = findViewById(R.id.rg_password);
     rgre_password = findViewById(R.id.rg_repeatpassword);
@@ -95,16 +71,16 @@ public class RegisterActivity extends AppCompatActivity {
   private void handleCreateAccount() {
     boolean isUsernameValid = checkUsername();
     if (!isUsernameValid) {
-      Toast.makeText(this, "用户名不正确，请重新输入", Toast.LENGTH_LONG).show();
+      Toast.makeText(this, getString(R.string.u_incor), Toast.LENGTH_LONG).show();
       return;
     }
     int pwdResult = checkPassword();
     if (pwdResult == 1) {
-      Toast.makeText(this, "两次输入的密码不一致，请确认！", Toast.LENGTH_LONG).show();
+      Toast.makeText(this, getString(R.string.tow_input), Toast.LENGTH_LONG).show();
       return;
     }
     if (pwdResult == 2) {
-      Toast.makeText(this, "密码不能为空！", Toast.LENGTH_LONG).show();
+      Toast.makeText(this, getString(R.string.null_password), Toast.LENGTH_LONG).show();
       return;
     }
     createAccount();
@@ -140,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
               runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                  Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(RegisterActivity.this, getString(R.string.register_success), Toast.LENGTH_SHORT).show();
                 }
               });
               finish();
@@ -148,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
               runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                  Toast.makeText(RegisterActivity.this, "账号已存在", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(RegisterActivity.this,getString(R.string.register_fail) , Toast.LENGTH_SHORT).show();
                 }
               });
 

@@ -63,7 +63,7 @@ public class CricleFragment extends Fragment {
        }
        else
        {
-           Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_SHORT).show();
+           Toast.makeText(getActivity(),getString(R.string.unlogin),Toast.LENGTH_SHORT).show();
        }
 
     listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -78,16 +78,16 @@ public class CricleFragment extends Fragment {
               if (username.equals(friendsList.get(position).getUserName())) {
                   AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                   CircleAdapter  circleAdapter = new CircleAdapter(getActivity(), friendsList);
-                  builder.setMessage("确认删除吗");
-                  builder.setTitle("提示");
-                  builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                  builder.setMessage(getString(R.string.sure_delete));
+                  builder.setTitle(getString(R.string.tip));
+                  builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                   @Override
                   public void onClick(DialogInterface arg0, int arg1) {
                       // TODO Auto-generated method stub
                       arg0.dismiss();
                   }
               });
-              builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+              builder.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                   @Override
                   public void onClick(DialogInterface arg0, int arg1) {
                       // TODO Auto-generated method stub
@@ -121,7 +121,7 @@ public class CricleFragment extends Fragment {
                                         getActivity(). runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {
-                                                 Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+                                                 Toast.makeText(getActivity(), getString(R.string.delete_success), Toast.LENGTH_SHORT).show();
                                              }
                                          });
                                          circleAdapter.notifyDataSetChanged();friendsList.remove(position);
@@ -129,7 +129,7 @@ public class CricleFragment extends Fragment {
                                          getActivity().runOnUiThread(new Runnable() {
                                              @Override
                                              public void run() {
-                                                 Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT).show();
+                                                 Toast.makeText(getActivity(), getString(R.string.delete_fail), Toast.LENGTH_SHORT).show();
                                              }
                                          });
 
