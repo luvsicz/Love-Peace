@@ -39,7 +39,7 @@ s
     <string name="null_password">password can not be blank</string>
     <string name="register_success">registration success</string>
     <string name="register_fail">Registered successfully</string>
-    <string name="exit">exit</string>
+    <string name="exit">Press again to exit the app</string>
     <string name="sure_exit">Confirm exit?</string>
 
 </resources>

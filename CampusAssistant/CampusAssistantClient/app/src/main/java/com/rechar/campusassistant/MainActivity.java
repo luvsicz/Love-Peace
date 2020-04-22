@@ -13,11 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.rechar.campusassistant.ui.ActivitysFragment;
 import com.rechar.campusassistant.ui.NewsFragment;
 import com.rechar.campusassistant.ui.CricleFragment;
 import com.rechar.campusassistant.widget.CanaroTextView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -133,30 +139,36 @@ public class MainActivity extends AppCompatActivity  {
         super.onDestroy();
         Log.e(TAG, "onDestroy: " );
     }
+
+//声明一个全局布尔值,默认为false
+    public boolean isExit = false;
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if(keyCode == KeyEvent.KEYCODE_BACK)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(getString(R.string.sure_exit));
-            builder.setTitle(getString(R.string.tip));
-            builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    // TODO Auto-generated method stub
-                    arg0.dismiss();
-                }
-            });
-
-            builder.setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            builder.create().show();
+            //调用exit()方法
+            exit();
         }
         return true;
     }
+    //被调用的exit()方法
+    private void exit() {
+        Timer timer;//声明一个定时器
+        if (!isExit) {  //如果isExit为false,执行下面代码
+            isExit = true;  //改变值为true
+            Toast.makeText(MainActivity.this, getString(R.string.exit), Toast.LENGTH_SHORT).show();  //弹出提示
+            timer = new Timer();  //得到定时器对象
+            //执行定时任务,两秒内如果没有再次按下,把isExit值恢复为false,再次按下返回键时依然会进入if这段代码
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExit = false;
+                }
+            }, 2000);
+        } else {//如果两秒内再次按下了返回键,这时isExit的值已经在第一次按下时赋值为true了,因此不会进入if后的代码,直接执行下面的代码
+            finish();
+        }
+    }
+
 }

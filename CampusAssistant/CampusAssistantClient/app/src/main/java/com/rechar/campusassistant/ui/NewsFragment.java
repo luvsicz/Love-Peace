@@ -12,13 +12,14 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.rechar.campusassistant.MainActivity;
 import com.rechar.campusassistant.R;
 
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment  {
 
   private static final String TAG = "NewsFragment";
   private WebView webView;
-
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -42,19 +43,19 @@ public class NewsFragment extends Fragment {
         return true;
       }
     });
-    webView.canGoBack();
-    webView.setOnKeyListener(new View.OnKeyListener() {
-      public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK
-            && event.getAction() == MotionEvent.ACTION_UP
-            && webView.canGoBack()) {
-          webView.goBack();
-          return true;
+   webView.canGoBack();
+      webView.setOnKeyListener(new View.OnKeyListener() {
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+          if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction()
+                  == MotionEvent.ACTION_UP && webView.canGoBack()) {
+            webView.goBack();
+            return true;
+          }
+          return false;
         }
-        return false;
-      }
-    });
-  }
+      });
+    }
+
 
   @Override
   public void onDestroyView() {
@@ -74,4 +75,5 @@ public class NewsFragment extends Fragment {
     }
     super.onDestroy();
   }
+
 }
