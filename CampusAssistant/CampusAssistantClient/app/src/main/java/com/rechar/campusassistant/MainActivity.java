@@ -1,8 +1,6 @@
 package com.rechar.campusassistant;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -15,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.rechar.campusassistant.ui.AboutFragment;
 import com.rechar.campusassistant.ui.ActivitysFragment;
 import com.rechar.campusassistant.ui.NewsFragment;
 import com.rechar.campusassistant.ui.CricleFragment;
@@ -100,6 +99,11 @@ public class MainActivity extends AppCompatActivity  {
         settings.setOnClickListener((v)-> {
                 animation.close();
                 title.setText(getString(R.string.settings));
+            FragmentManager managerActivity = getSupportFragmentManager();
+            FragmentTransaction transactionActivity = managerActivity.beginTransaction();
+            transactionActivity.replace(R.id.container_fragment, new AboutFragment());
+            transactionActivity.commit();
+
         });
         animation.close();
     }

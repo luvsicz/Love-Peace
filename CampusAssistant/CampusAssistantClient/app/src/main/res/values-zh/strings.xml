@@ -30,7 +30,7 @@ s
     <string name="news">校园新闻</string>
     <string name="guide">同学圈</string>
     <string name="activity">社团招新</string>
-    <string name="settings">设置</string>
+    <string name="settings">关于</string>
     <string name="delete_fail">删除失败</string>
     <string name="incorrect">用户名或密码不正确</string>
     <string name="u_incor">用户名不正确，请重新输入</string>

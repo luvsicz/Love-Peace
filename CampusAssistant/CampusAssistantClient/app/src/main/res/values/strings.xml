@@ -26,7 +26,7 @@ s
     <string name="news">校园新闻</string>
     <string name="guide">同学圈</string>
     <string name="activity">社团招新</string>
-    <string name="settings">设置</string>
+    <string name="settings">关于</string>
     <string name="unlogin">请先登录</string>
     <string name="sure_delete">确认删除吗</string>
     <string name="tip">提示</string>

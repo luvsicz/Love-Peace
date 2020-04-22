@@ -28,7 +28,7 @@ s
     <string name="news">Campus News</string>
     <string name="guide">Moment</string>
     <string name="activity">Club</string>
-    <string name="settings">Setting</string>
+    <string name="settings">About</string>
     <string name="cancel">Cancel</string>
     <string name="delete">delete</string>
     <string name="delete_success">Delete success</string>

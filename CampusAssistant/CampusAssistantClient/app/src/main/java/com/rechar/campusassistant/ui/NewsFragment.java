@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.rechar.campusassistant.MainActivity;
 import com.rechar.campusassistant.R;
 
 public class NewsFragment extends Fragment  {
