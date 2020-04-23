@@ -76,7 +76,7 @@
   </dependencies>
 
   <build>
-    <!--指定最后商城的jar包名称-->
+    <!--指定最后的jar包名称-->
     <finalName>hrm</finalName>
     <plugins>
       <plugin>
