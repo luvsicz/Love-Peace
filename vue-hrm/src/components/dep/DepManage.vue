@@ -145,7 +145,7 @@
       },
       deleteDep(data) {
         if (data.parent) {
-          this.$message.error("父部门删除失败");
+          this.$message.error("无法删除父部门");
         } else {
           this.$confirm('此操作将永久删除【' + data.name + '】部门, 是否继续?', '提示', {
             confirmButtonText: '确定',

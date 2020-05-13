@@ -54,8 +54,8 @@ public class HrController {
     String pass = (String) info.get("pass");
     Integer hrid = (Integer) info.get("hrid");
     if (hrService.updateHrPassById(oldpass, pass, hrid)) {
-      return RespBean.ok("更新成功!");
+      return RespBean.ok("密码更新成功!");
     }
-    return RespBean.error("更新失败!");
+    return RespBean.error("密码更新失败，检查旧密码是否正确!");
   }
 }

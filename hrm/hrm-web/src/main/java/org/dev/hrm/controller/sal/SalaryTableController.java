@@ -37,6 +37,7 @@ public class SalaryTableController {
    * @param depId
    * @return
    */
+  //TODO FIX 员工有多个奖惩记录的时候，工资金额计算有误
   @GetMapping("/")
   @WebLogger
   public RespPageBean getEmployeeByPageWithSalaryByDepId(
@@ -46,7 +47,7 @@ public class SalaryTableController {
   }
 
   /**
-   * 到处指定部门的工资表
+   * 导出指定部门的工资表
    */
   @GetMapping("/export")
   @WebLogger
