@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import ElementUI from 'element-ui'
+import VCharts from 'v-charts'
 import store from './store'
 import 'element-ui/lib/theme-chalk/index.css'
 import {
@@ -15,6 +16,7 @@ import {initMenu} from "./utils/utils";
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
+Vue.use(VCharts)
 //实例方法名不要带括号
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.postRequest = postRequest;

@@ -32,4 +32,6 @@ public interface DepartmentMapper {
   void delDepartment(Department dep);
 
   List<Department> getAllDepartmentsByParentId(Integer index);
+
+  List getDepSalReport();
 }

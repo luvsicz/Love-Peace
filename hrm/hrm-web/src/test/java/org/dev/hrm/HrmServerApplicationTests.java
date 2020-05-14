@@ -7,9 +7,11 @@ import java.time.Instant;
 import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
 import org.dev.hrm.service.AccessLogService;
+import org.dev.hrm.service.DepartmentService;
 import org.dev.hrm.service.EmployeeService;
 import org.dev.hrm.service.HrService;
 import org.dev.hrm.util.DateTimeUtils;
+import org.dev.hrm.util.JackSonUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class HrmServerApplicationTests {
   HrService hrService;
   @Autowired
   EmployeeService employeeService;
+  @Autowired
+  DepartmentService departmentService;
   @Autowired
   AccessLogService logService;
   @Value("${spring.mail.username}")
@@ -59,6 +63,12 @@ public class HrmServerApplicationTests {
                  .distinct()
                  .collect(toList())
                  .toString());
+  }
+
+  @Test
+  public void report() {
+    log.info("departmentService.getDepSalReport() = {}",
+             JackSonUtils.bean2Json(departmentService.getDepSalReport()));
   }
 
   @Test

@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.dev.hrm.mapper.DepartmentMapper;
 import org.dev.hrm.model.Department;
+import org.dev.hrm.model.RespBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,5 +67,10 @@ public class DepartmentService {
 
   public List<Department> getAllDepartments() {
     return departmentMapper.getAllDepartments();
+  }
+
+  public RespBean getDepSalReport() {
+    List data = departmentMapper.getDepSalReport();
+    return RespBean.build().setStatus(200).setObj(data);
   }
 }

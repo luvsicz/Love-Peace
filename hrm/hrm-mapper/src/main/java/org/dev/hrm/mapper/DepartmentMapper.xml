@@ -132,4 +132,28 @@
     <include refid="Base_Column_List"/>
     from department where parentId=#{pid};
   </select>
+  <select id="getDepSalReport" resultType="map">
+    SELECT
+      d.`name` AS dname,
+      SUM(basicSalary+bonus+lunchSalary+trafficSalary-pensionBase-medicalBase-accumulationFundBase+IFNULL(amount,0)) as expense
+    FROM
+      employee AS e
+        LEFT JOIN
+      empsalary AS es
+      ON
+        e.id = es.eid
+        LEFT JOIN
+      salary AS s
+      ON
+        es.sid = s.id
+        LEFT JOIN
+      department AS d
+      ON
+        e.departmentId = d.id
+        LEFT JOIN
+      adjustsalary AS asi
+      ON
+        e.id = asi.eid
+    GROUP BY d.id
+  </select>
 </mapper>
