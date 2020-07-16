@@ -59,7 +59,7 @@ spring:
   mail:
     default-encoding: UTF-8
     host: smtp.mxhichina.com
-    password: 1610940520qQ
+    password: pa22w0rd
     port: 25
     properties:
       mail:
@@ -68,7 +68,7 @@ spring:
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory
     protocol: smtp
-    username: notice@0101.design
+    username: username@username.com
 
 debug: false
 #mybatis:
