@@ -6,7 +6,7 @@ spring:
     cache-names: menuService
   datasource:
     password: hrm
-    url: jdbc:mysql://182.92.71.212:3306/hrm?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/hrm?useUnicode=true&characterEncoding=UTF-8
     username: hrm
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
